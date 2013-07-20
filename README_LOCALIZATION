@@ -1,0 +1,61 @@
+== Installation
+
+After generating the login system, edit your app/controllers/application.rb
+and app/helpers/application_helper.rb files. The beginning of your
+ApplicationController should look something like this:
+
+  require 'localization'
+
+  class ApplicationController < ActionController::Base
+    include Localization
+
+And your ApplicationHelper module should look like this:
+
+  module ApplicationHelper
+    include Localization
+
+Additionally, you'll need to includes this module as appropriate to use it
+elsewhere, such as in your views. You also need to add the following at the end
+of your config/environment.rb file:
+
+require 'environments/localization_environment'
+require 'localization'
+Localization::load_localized_strings
+
+Under the 'enviroments' subdirectory, you'll find localization_environment.rb.
+Edit this file as necessary...
+
+== Requirements
+
+This module requires iconv support. This is installed by default on most
+*nix distributions, but not on Windows.
+
+You need to put your translations in the files lang/[language].yaml. Then, the
+:default_language => [language] configuration variable will ensure that the
+appropriate file is loaded.
+
+== How to use it 
+
+When you want a localized string such as "localized_hello", simply create a new
+entry in all supported lannguage YAML files of the form:
+
+In en.yaml:
+
+localized_hello: hello
+
+In sp.yaml:
+
+localized_hello: hola
+
+Then in your code, you assign the string as follows:
+
+str_var = l(:localized_hello)
+
+In the environments/localization_environment file, set the
+configuration variable :default_language to either 'en' or 'sp.' That's it!
+
+== Changelog
+
+1.0.7 Fixed README to indicate dependency on iconv
+1.0.1 Fixed a few problems, including with test suite
+1.0.0 First gem release

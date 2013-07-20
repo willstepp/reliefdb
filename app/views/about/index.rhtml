@@ -1,0 +1,125 @@
+<div class="text">
+<H3>About the Citizen Action Team Database</H3>
+<p>
+The purpose of this site is to provide a central location to find resource status 
+information for disaster zones and to help regions prepare for disaster. </p>
+<ul><li>Disaster Response</li>
+<li>Disaster Preparedness</li>
+<li>On-going Human Services</li>
+</ul>
+<p>We aim to enter command & control information for regions IN ADVANCE of a disaster, AND immediately following, 
+so as to help relief groups hit the ground running, and to help survivors immediately 
+locate services and supplies in the event of a disaster in their region.  This command 
+& control information might be as simple as entering the name and cell phone for groups 
+that are prepared to be first responders in a region.  Or if a region's disaster 
+community chooses, it can mean entering a list of disaster response units and/or
+facilities that are on "standby" for disaster response activity. There are many disaster
+response "command and control" systems in use by VOADs and EMA organizations.  We hope 
+to compliment what these established systems offer and we hope to offer unaffiliated 
+groups a method for tracking their own needs and resources.</p>
+<p>This online, public tool aims to serve both survivors of personal tragedy (fire, flood, 
+poverty, etc) as well as groups of people affected by, or responding to disasters.  The 
+tool aims to serve case managers in helping their clients find resources, and it aims to
+help people working and surviving IN a disaster zone.</p>
+This online, public tool aims to serve four groups in the disaster zone:
+
+<DL>
+<DT>Local Folks</DT><DD>It will help you find where free supplies and services are located, and other useful info like where hot meals or open shelters are available.</DD>
+<DT>Donors</DT><DD>It will help you locate groups that need what you have to offer.  It will provide you with direct contact information if you want to ship directly to a shelter or supply facility.</DD>
+<br />
+<DT>Shelters/Supply Depots</DT><DD>It will help donors give you what you need and ONLY 
+what you need. It will also help you find supply depots in your area that might have an
+excess of what you need.  It will help you locate groups that need your excess supplies.And it will help local folks find you.</DD>
+<DT>Volunteers</DT><DD>It will help you find volunteering opportunities that match your skills and interests. Click <%=link_to "Volunteers", { :controller => "categories", :action => "show", :id => 14 }, :class => "hl-format" %> to get started.</DD>
+</DL>
+
+The dbase is intended to include urban areas as well as areas that may not be served by the larger cities.
+<p>
+Anyone can use this site. You do not need a password to access and sort information on 
+facilities, resources, and needs. To see a list of currently known facilities, 
+click the <%=link_to "Facilities", :controller => "shelters", :action => "list" %> 
+link at the top of the page. We work hard to find locations that are open and to 
+update their needs information.  Generally, it is pretty accurate.  
+If we are missing a specific location that could be a resource to disaster survivors, 
+please let us know. If you would like to post entries on the site, then you will need 
+"write" access, which is granted when you log in. Click 
+<%=link_to "here", :controller => "user", :action => "signup" %> to sign up for an 
+account (but remember, you don't need to log in to browse the existing data! 
+You can start right away).
+<p>
+You can surf this site, sort and do all kinds
+of neat things without actually "registering" to get a log in ID.  BUT if
+you do register, you can enter yourself as a "facility", and enter your
+needs or what you have to give, and you can click on "Needs Matches" or
+"Availability Matches" and VOILA!  the system will automatically give you a
+list of who-has-what-you-need and/or who-needs-what-you-have!
+</p>
+<p>This tool was developed to help survivors and relief workers in the Katrina-impacted regions.  Since
+then the tool's use has expanded to many regions of the US and abroad.  For
+more information about our mission, please see:  
+<a href="http://www.reliefdatabase.org">www.reliefdatabase.org</a>
+<H3>Please Help!</H3>
+We need people to help enter data and/or to give us updated information. 
+If you're on the ground in a disaster zone, or a region prone to disasters and you see 
+something you think people would like to know about, either tell us, or enter it!  If you are a
+hotline or a manager of facilities, we would like this site to serve you
+and your users.  We can update your information daily, or you can.  Either
+way, we are here to serve.  If you are a volunteer and would like to help
+us find sites and enter useful data, please start doing so, or <%=link_to "contact us", :action => "contact" %>
+for guidance on how to do it.  If you are a VOAD or
+charity/relief group manager, please contact us so that we can take
+direction from you, to help you respond and recover from disaster
+situations in your area.
+
+<BR>
+<H3>How to Use the Database</H3>
+For beginner instructions, please see:  
+<a href = "http://dbase.citizenactionteam.org/shelters/show/727">http://dbase.citizenactionteam.org/shelters/show/727</a>
+And scroll down to see the instructions.
+<H4>For Local Folks</H4>
+
+Select <%=link_to "Facilities", :controller => "shelters", :action => "list" %>. Check out the long list, and then sort by state and/or county to find resources in your area.  If you know of some that we don't know about, please <%=link_to "log in", :controller => "user", :action => "login" %> and enter them.  If you notice incorrect information, please <%=link_to "contact us", :action => "contact" %>.
+<p>
+If you're looking for a particular service, such as <%=link_to "showers", :controller => "items", :action => "show", :id => 119 %>, <%=link_to "financial assistance", :controller => "items", :action => "show", :id => 118 %>, or <%=link_to "medical assistance", :controller => "items", :action => "show", :id => 134 %>, go to <%=link_to "Categories", :controller => "categories", :action => "list" %> and select <%=link_to "Services", :controller => "categories", :action => "show", :id => 15 %> for a list of locations where individuals can go for various types of assistance. There is also a <%=link_to "category", :controller => "categories", :action => "list" %> for prepared <%=link_to "Meals", :controller => "categories", :action => "show", :id => 18 %>.
+
+<H4>For Donors</H4>
+
+If you would like to be a donor, please click on <%=link_to "Conditions", :controller => "conditions", :action => "list" %> for a quick overview of recently registered needs, or click <%=link_to "Items", :controller => "items", :action => "list" %> or <%=link_to "Categories", :controller => "categories", :action => "list" %> to locate shelters who need a particular item or type of item which you are able to donate. When you find a shelter you wish to donate to, click on the shelter's name in the listing, and detailed information about the shelter will be displayed. You can then contact them directly, or <%=link_to "contact us", :action => "contact" %> to help arrange your donation.
+<p>
+Alternately, donors may <%=link_to "sign up", :controller => "user", :action => "signup" %> for an account and enter themselves as a Donor Facility. By entering what you have to give (your "availabilities"), the
+system will automatically give you a list of places that need what you have
+to give.  If you want to give money, feel free, but be aware, just because
+they are listed on this site, does not mean that we monitor what they do
+with donor money.  If you want to give Citizen Action Team money, please
+do...use the "Donate" button at the top.  All donations go strictly to
+shipping costs for gathered donated supplies.
+<p>
+Make sure to call a potential location to confirm that they still need whatever it is 
+you want to send.  We try to keep things updated, but the situation often changes daily, 
+so always double-check.  Please <%=link_to "contact us", :action => "contact" %> to let
+us know that you have a major donation or are making one.  We can help ensure that the
+location is properly outfitted to receive your donation. Involving us can help make 
+the delivery smooth, especially if it's a large shipment, such as a semi-trailer; 
+our volunteers are regularly involved in major shipments to the gulf, and familiar 
+with all the logistical issues.
+
+<H4>For Relief Workers</H4>
+
+If you are working with, or know about, a shelter or other relief facility/resource:
+<UL>
+<LI>If a database entry exists for your shelter or facility already, then please <%=link_to "write to us", :action => "contact" %> so that we can give you read/write access. If you <%=link_to "sign up", :controller => "user", :action => "signup" %> for an account you will automatically be able to create and update new facilities, but will not be able to update an existing entry for your facility unless you let us know that you're working with them.</LI>
+<LI>If a database entry does not exist for your shelter or facility, please enter one!  If you have any questions about how to enter data or to operate the database, please do not hesitate to <%=link_to "call", :action => "contact" %>!</LI>
+</UL>
+<p>
+<H3>Stay in touch!</H3>
+If you have any questions or comments, please don't hesitate to <%=link_to "contact us", :action => "contact" %>! We enjoy feedback and are working to make things as easy to use and as useful as possible.
+<p>
+I hope we have served you well. 
+<p>
+<span style="position:relative; left:300px">
+Terra Friedrichs<br>
+Database Coordinator<br>
+(978) 266 2778<br>
+</span>
+<BR><BR><BR><BR><BR><BR><BR>
+</div>

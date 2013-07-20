@@ -1,0 +1,19 @@
+<h1><%=h @item.name %></H1>
+<%=tf @item.notes%>
+<P>
+<% if @item.qty_per_pallet %>
+<B>Estimated Qty per Pallet: </B><%= @item.qty_per_pallet %><br>
+<P>
+<% end %>
+<B>Categories: </B>
+<% first = true %>
+<% for category in @item.categories %>
+<% if not first %>, <% end %><%=link_to (h category.name), { :controller => 'categories', :action => 'show', :id => category.id } %>
+<% first = false %>
+<% end %>
+<P>
+
+<%= link_to 'Edit', :action => 'edit', :id => @item %> |
+<%= link_to 'Back', :action => 'list' %>
+<HR>
+<%= render_partial 'conditions/condlist'%>

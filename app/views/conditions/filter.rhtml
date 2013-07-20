@@ -1,0 +1,75 @@
+<%= javascript_include_tag 'prototype' %>
+<script type="text/javascript">
+function checkall(check)
+{
+var boxes = $A($$('.includetypes input'))
+for(i=0; i<boxes.length; i++) {
+    if (check == true)
+    {boxes[i].checked = 'checked'}
+    else
+    {boxes[i].checked = ''}
+}
+}
+</script>
+<%@help = url_for :controller => "/about", :action => "help", :id => "search", :helpreturn => "conditions" %>
+<div style="background-color:red">
+<%=link_to "Click Here", :controller => 'user', :action => 'user_notice'%>
+For Information On Our New Features and Enhancements.  
+<a href=<%=@help%>>Click Here</a> For Help With This New Page</div>
+<% form_for :condition, :url => {:action => :filter_set} do |form| %>
+<h1>Search For Available/Needs</h1>
+<%=render :partial => 'facilities/searches'%>
+
+    <div class=filterdiv>    
+    <fieldset>    
+        <legend>Search Options For Availability/Needs</legend>
+        <fieldset>
+            <legend>Urgency Levels</legend>
+            <ul>    
+            <% for level in Need::Urgency.levels.keys.sort %>
+            <li><%=check_box_tag("urgency_levels[#{level}]","1",(session[:filter][:urgency_levels].include?(level.to_s) if session[:filter][:urgency_levels])) %> <%=Need::Urgency.levels[level]%> </li>
+            <% end %>    
+            </ul>
+        </fieldset>
+        <fieldset>
+            <legend>Which Type?</legend>   
+            <%=radio_button_tag("avail_need","Surplus",session[:filter][:avail_need]=='Surplus')%>Available
+            <%=radio_button_tag("avail_need","Need",session[:filter][:avail_need]=='Need')%>Needs
+            <%=radio_button_tag("avail_need","Both",session[:filter][:avail_need]=='Both')%>Both
+        </fieldset>
+        <fieldset id="catitem">
+            <legend>What Category and Item?</legend>
+            <label>Category:</label><%= select_tag("category",options_for_select(Category.names_for_select, session[:filter][:category].to_i))%>
+            <%=render :partial => "items" %>
+        </fieldset>
+        <fieldset>
+            <legend>Which Facilities?</legend>
+            <%= submit_tag "Search", :class => "buttonsearch"%>            
+            <%=radio_button_tag("fac_include","All",session[:filter][:fac_include]=='All')%>
+            <label>Include All Facilities</label>
+            <br />            
+            <span id="includefac">
+            <%=radio_button_tag("fac_include","Selected",session[:filter][:fac_include]=='Selected')%>
+            <label>Include Only Selected Facilities Described Here:</label>        
+            </span>
+<%=render :partial => "facilities/facility_filter"%>      
+      </fieldset>        
+<%=render :partial => "facilities/display_preferences"%>      
+<%= submit_tag "Search"%>
+      
+    </div>        
+</fieldset>  
+
+
+  
+<% end %>
+
+<%= observe_field :state,
+                  :url => {:action => 'search'},
+                  :update => "county",
+                  :with => "'state=' + encodeURIComponent(value)" %>
+<%= observe_field :category,
+                  :url => {:action => 'filter_category'},
+                  :update => "divitem",
+                  :with => "'category=' + encodeURIComponent(value)" %>
+                  

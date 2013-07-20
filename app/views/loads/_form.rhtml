@@ -1,0 +1,74 @@
+<%= error_messages_for 'load' %>
+
+<B>Source:</B><BR>
+<%=tf @load.source.mailing_address %>
+<P>
+<B>Destination:</B><BR>
+<%=tf @load.destination.mailing_address %>
+<P>
+
+<!--[form:load]-->
+<p><label for="load_title">Title</label><br/>
+<%= text_field 'load', 'title', :size => 60  %></p>
+
+<p><label for="load_ready_by">Ready by</label><br/>
+<%= date_text_field 'load', 'ready_by'  %></p>
+
+<B>Status: </B><%= @load.status.colored %><br>
+
+<p><label for="load_routing_type">Needs Intermediate Warehouse?</label> (only select if dest is NOT warehouse)<br/>
+<%= select :load, :routing_type, Load::RoutingType.levels.invert  %></p>
+
+<p><label for="load_transport_avail">Transport Available/Identified?</label><br/>
+<%= select :load, :transport_avail, Load::TransportAvail.levels.invert  %></p>
+
+<p>Use Existing Trucker Name/Registration<br/>
+<%= autoselect_trucker %></p>
+
+<p><label for="load_trucker_name">Trucker Name</label><br/>
+<%= text_field 'load', 'trucker_name'  %></p>
+
+<p><label for="load_truck_reg">Truck Registration State/Number</label><br/>
+<%= text_field 'load', 'truck_reg'  %></p>
+
+<p><label for="load_etd">Estimated Time of Departure</label><br/>
+<%= date_text_field 'load', 'etd'  %></p>
+
+<p><label for="load_eta">Estimated Time of Arrival</label><br/>
+<%= date_text_field 'load', 'eta'  %></p>
+
+<B>Matched/Selected Items:</B>
+<table>
+  <tr><th>Item</th><th>Have</th><th>Needed</th><th>Send</th></tr>
+<% @load.items_ary.each do |h| %>
+  <% item = h[:item] %>
+  <% have = h[:have] %>
+  <% needed = h[:needed] %>
+  <% sending = h[:sending] %>
+  <tr>
+    <td><%=h item.name %></td>
+    <td><%= have %></td>
+    <td><%= needed %></td>
+    <td>
+    <% if @load.status == 0 %>
+      <% sending ||= [have, needed].min %>
+      <%= text_field_tag("sending[#{item.id}]", sending, {:size => 5, :maxlength => 5} ) %>
+    <% else %>
+      <%= sending %>
+    <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<p><label for="load_info_source">Information Source/Changes</label> (<font COLOR="red">Please document!</font>)<br/>
+<%= info_source_explanation %>
+<%= text_area 'load', 'info_source', :rows => 6, :cols => 80  %></p>
+
+<p><label for="load_notes">Notes</label><br/>
+<%= text_area 'load', 'notes', :cols => 80 %></p>
+
+<%= hidden_field_tag :srcid, params[:srcid] %>
+<%= hidden_field_tag :dstid, params[:dstid] %>
+<!--[eoform:load]-->
+

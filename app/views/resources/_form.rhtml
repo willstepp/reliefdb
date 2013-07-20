@@ -1,0 +1,22 @@
+<%= error_messages_for 'resource' %>
+
+<!--[form:resource]-->
+<p><label for="resource_created_at">Created at</label><br/>
+<%= datetime_select 'resource', 'created_at'  %></p>
+
+<p><label for="resource_updated_at">Updated at</label><br/>
+<%= datetime_select 'resource', 'updated_at'  %></p>
+
+<p><label for="resource_lock_version">Lock version</label><br/>
+<%= text_field 'resource', 'lock_version'  %></p>
+
+<p><label for="resource_name">Name</label><br/>
+<%= text_field 'resource', 'name'  %></p>
+
+<p><label for="resource_kind">Kind</label><br/>
+<%= text_field 'resource', 'kind'  %></p>
+
+<p><label for="resource_notes">Notes</label><br/>
+<%= text_area 'resource', 'notes'  %></p>
+<!--[eoform:resource]-->
+

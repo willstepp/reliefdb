@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><%=h( @title && @title + " (CitizenActionTeam.org Database)" || "CitizenActionTeam.org Database" )%>
+</title>
+<%= stylesheet_link_tag 'reliefdb' %> 
+<%= javascript_include_tag 'general' %>
+<%= javascript_include_tag 'prototype.js' %>
+<%= javascript_include_tag 'effects.js' %>
+<%= javascript_include_tag 'dragdrop.js' %>
+
+</head>
+<body>
+
+<div id="contents">
+	<div id="main" style="padding-top:0">
+	<% if not @noheader %>
+		<%=render :partial => "/layouts/top"%>
+		<% end %>
+		<div style="background-image:url('/images/bg.jpg');background-repeat:repeat-x;border-top: 5px white solid;float:left; min-width:740px"> 
+		<%= yield  %> 
+		</div>
+	</div>
+	<%=render :partial => "/layouts/footer"%>
+</div>
+
+</body>
+
+</html>

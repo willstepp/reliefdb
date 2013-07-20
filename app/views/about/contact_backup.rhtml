@@ -1,0 +1,64 @@
+<H3>Citizen Action Team Contact Information</H3>
+<BR>
+<SPAN style="position:relative; left:75px">
+<TABLE id="contact"><TR><TD style="padding-right:15px;padding-left:5px"><DL>
+<DT>General Inquiries</DT><DD>
+Terra Friedrichs<BR>
+<%= link_to "terra@citizenactionteam.org", "mailto:terra@citizenactionteam.org" %><BR>
+(978) 266 2778<BR>
+</DD>
+</DL></TD>
+<TD style="padding-right:15px;padding-left:5px"><DL>
+<DT>Technical Support/Feedback</DT><DD>
+Tom McGehee<BR>
+<%= link_to "tom@citizencommandcenter.org", "mailto:tom@citizencommandcenter.org" %><BR>
+</DD>
+</DL></TD></TR></TABLE>
+</span>
+<% if session['user'] && session['user'].priv_read_sensitive %>
+<P>
+<BR>
+<h3>Registered Users</h3>
+<table>
+  <tr>
+    <th>Init</th>
+    <th>First</th>
+    <th>Last</th>
+    <th>E-mail</th>
+    <th>Login ID</th>
+    <th>Last Login</th>
+    <th>V</th>
+    <th>R</th>
+    <th>N</th>
+    <th>S</th>
+    <th>W</th>
+    <th>A</th>
+  </tr>
+  <% for user in User.find(:all, :order => 'upper(firstname), upper(lastname)') %>
+  <tr>
+    <td><%=h user.initials %></td>
+    <td><%=h user.firstname %></td>
+    <td><%=h user.lastname %></td>
+    <td><%=h user.email %></td>
+    <td><%=link_to h(user.login), :controller => 'stats', :action => 'access_shelters', :id => user %></td>
+    <td><%=h user.logged_in_at %></td>
+    <% if session['user'] && session['user'].priv_admin %>
+        <td><%=check_box_tag("verified[#{user.id}]", "1", user.verified == 1 ,:onclick => "window.location = '#{url_for(:id=> user.id, :verified => "#{(user.verified.to_i + 1) % 2}")}'")%></td>
+        <td><%=check_box_tag("priv_read[#{user.id}]", "1", user.priv_read ,:onclick => "window.location = '#{url_for(:id=> user.id, :priv_read => "#{!user.priv_read}")}'")%></td>
+        <td><%=check_box_tag("priv_new_shelters[#{user.id}]", "1", user.priv_new_shelters ,:onclick => "window.location = '#{url_for(:id=> user.id, :priv_new_shelters => "#{!user.priv_new_shelters}")}'")%></td>
+        <td><%=check_box_tag("priv_read_sensitive[#{user.id}]", "1", user.priv_read_sensitive ,:onclick => "window.location = '#{url_for(:id=> user.id, :priv_read_sensitive => "#{!user.priv_read_sensitive}")}'")%></td>
+        <td><%=check_box_tag("priv_write[#{user.id}]", "1", user.priv_write ,:onclick => "window.location = '#{url_for(:id=> user.id, :priv_write => "#{!user.priv_write}")}'")%></td>
+        <td><%=check_box_tag("priv_admin[#{user.id}]", "1", user.priv_admin ,:onclick => "window.location = '#{url_for(:id=> user.id, :priv_admin => "#{!user.priv_admin}")}'")%></td>
+    <% else %>
+        <td><%=h user.verified == 1 ? 'Y' : 'N' %></td>
+        <td><%=h user.priv_read ? 'Y' : 'N' %></td>
+        <td><%=h user.priv_new_shelters ? 'Y' : 'N' %></td>
+        <td><%=h user.priv_read_sensitive ? 'Y' : 'N' %></td>
+        <td><%=h user.priv_write ? 'Y' : 'N' %></td>
+        <td><%=h user.priv_admin ? 'Y' : 'N' %></td>
+    <% end %>
+  </tr>
+  <% end %>
+</table>
+<% end %>
+

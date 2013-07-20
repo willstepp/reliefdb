@@ -1,0 +1,19 @@
+<h3>Organizations which need volunteers of type: <%= @item ? @item.name : "All" %></h3>
+<h5><%=link_to "Click here to go back and select a different volunteering category.", { :action => 'categories' } %></h5>
+<h5>Click on a facility name for more details about that facility.</h5>
+<table>
+  <tr>
+    <th>Facility/Organization</th>
+    <th>Town</th>
+    <th>State</th>
+    <th>Main Phone</th>
+  </tr>
+  <% for shelter in @shelters %>
+  <tr>
+    <td><%=link_to h(shelter.name), { :controller => '/shelters', :action => 'show', :id => shelter }, :target => "_new" %></td>
+    <td><%=h shelter.town %></td>
+    <td><%=h shelter.state %></td>
+    <td><%=h shelter.main_phone %></td>
+  </tr>
+  <% end %>
+</table>

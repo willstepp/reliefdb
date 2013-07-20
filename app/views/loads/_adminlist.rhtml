@@ -1,0 +1,27 @@
+
+    <tr>
+        <td>
+            <%=adminlist.title%>            
+        </td>
+        <td>
+            <%=adminlist.source.name%>            
+        </td>
+        <td>
+            <%=adminlist.destination.name%>            
+        </td>
+        <td>
+            <%=adminlist.status%>            
+        </td>
+        <td>
+            <%=adminlist.updated_txt%>            
+        </td>
+        <td>
+            <%=adminlist.updated_by.initials%>            
+        </td>
+        <td>
+            <%=adminlist.info_source%>            
+        </td>
+        <td>
+        <%=link_to(image_tag("show.png",:alt=>"Show"),:controller => 'loads', :action => 'show', :id => adminlist.id)%>
+        </td>
+    </tr>

@@ -1,0 +1,2 @@
+module Quick::VolunteerHelper
+end

@@ -1,0 +1,13 @@
+<div id="tasks">
+	<span id="task_name">Task</span>
+	<span id="task_status">Status</span>
+	<br />
+	<ul id="sortable_list">
+
+	<%=render :partial => "task", :collection => tasks%>
+	<%= link_to_remote 'New Task', {:url =>{:action => "task_add"}}, 
+	  {:href=>url_for(:action => "task_add"), :id => "addtask"}%>	
+	</ul>
+	 
+</div>
+

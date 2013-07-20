@@ -1,0 +1,8 @@
+<h1>New load</h1>
+
+<%= start_form_tag :action => 'create' %>
+  <%= render_partial 'form' %>
+  <%= submit_tag "Create" %>
+<%= end_form_tag %>
+
+<%= back_to :controller => 'shelters', :action => 'matches', :avail => 1, :id => params[:srcid] %>

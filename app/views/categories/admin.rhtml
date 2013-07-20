@@ -1,0 +1,25 @@
+<div style = "width:780px">
+<h1>Category List</h1>
+<br />
+<table>
+  <tr>
+    <thead>
+    <th>Name</th>
+    <th>Edit</th>
+    </thead>
+  </tr>
+  
+<% for category in @categories %>
+  <tr>
+  <% for column in Category.list_columns %>
+    <td><%=h category.name %></td>
+  <% end %>
+    <td><%= link_to 'Edit', :action => 'edit', :id => category %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New category', :action => 'new' %>
+</div>

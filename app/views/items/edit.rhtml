@@ -1,0 +1,13 @@
+<h1>Editing item</h1>
+<B>Created at: </B><%= @item.created_at %><BR>
+<B>Updated at: </B><%= @item.updated_at %><BR>
+<B>Updated by: </B><%= @item.safe_upd_by%><BR>
+<BR>
+
+<%= start_form_tag :action => 'update', :id => @item %>
+  <%= render_partial 'form' %>
+  <%= submit_tag 'Save Changes' %>
+<%= end_form_tag %>
+
+<%= link_to 'Show', :action => 'show', :id => @item %> |
+<%= link_to 'Back', :action => 'list' %>

@@ -1,0 +1,39 @@
+<div id="divfacility" <%=@divclass%>>
+    <fieldset>
+        <legend>State and County To Include</legend>
+        <label for="state"> State: </label>
+        <%= state_select false%>
+        <%=render :partial => "county" %>
+    </fieldset>            
+    <fieldset>
+        <legend>Include:</legend>
+        <ul>
+        <li><%= check_box_tag("show_closed", "1", session[:filter][:show_closed] != "0") %> Closed Facilities </li>
+        <li><%=check_box_tag("show_regional", "1", session[:filter][:show_regional] != "0")%> Regional Facilities </li>
+        <li><%=check_box_tag("show_only_my", "1", session[:filter][:show_only_my] != "0")%> My Facilities Only </li>
+    </fieldset>            
+    
+    <fieldset class="includetypes">
+        <ul>
+        <legend>Facility Types To Include:</legend>
+        <% for type in Shelter::FacilityType.levels.values.sort %>
+        <li><%=check_box_tag("types[#{type}]","1",(session[:filter][:types].include?(type) if session[:filter][:types])) %> <%=type%> </li>
+        <% end %>
+        </ul>
+        <div id="typebuttons">
+            <%=link_to "Check All",{:action => 'options', :checkall => 'true'},
+               {:class => 'btnlink', :href => '#', 
+                :onclick => "checkall(true); return false"}%> 
+            <%=link_to "UnCheck All",{:action => 'options', :checkall => 'true'},
+               {:class => 'btnlink', :href => '#', 
+                :onclick => "checkall(false); return false"}%>
+        </div>            
+    </fieldset>
+    <fieldset>
+        <legend>Advanced Search</legend>
+        <%=check_box_tag("adv_search", "1", (session[:filter][:fac_search].nil? ? false : true))%>Advanced Search:
+        <%= select_tag("search[field]",options_for_select( ["(Select Column)","Name","Organization", "Main Phone"], (session[:filter][:fac_search][:field] if session[:filter][:fac_search])))%>
+        <%= select_tag("search[condition]",options_for_select(["(Select Condition)","Begins With","Contains","Matches"], (session[:filter][:fac_search][:condition]if session[:filter][:fac_search])))%>
+        <%=text_field_tag "search[match]",(session[:filter][:fac_search][:match] if session[:filter][:fac_search]),:size => 30, :maxlength => 30%>    
+    </fieldset>    
+</div>            

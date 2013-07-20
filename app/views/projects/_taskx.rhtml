@@ -1,0 +1,6 @@
+<li id=<%="task_#{task.id}"%>>
+	<%=task.task_name%>
+	<%=task.status%>
+	<%= link_to 'Insert After', :action => 'task_insert', :id => task.id %>
+	<%= link_to 'Delete', :action => 'task_delete', :id => task.id %>
+</li>

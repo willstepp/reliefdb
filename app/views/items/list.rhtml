@@ -1,0 +1,75 @@
+<%= javascript_include_tag 'prototype' %>
+<h1>Categories/Items</h1>
+<p>Below is a list of categories of items that are currently being tracked in
+this database</p>
+
+<% if params[:alphabetical] %>
+<p>Click <%=image_tag("show.png",:alt=>"Show")%> To Show Item Detail<br />
+Click <%=image_tag("edit.png",:alt=>"Edit")%>To Edit Item</p>
+<%= link_to "View Items by Category", :alphabetical => nil %><br />
+
+<p>
+<table>
+<thead><tr><th class="tdleft">Item Name</th><th></th></tr></thead>
+<tbody>
+  <% for item in Item.find(:all, :order => "upper(name)") %>
+  <tr>
+    <td style="width:93%" class="tdleft"><%=h item.name %></td>
+    <td style="width:50px">
+      <%=link_to(image_tag("show.png",:alt=>"Show"), :action => 'show', :id => item)%>
+      <%if session['user'] && (session['user'].priv_write)%>
+      <%=link_to(image_tag("edit.png",:alt=>"Edit"),:action => 'edit', :id => item)%>
+      <%end%>
+    </td> 
+  </tr>
+<% end %>
+</tbody>
+</table>
+
+<% else %> <%# By Category %>
+
+<p>
+Click On Category Name To Expand Category and See The Items In That Category<br />
+Click <%=image_tag("show.png",:alt=>"Show")%> To Show Items In Category or Item Detail<br />
+Click <%=image_tag("edit.png",:alt=>"Edit")%>To Edit Category or Item</p>
+
+<%= link_to "View Items Alphabetically", :alphabetical => true %>
+
+<p>
+<%= link_to 'New Item', :action => 'new' %><br />
+<%= link_to 'New Category',:controller => "categories", :action => 'new' %>
+</p>
+
+<p>
+Totals Last Updated: <%= DateTime.now.new_offset.ctime %><br />
+<table id="catitems">
+<tbody>
+<% for cat in Category.find(:all, :order => 'name') %>
+<tr id = <%="\"cr#{cat.id}\"" %> class="captionrow">
+<td class="tdleft"><%= link_to_remote cat.name, {:url =>{:action => "expand", :id => cat}, 
+  :before => "$('spin#{cat.id}').style.visibility = 'visible'", 
+  :complete => "$('spin#{cat.id}').style.visibility = 'hidden'"},
+  {:href=>url_for(:action => "expand", :id => cat)}%>
+</td>
+<td>Qty Needed</td>
+<td>At # of Shelters</td>
+<td>Qty Per Pallet</td>
+<td style="width:60px" class="tdleft">	
+	<%=link_to(image_tag("show.png",:alt=>"Show"),:controller => "categories",:action => 'show', :id => cat.id)%>
+    <%if session['user'] && (session['user'].priv_write)%>
+        <%=link_to(image_tag("edit.png",:alt=>"Edit"),:controller => "categories", :action => 'edit', :id => cat.id)%>
+    <%end%>
+	<%=image_tag "spinner.gif", :id =>"spin#{cat.id}",:style=>"visibility:hidden"%>
+</td></tr>
+  <%if params[:id] == cat.id.to_s%>
+	<%@items = Item.items_with_counts params[:id], (request.env["HTTP_USER_AGENT"].include?("MSIE") ? "DESC":"ASC")%>
+	<%=render :partial => "item_detail", :collection => @items %>
+  <% end %>
+  
+<% end %>
+</tbody>    
+</table>
+<br />
+
+<% end %>
+

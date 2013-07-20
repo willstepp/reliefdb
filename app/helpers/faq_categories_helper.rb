@@ -1,0 +1,2 @@
+module FaqCategoriesHelper
+end

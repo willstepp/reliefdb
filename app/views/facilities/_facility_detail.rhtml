@@ -1,0 +1,25 @@
+<tr class = "<%=facility_detail.facility_type.name.gsub(/[\ \/\-]/,'_').downcase%>">
+<% for col in session[:filter][:fac_columns]
+    col = col.split(/\./)[1] %>
+<% @class = col == "name" ? 'tdleft' : ''%>    
+<td class="<%=@class%>">
+    <%=case col
+        when "name"
+            link_to(h(facility_detail.send(col).to_s),{:controller => "shelters",:action => "show", :id => facility_detail.id})
+        when 'updated_at'
+            h facility_detail.updated_info
+        when 'cond_updated_at'  
+            h facility_detail.conditions_updated_info
+        else
+            no_empty_cell(facility_detail.send(col).to_s)            
+    end%>
+</td>
+<%end%>
+
+<td align="left">
+<%=link_to(image_tag("show.png",:alt=>"Show"),:controller => 'shelters', :action => 'show', :id => facility_detail.id)%>
+<%if session['user'] && (session['user'].priv_write or facility_detail.users.include?(session['user']))%>
+<%=link_to(image_tag("edit.png",:alt=>"Edit"),:controller => 'shelters', :action => 'edit', :id => facility_detail.id)%>
+<%end%>
+</td>
+</tr>

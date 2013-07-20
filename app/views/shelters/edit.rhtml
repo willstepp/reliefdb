@@ -1,0 +1,9 @@
+<h1>Editing facility</h1>
+
+<%= start_form_tag :action => 'update', :id => @shelter %>
+  <%= render_partial 'form' %>
+  <%= submit_tag 'Save Changes' %>
+<%= end_form_tag %>
+
+<%= link_to 'Show', :action => 'show', :id => @shelter %> |
+<%= link_to 'Back', session['return-to'] || {:action => 'list'} %>

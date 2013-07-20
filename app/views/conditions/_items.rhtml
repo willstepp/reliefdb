@@ -1,0 +1,7 @@
+<div id="divitem">
+<label for="item">Item:</label>
+<%= select_tag("item",options_for_select(
+                            Item.items_for_select(session[:filter][:category]), 
+                            session[:filter][:item].to_i))%>                                                                                                                
+</div>
+

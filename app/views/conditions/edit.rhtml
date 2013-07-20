@@ -1,0 +1,14 @@
+<%if @condition.class == Need %>
+  <h1><%=h @condition.item.name %> needed by <%=h @condition.shelter.name %></h1>
+<%end%>
+<%if @condition.class == Surplus %>
+  <h1><%=h @condition.item.name %> available at <%=h @condition.shelter.name %></h1>
+<%end%>
+<small><%= link_to 'Delete', {:action => 'destroy', :id => @condition.id}, :confirm => 'Permanently delete this record?' %></small>
+<%= start_form_tag :action => 'update', :id => @condition %>
+  <%= render_partial 'form' %>
+  <%= submit_tag 'Save Changes' %>
+<%= end_form_tag %>
+
+<%= link_to 'Show', :action => 'show', :id => @condition %> |
+<%= link_to 'Back', session['return-to'] || {:action => 'list'} %>

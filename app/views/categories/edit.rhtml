@@ -1,0 +1,13 @@
+<h1>Editing category</h1>
+<B>Created at: </B><%= @category.created_at %><BR>
+<B>Updated at: </B><%= @category.created_at %><BR>
+<B>Updated by: </B><%= @category.safe_upd_by%><BR>
+<BR>
+
+<%= start_form_tag :action => 'update', :id => @category %>
+  <%= render_partial 'form' %>
+  <%= submit_tag 'Save Changes' %>
+<%= end_form_tag %>
+
+<%= link_to 'Show', :action => 'show', :id => @category %> |
+<%= link_to 'Back', :action => 'list' %>

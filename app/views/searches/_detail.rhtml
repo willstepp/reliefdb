@@ -1,0 +1,6 @@
+<tr>
+  <td><%=h detail.save_name%></td>
+  <td><%=h detail.updated_on.strftime('%a, %m/%d/%Y %I:%M %p)')%></td>
+  <td>www.citizencommandcenter.org<%=url_for(:controller => 'facilities', :action=>'list',:preset => detail.id)%></td>
+  <td>www.citizencommandcenter.org<%=url_for(:controller => 'conditions', :action=>'list',:preset => detail.id)%></td>
+</tr>

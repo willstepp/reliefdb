@@ -1,0 +1,12 @@
+  <tr class="itemrow">
+  <td class="tdleft"><%=h item_detail.name %></td>
+  <td class="tdright"><%= no_empty_cell(item_detail.tot_needed) %></td>
+  <td class="tdright"><%= no_empty_cell(item_detail.shelters_need) %></td>
+  <td class="tdright"><%= no_empty_cell(item_detail.qty_per_pallet) %></td>
+  <td class="tdleft">
+    <%=link_to(image_tag("show.png",:alt=>"Show"), :action => 'show', :id => item_detail)%>
+    <%if session['user'] && (session['user'].priv_write)%>
+    <%=link_to(image_tag("edit.png",:alt=>"Edit"),:action => 'edit', :id => item_detail)%>
+    <%end%>
+  </td> 
+  </tr>

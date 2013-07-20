@@ -1,0 +1,2 @@
+<%= gmap :marker => @session[:map_markers], :point => $DEFAULT_MAP_CENTER, :zoom => $ZOOM_FAR, :width => $MAPWIDTH, :height => $MAPHEIGHT, :controls => [:small, :type] %>
+

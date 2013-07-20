@@ -1,0 +1,182 @@
+<%= error_messages_for 'shelter' %>
+
+<!--[form:shelter]-->
+<p><label for="shelter_name">Name of Facility</label><br/>
+<%= text_field 'shelter', 'name',:maxlength => 255  %></p>
+
+<p><label for="shelter_organization">Organization (if runs other shelters)</label><br/>
+<small><b>If run by multiple organizations, enter 'Various'.</b></small><BR>
+<%= autoselect_for('shelters', 'organization') %><br>
+<%= text_field 'shelter', 'organization',:maxlength => 255  %></p>
+
+<p><label for="shelter_facility_type">Facility Type</label><br/>
+<small><i>If none of these obviously apply, and it's a place people can physically go, select 'Resource'. If it's NOT a place people can physically go, probably 'Info' is the right selection (e.g. use 'Info' for phone services people can call for local information).</i></small><BR>
+<%= select :shelter, :facility_type, Shelter::FacilityType.levels.invert %>
+
+<p><label for="shelter_status">Status</label><br/>
+<%= select :shelter, :status, Shelter::Status.levels.invert %>
+
+<BR><BR>
+<small><B><font color="red">Important note: PLEASE DO NOT enter bogus location names such as 'X', 'regional', 'various', or 'see notes'. These will all be sorted differently, making things difficult to find. If something is in more than one state/region/town/etc, or you don't know exactly where it is, just leave any fields without a definite value blank. This will cause the items to be sorted together, making, for instance, a regional resource easy to find when you're looking at that region. If we want more information, we'll know to check the notes.</font></b></small>
+
+<p><B>Start With an Existing Location</B><br/>
+State / Region / County / Town<br>
+<%= autoselect_location %></p>
+
+<p><label for="shelter_state">State</label><br/>
+<%= text_field 'shelter', 'state', :size => 2, :maxlength => 2 %></p>
+
+<p><label for="shelter_region">Region</label><br/>
+<%= text_field 'shelter', 'region'  %></p>
+
+<p><label for="shelter_parish">County/Parish</label><br/>
+<small><i>Note: Don't enter 'XYZ County', just enter 'XYZ'.</i></small><BR>
+<%= text_field 'shelter', 'parish'  %></p>
+
+<p><label for="shelter_town">Town</label><br/>
+<%= text_field 'shelter', 'town'  %></p>
+
+<p><label for="shelter_zip">Zip</label><br/>
+<%= text_field 'shelter', 'zip', :size => 5, :maxlength => 5  %></p>
+
+<p><label for="shelter_address">Street Address</label> (do not include name/town/state/zip)<br/>
+<small><i>The first line of this field will be used to attempt to find the address for mapping purposes; try to make the first line look like '1234 Some Rd.'.</i></small><BR>
+<%= text_area 'shelter', 'address' , :rows => 3 %></p>
+
+<p><label for="shelter_hours">Hours</label><br/>
+<small><b>Example: 10:30AM-1:00PM M-Th,S 11:00AM-2:00PM Su</b></small><BR>
+<%= autoselect_for('shelters', 'hours') %><br>
+<%= text_field 'shelter', 'hours' %></p>
+
+<p><label for="shelter_capacity">Capacity</label><br/>
+<%= text_field 'shelter', 'capacity', :size => 6, :maxlength => 6  %></p>
+
+<p><label for="shelter_current_population">Current Population</label> (of <b>facility</b>, not town)<br/>
+<%= text_field 'shelter', 'current_population', :size => 6, :maxlength => 6  %></p>
+
+<p><label for="shelter_workers">Workers at Facility</label><br/>
+<%= text_field 'shelter', 'workers', :size => 6, :maxlength => 6  %></p>
+
+<p><label for="shelter_dc">Serves other shelters/facilities?</label><br/>
+<%= select_boolean 'shelter', 'dc' %></p>
+
+<p><label for="shelter_dc_population">Population Served</label> (if Yes)<br/>
+<%= text_field 'shelter', 'dc_population', :size => 6, :maxlength => 6  %></p>
+
+<p><label for="shelter_dc_shelters">Shelters Served</label> (if Yes)<br/>
+<%= text_field 'shelter', 'dc_shelters', :size => 3, :maxlength => 3  %></p>
+
+<p><label for="shelter_dc_more">Could serve more shelters?</label> (also set to Yes if wants to begin serving others)<br/>
+<%= select :shelter, :dc_more, YesNoUnknown.levels.invert %></p>
+
+<p><label for="shelter_loading_dock">Facility has loading dock?</label><br/>
+<%= select :shelter, :loading_dock, YesNoUnknown.levels.invert %></p>
+
+<p><label for="shelter_forklift">Facility has forklift?</label><br/>
+<%= select :shelter, :forklift, YesNoUnknown.levels.invert %></p>
+
+<p><label for="shelter_pallet_jack">Facility has pallet jack?</label><br/>
+<%= select :shelter, :pallet_jack, YesNoUnknown.levels.invert %></p>
+
+<script type="text/javascript">
+  function addresource() {
+    s = document.getElementById('selectresource');
+    t = document.getElementById('shelter_txt_resources');
+    t.value = t.value + s.value + '\n';
+  }
+</script>
+
+<p><label for="shelter_txt_resources">Resources</label><br/>
+<small><i>This field is for indicating what local resources a facility has access to. It helps us understand the situation at a particular location. Good things to enter here include existing aid being received from relief organizations, what stores are open in the area, etc. Use the drop-down to find examples. If you're not sure how things should be entered here, you can leave this blank, and just use Notes.</i></small><br>
+<select id="selectresource"><%= options_for_select Resource.all_names %></select>
+<small><a href="javascript:addresource()">Add</a></small><BR>
+<%= text_area 'shelter', 'txt_resources', :rows => 8, :cols => 60  %></p>
+
+<p><label for="shelter_main_phone">Main phone</label><br/>
+<%= text_field 'shelter', 'main_phone',:maxlength => 255  %></p>
+
+<p><label for="shelter_mgt_contact">Management Contact Name <i>(private)</i></label><br/>
+<%= text_field 'shelter', 'mgt_contact',:maxlength => 255  %></p>
+
+<p><label for="shelter_mgt_phone">Management Phone/Cell <i>(private)</i></label><br/>
+<%= text_field 'shelter', 'mgt_phone',:maxlength => 255  %></p>
+
+<p><label for="shelter_supply_contact">Supply Contact Name <i>(private)</i></label><br/>
+<%= text_field 'shelter', 'supply_contact',:maxlength => 255  %></p>
+
+<p><label for="shelter_supply_phone">Supply Phone/Cell <i>(private)</i></label><br/>
+<%= text_field 'shelter', 'supply_phone',:maxlength => 255  %></p>
+
+<p><label for="shelter_email">E-mail address <i>(private)</i></label><br/>
+<%= text_field 'shelter', 'email',:maxlength => 255  %></p>
+
+<p><label for="shelter_other_contacts">Other Contacts <i>(private)</i></label><br/>
+<%= text_area 'shelter', 'other_contacts' , :rows => 6 %></p>
+
+<p><label for="shelter_make_payable_to">Make Checks Payable To</label><br/>
+<%= text_field 'shelter', 'make_payable_to',:maxlength => 255 %></p>
+
+<p><label for="shelter_website">Website</label><br/>
+<%= text_field 'shelter', 'website', :size => 60 ,:maxlength => 255 %></p>
+<p><label>Mission</label><br />
+<%= text_area 'shelter', 'mission', :rows => 6, :cols => 80  %></p>
+
+<fieldset id="clientcontact" class="input_fs">
+<legend>Client Contact Information (If Different From Above)</legend>	
+<label for="client_contact_name">Client Contact Name:</label>
+<%= text_field 'shelter', 'client_contact_name', :size => 60,:maxlength => 255%><br />
+<label for="client_contact_address">Address:</label>
+<%= text_field 'shelter', 'client_contact_address', :size => 60,:maxlength => 255%><br />
+<label for="client_contact_phone">Phone Number:</label>
+<%= text_field 'shelter', 'client_contact_phone', :size => 30,:maxlength => 255%><br />
+<label for="client_contact_email">EMail:</label>
+<%= text_field 'shelter', 'client_contact_email', :size => 60,:maxlength => 255%><br />
+</fieldset> 
+
+<p><label for="waiting_list">Do You Currently Have A Waiting List? - If Yes, Enter Wait Time In Weeks</label><br/>
+<%= text_field 'shelter', 'waiting_list', :size => 5 %>&nbsp (Enter Zero If No Waiting List) <br />
+<label>Explanation, Waiting List:</label> <%= text_field 'shelter', 'waiting_list_explanation', :size => 50,:maxlength => 255%>
+</p>
+<p><label for="areas_served">Areas Served</label><br/>
+<%= text_field 'shelter', 'areas_served',:maxlength => 255 %>&nbsp (Enter A Comma Separated List)</p>
+<p><label for="eligibility">Eligibility For Services</label><br/>
+<%= text_field 'shelter', 'eligibility',:maxlength => 255 %></p>
+<fieldset class="input_fs">
+<label>Is There A Fee For Services?</label>
+<%= select 'shelter', 'is_fee_required',["Yes","No","Unknown","N/A"]%><br />
+<label>Fee Amount: </label>
+<%= text_field 'shelter', 'fee_amount', :size => 8%><br />
+<label>Fee Includes: </label> 
+<%=text_field 'shelter', 'fee_is_for', :size => 40,:maxlength => 255%><br />
+<label>Explanation, Fee:</label>
+<%=text_field 'shelter','fee_explanation', :size => 20,:maxlength => 255%>
+</fieldset>
+<p><label>What Forms of Payment Do You Accept (i.e. Medicare, Medicaid, etc.):</label><br />
+<%= text_field 'shelter', 'payment_forms',:maxlength => 255%></p>
+<p><label>Clients Must Bring The Following Documents:</label><br />
+<%= text_field 'shelter','clients_must_bring',:size => 50,:maxlength => 255%></p>
+<p><label>This organization provides Temporary or Permanent Service?</label><br />
+<%= select 'shelter','temp_perm',["Temporary", "Permanent", "Don't Know"] %><br />
+<label>If Temporary, Enter Planned Ending Date:</label> &nbsp
+<%=text_field 'shelter', 'planned_enddate', :size => 25%> 
+<label>Explanation:</label>
+<%= text_field 'shelter','temp_perm_explanation', :size => 50,:maxlength => 255%>
+</p>
+
+
+<br />
+<p><label for="shelter_info_source">Information Source/Changes</label> (<font COLOR="red">Please document!</font>)<br/>
+<%= info_source_explanation %>
+<%= text_area 'shelter', 'info_source', :rows => 6, :cols => 80  %></p>
+
+<p><label for="shelter_notes">Notes</label><br/>
+<%= text_area 'shelter', 'notes', :cols => 80  %></p>
+
+<%if session['user'] && session['user'].priv_write %>
+<fieldset style='background-color:yellow; width:700px; margin-bottom:10px; padding: 0 10px 10px 10px'>
+<legend>CAT Internal Notes</legend>	
+<%= text_area 'shelter', 'cat_notes', :cols => 80, :rows => 8 %>
+</fieldset>
+<%end%>
+<!--[eoform:shelter]-->
+

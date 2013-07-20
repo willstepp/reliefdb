@@ -1,0 +1,24 @@
+<div class="text">
+<H2>Frequently Asked Questions</H2>
+<% cats = FaqCategory.find(:all, :order => 'position') %>
+<DL>
+<% cats.each do |c| %>
+  <DT><%= c.name %>
+  <% c.faq_entries.each do |e| %>
+    <DD><%= link_to(e.title, "##{e.id}") %>
+  <% end %>
+<% end %>
+</DL>
+<BR><BR>
+<HR>
+<BR>
+<% cats.each do |c| %>
+  <H2><%= c.name %></H2>
+  <% c.faq_entries.each do |e| %>
+    <H4><A name="<%= e.id %>"><%= e.title %></A></H4>
+    <%=tf e.text %>
+  <% end %>
+  <P>
+<% end %>
+
+</div>

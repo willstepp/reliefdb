@@ -1,0 +1,31 @@
+
+
+  <tr style="background-color:<%=facility_detail.facility_type.bgcolor%>">
+  <td><%=link_to h(facility_detail.name), :action => 'show', :id => facility_detail %></td>
+  <td><%=h facility_detail.organization %></td>
+  <td><%=h facility_detail.access('main_phone', session['user'])%></td>
+  <td><%= state_link(facility_detail) %></td>
+  <td><%= region_or_state(facility_detail) %></td>
+  <td><%= parish_or_region(facility_detail) %></td>
+  <td><%= town_or_parish(facility_detail) %></td>
+  <td align="center"><B>?</B></td>
+  <td><%= facility_detail.status.colored %></td>
+  <td><%=facility_detail.updated_at.strftime("%m/%d/%y")%></td>
+  <td><%=facility_detail.cond_updated_at.strftime("%m/%d/%y")%></td>
+  <td><%=h facility_detail.access('hours', session['user'])%></td>
+  <td><%=tf facility_detail.address %></td>
+  <td><%= if facility_detail.dc then "Yes" else "No" end %></td>
+  <td>
+    <% if facility_detail.capacity %>
+      <% if facility_detail.current_population %>
+        <%= facility_detail.capacity - facility_detail.current_population %>
+      <% else %>
+        &lt;<%=facility_detail.capacity%>
+      <% end %>
+    <% end %>
+  </td>
+  
+  
+  </tr>
+
+  

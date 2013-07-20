@@ -1,0 +1,30 @@
+<H1><%=h @title %></H1>
+
+<B>Source:</B><BR>
+<%=tf @load.source.mailing_address %>
+<P>
+<B>Destination:</B><BR>
+<%=tf @load.destination.mailing_address %>
+<P>
+
+<%= start_form_tag :action => 'accept', :id => @load %>
+<table>
+  <tr><th>Item</th><th>Offered</th><th>Needed</th><th>Accept</th></tr>
+<% @load.items_ary.each do |h| %>
+  <% item = h[:item] %>
+  <% needed = h[:needed] %>
+  <% sending = h[:sending] %>
+  <% next if sending.to_i == 0 %>
+  <tr>
+    <td><%=h item.name %></td>
+    <td><%= sending %></td>
+    <td><%= needed %></td>
+    <td><%= text_field_tag("sending[#{item.id}]", Load.will_send(sending, needed), {:size => 5, :maxlength => 5} ) %></td>
+  </tr>
+<% end %>
+</table>
+<P>
+<%= submit_tag 'Accept' %>
+<P>
+<%= link_to 'Cancel', :action => 'show', :id => @load %>
+

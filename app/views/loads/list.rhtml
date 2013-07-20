@@ -1,0 +1,82 @@
+<h1>Loads</h1>
+
+<%= javascript_include_tag 'gmaplist' %>
+<SCRIPT TYPE="text/javascript">
+function zoomin() {
+  mapwindow.map.zoomTo(<%=$ZOOM_CLOSE%>);
+}
+
+function sheltermap(lng, lat) {
+  if (!mapwindow || mapwindow.closed) {
+    mapwindow = open('', "mapwindow", "resizable=yes,width=<%=$MAPWIDTH%>,height=<%=$MAPHEIGHT%>");
+    mapwindow.done = false;
+    mapwindow.location = '<%=url_for(:controller => "shelters", :action => "map", :mapshelters => @shelter_ids)%>';
+    ilng = lng;
+    ilat = lat;
+    mapwindow.focus();
+    window.setTimeout('delayedpan()', 1000);
+  } else {
+    mapwindow.recenter(lng, lat);
+    mapwindow.focus();
+  }
+}
+</SCRIPT>
+
+<%= javascript_include_tag 'prototype' %>
+
+<br>
+<%= cond_sort_form(Load) %>
+<BR>
+
+<%=t_begin @tableid, @cols %>
+<% for r in @records %>
+  <% shelter = Shelter.find(r['shelterid'].to_i) %>
+  <% ld = Load.find(r['loadid'].to_i) %>
+  <% issrc = (r['is_source'] == "t")%>
+  <tr style="background-color:<%=shelter.facility_type.bgcolor%>">
+  <td align="center"><B>
+  <%= Shelter.text_icon_for(shelter) %>
+  </B></td>
+  <td style="background-color:<%= issrc ? '#AAFFAA' : '#FFAAAA' %>"><b><%= issrc ? "Source" : "Dest" %></b></td>
+  <td><%= state_link(shelter) %></td>
+  <td><%= region_or_state(shelter) %></td>
+  <td><%= parish_or_region(shelter) %></td>
+  <td><%= town_or_parish(shelter) %></td>
+  <td><%=h shelter.organization %></td>
+  <td><%=link_to h(shelter.name), :controller => 'shelters', :action => 'show', :id => shelter %></td>
+  <td><%=h ld.title %></td>
+  <td><b><%= ld.status.colored %></b></td>
+  <td><%=h issrc ? ld.next_src_date : ld.next_dst_date %></td>
+  <% if ld.transport_avail == 0 %>
+  <td style="background-color:#FF4444">
+  <% else %>
+  <td>
+  <% end %>
+    <%= ld.transport_avail %>
+  </td>
+  <% if ld.routing_type == 1 %>
+  <td style="background-color:#FF4444">
+  <% else %>
+  <td>
+  <% end %>
+    <%= ld.routing_type %>
+  </td>
+  <td><%= ld.updated_txt %></td>
+  <td><%= link_to 'Show', :action => 'show', :id => ld %></td>
+  <td><%= link_to 'Edit', :action => 'edit', :id => ld %></td>
+  </tr>
+<% end %>
+</table>
+
+<%if session['user'] && (session['user'].priv_admin)%>
+  <p><%= link_to 'Administrative: List Done/Closed Loads', :action => 'admin_list' %></p>
+<%end%>
+
+
+<BR>
+<SCRIPT TYPE="text/javascript">
+  <% for i in @hidecols %>
+    hide_table_column('<%=@tableid%>', <%=i%>);
+  <% end %>
+</SCRIPT>
+

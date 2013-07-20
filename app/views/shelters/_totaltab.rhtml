@@ -1,0 +1,25 @@
+<table id="totals">
+<tr><th><u>Totals</u></th>
+<th style="text-align:center">All</th>
+<th style="text-align:center">Unknown</th>
+<th style="text-align:center">Open</th>
+<th style="text-align:center">Standy</th>
+<th style="text-align:center">Closed</th>
+</tr>
+<% Shelter::FacilityType.levels.invert.sort.each do |a| %>
+  <% t = a[1] %>
+  <% tots = @totals[t] %>
+  <tr style="background-color:<%= Shelter::FacilityType.colors[t] %>"><th><%= Shelter::FacilityType.levels[t] %></td>
+  <% all = tots.delete(:all) %>
+  <td><%= all %></td>
+  <% tots.each do |s, n| %>
+    <td><font color="<%= Shelter::Status.colors[s] %>">(<%= n %>)</font></td>
+  <% end %>
+  </tr>
+<% end %>
+<tr><th>Grand Total</th><td><%=@tottot%></td>
+  <% @stotals.each do |s, n| %>
+    <td><font color="<%= Shelter::Status.colors[s] %>"><%= n %></font></td>
+  <% end %>
+</tr>
+</table>

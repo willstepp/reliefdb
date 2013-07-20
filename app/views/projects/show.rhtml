@@ -1,0 +1,29 @@
+<div id="projectlist">
+<div id="project">
+	<p><span class="project_name">Project:<%=h @project.project_name%></span>
+	<span style="float:left">
+	Percent Complete: </span>
+	<span class="percentdone", style="background-position: <%=number_to_percentage(100 - @project.percent_complete, {:precision => 0})%>;">
+	<%=number_to_percentage(@project.percent_complete, {:precision => 2})%></span></p>
+	<% if not @project.project_notes.blank?%>
+		<fieldset id="project_notes">
+			<legend>Notes:</legend>
+		<%=tf(@project.project_notes)%>	
+		</fieldset>
+	<%else%>
+		<span class="clear">&nbsp</span>
+ 	<%end%>
+</div>
+<table>
+<thead>
+	<tr>
+		<th id="taskname">Task Description</th>
+		<th id="taskstatus">Status</th>
+	</tr>
+</thead>	
+<tbody>
+	<%=render :partial => "task", :collection => @project.tasks%>
+</tbody></table>
+<br />
+<%= link_to 'Edit This Project', :action => 'edit', :id => @project %> |
+<%= link_to 'Back To Project List', :action => 'list' %>

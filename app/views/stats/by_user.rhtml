@@ -1,0 +1,13 @@
+<h1>Stats by User</h1>
+
+<%= render :partial => "usertable",
+           :locals => {:desc => "Yesterday",
+           :obj => @yesterday} %>
+
+<%= render :partial => "usertable",
+           :locals => {:desc => "Last Week",
+           :obj => @lastweek} %>
+           
+<%= render :partial => "usertable",
+           :locals => {:desc => "Last Year",
+           :obj => @lastyear} %>           

@@ -1,0 +1,89 @@
+<%@help = url_for :controller => "/about", :action => "help", :id => "conditions" %>
+<%=render :partial => "newlist_box", :locals => {:caption => "Item", :dataset => @selected_item} if session[:list_type] == "item"%>	
+<%=render :partial => "newlist_box", :locals => {:caption => "Category", :dataset => @selected_category} if session[:list_type] == "category"%>	
+<div id="settings">
+	<span class="bold">State:</span>	
+    <%= state_select%><br />	
+    <%if not @filter.blank?%>
+    <span class="bold">List Includes:</span>
+    <%end%>
+    <%=@filter%>
+    <%=link_to @filter.blank? ? "Advanced Search":"Search Again",{:action => "filter"},:class=>"prioritylink"%>
+	<%=link_to "Clear All",{:action => "listall", :clear => "true"},:class=>"prioritylink" if not @filter.blank?%>
+    <br />
+    <span class="bold">Sort:</span>   
+    <%=session[:filter][:cond_sort].collect{|c|
+        Condition.col_names[Condition.cols.index(c.gsub(/\ DESC|\ ASC/,''))] + 
+        '(' + c[c.rindex(' ') + 1,c.length] + ')'}.join(",") \
+        if session[:filter][:cond_sort]%>
+    <%=link_to "Clear Sort",{:action => "sort", :sort => "clear"},:class=>"prioritylink" if session[:filter][:cond_sort] && session[:filter][:cond_sort].length > 0%>        
+    <br />
+    <span class="bold">Hidden Columns(Click To Show):</span>
+    <%if session[:filter][:cond_hidden]%>
+        <%for col in session[:filter][:cond_hidden]%> 
+            <%= link_to Condition.col_names[Condition.cols.index(col)],{:action => "show_col", :show => col}%>
+        <%end%>
+    <%end%>
+    <%=link_to "Show All",{:action => "show_col", :show => "all"},:class=>"prioritylink" if session[:filter][:cond_hidden] && session[:filter][:cond_hidden].length > 0%>
+</div>
+
+<table>
+<caption>   
+    <div class="left">     
+    <%="#{@offset + 1} To #{[@offset + session[:filter][:linesperpage].to_i,@records.to_i].min} Of #{@records} Records"%>    
+    </div>
+    <div class = "center">
+    <%=case session[:list_type]
+	  when "category" then @selected_category.name
+	  when "item" then @selected_item.name
+      else "Availability/Needs"
+	  end%>
+    </div>    
+    <%=render :partial => "facilities/pagination"%>
+</caption>
+<thead>
+    <tr>
+        <% for colname in session[:filter][:cond_columns]%>
+        <th scope="col" id="col_<%=colname%>">        
+            <%@newdir = Condition.sort_order[Condition.cols.index(colname)]
+              if session[:filter][:cond_sort]
+            	@newdir = "DESC" if session[:filter][:cond_sort].include?(colname + " ASC")
+            	@newdir = "ASC" if session[:filter][:cond_sort].include?(colname + " DESC")
+              end%>        
+            <%=link_to Condition.col_names[Condition.cols.index(colname)],
+                {:action => "sort", :sort => colname, 
+                :direction => @newdir}%>
+            <%=image_tag "arrowsdown.gif",{:class => "sortind"} if session[:filter][:cond_sort] && session[:filter][:cond_sort].include?(colname + " ASC")%>            
+            <%=image_tag "arrowsup.gif",{:class => "sortind"} if session[:filter][:cond_sort] && session[:filter][:cond_sort].include?(colname + " DESC")%>            
+            <%=link_to "X", {:action => "hide_col", :hide => colname},{:class => "colhide"}%>
+        </th>
+        <%end%>
+        <th class="tblaction"></th>
+    </tr>
+</thead>
+<tbody>
+<%= render( :partial => "condition_detail",
+            :collection => @conditions) %>
+</tbody>
+</table>            
+<div id=tablefooter>
+    <%= form_tag({:action => :list},{:name => "lpp", :class => "leftform"})%>
+Go To Page 
+<%= select_tag("gotopage",options_for_select((1..@pages).to_a,params[:page].to_i),:onchange =>"parent.location='/conditions/list?page=' + encodeURIComponent(value)")%>
+<span id="lpp">Number of Lines Per Page:</span>
+<%= select_tag("linesperpage",options_for_select(%w{20 50 100 250 500}, session[:filter][:linesperpage]),:onchange =>"parent.location='/conditions/list?linesperpage=' + encodeURIComponent(value)")%>
+<%=end_form_tag%>
+<%if session['user']%>    
+<%=form_tag({:controller => 'searches', :action => 'new', :from => 'conditions'},{:id => 'savesearch'})%>
+<%=submit_tag 'Save This Search'%>
+<%=end_form_tag %>
+<%end%>
+
+<%=render :partial => "facilities/pagination"%>
+</div>           
+
+<div id="factypes"> <h5>Facility Types Included:</h5>
+<%for type in session[:filter][:types].keys%>
+<span class="<%=type.downcase.gsub(/[\s\-\/]/,"_").gsub(/\*/,"")%>"><%=type%></span>
+<%end%>
+</div>

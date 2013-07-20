@@ -1,0 +1,165 @@
+<%= javascript_include_tag 'prototype' %>
+<H1><%=h @title %></H1>
+<B>Note: You can now use the up and down arrows to navigate between items when entering quantities.</B>
+<P>
+<A HREF="#avail">[jump to Availabilities]</A>
+<P>
+<%= start_form_tag :action => 'quickupdate', :id => @shelter %>
+<%= submit_tag 'Save Changes' %>
+<P>
+<%= link_to 'Back to Facility', :controller => 'shelters', :action => 'show', :id => @shelter.id %> (<b>abandons changes</b>)<P>
+<B><font size="+1">Needs:</font></B><BR>
+<SCRIPT type="text/javascript">
+function arrowmoves(next, prev, altnext, altprev) {
+  var t;
+  if (window.event.keyCode == 40) {
+    t = (document.getElementById(next) || document.getElementById(altnext));
+  }
+  if (window.event.keyCode == 38) {
+    t = (document.getElementById(prev) || document.getElementById(altprev));
+  }
+  if (t) {
+    t.focus();
+    t.select();
+    return false;
+  }
+}
+function checkall(type,check)
+{
+var boxes = $A($$(type))
+for(i=0; i<boxes.length; i++) {
+    if (check == true)
+    {boxes[i].checked = 'checked'}
+    else
+    {boxes[i].checked = ''}
+}
+}
+</SCRIPT>
+<table>
+  <thead>
+  <tr>
+  <th colspan="2">Remove</th>
+  <th>Item</th>
+  <th>Urgency</th>
+  <th>Qty Needed</th>
+  <th>Pkgd As</th>
+  <th>Locally Available</th>
+  <th>*</th>
+  </thead>
+  </tr>
+<% for need in @needs %>
+  <% if need.load %>
+    <tr style="background-color:<%= need.load.bgcolor %>">
+    <td></td>
+    <td>N</td>
+    <td><%=h need.item.name %></td>
+    <td><%= need.urgency %></td>
+    <td><%= need.qty %></td>
+    <td><%= need.packaged_as %></td>
+    <td><%= need.can_buy_local %></td>
+    <td><% if need.notes != "" %>*<% end %></td>
+  <% else %>
+    <tr>
+    <td><%= check_box_tag "conditions[#{need.id}][delete]",1,@checkallneeds == 'true',{:class => 'needstable'}%></td>
+    <td>N</td>
+    <td class="tdleft"><%=h need.item.name %></td>
+    <td><select name="conditions[<%= need.id %>][urgency]"><%= options_for_select(Need::Urgency.levels.invert, need.urgency) %></select></td>
+    <td class="tdleft">
+      <% hqp = need.item.qty_per_pallet.to_i > 0 %>
+      <% qtychange = hqp && "document.getElementById('pallets[#{need.id}][qty_needed]').value = this.value / #{need.item.qty_per_pallet}" %>
+      <% nextid = @needs[@needs.index(need) + 1] and nextid = nextid.id %>
+      <% previd = @needs[@needs.index(need) - 1] and previd = previd.id %>
+      <% keydownnext = "conditions[#{nextid}][qty_needed]" %>
+      <% keydownprev = "conditions[#{previd}][qty_needed]" %>
+      <% keydown = "return arrowmoves('#{keydownnext}', '#{keydownprev}', 'nonexistent', 'nonexistent')" %>
+      <%=text_field_tag "conditions[#{need.id}][qty_needed]", h(need.qty_needed), :size => 5, :maxlength => 5, :onchange => qtychange, :onkeydown => keydown %>
+      <% if hqp %>        
+      / <%= need.item.qty_per_pallet %> =
+        <% palletchange = "document.getElementById('conditions[#{need.id}][qty_needed]').value = this.value * #{need.item.qty_per_pallet}" %>
+        <% (need.qty_needed && hqp) ? val = need.qty_needed.to_f / need.item.qty_per_pallet.to_f : val = "" %>
+        <% qkeydownnext = "pallets[#{nextid}][qty_needed]" %>
+        <% qkeydownprev = "pallets[#{previd}][qty_needed]" %>
+        <% keydown = "return arrowmoves('#{qkeydownnext}', '#{qkeydownprev}', '#{keydownnext}', '#{keydownprev}')" %>
+        <%=text_field_tag "pallets[#{need.id}][qty_needed]", val, :size => 5, :maxlength => 5, :onchange => palletchange, :onkeydown => keydown, :style => "background-color:yellow; border: thin black solid" %> pallets
+      <% end %>
+    </td>
+    <td><%=text_field_tag "conditions[#{need.id}][packaged_as]", h(need.packaged_as), :size => 20, :maxlength => 20 %> </td>
+    <td><select name="conditions[<%=need.id%>][can_buy_local]"><%= options_for_select({"No" => false, "Yes" => true}, need.can_buy_local) %></select></td>
+    <td><% if need.notes != "" %>*<% end %></td>
+  <% end %>
+  </tr>
+<% end %>
+</table>
+<p><I>*conditions with notes</I>    
+<%=link_to "Check All Needs (Remove)",{:checkalltype => 'needs',:checkall => 'true'},
+           {:class => 'btnlink', :href => '#', 
+            :onclick => "checkall('.needstable',true); return false"}%> 
+<%=link_to "UnCheck All Needs (Remove)",{:checkalltype => 'needs',:checkall => 'false'},
+           {:class => 'btnlink', :href => '#', 
+            :onclick => "checkall('.needstable',false); return false"}%></p>
+
+<p><%= submit_tag 'Save Changes' %>                                
+<%= link_to 'Back to Facility', :controller => 'shelters', :action => 'show', :id => @shelter.id %> (<b>abandons changes</b>)</p>            
+<br />
+
+<h2><a style="color:black" name="avail">Available:</a></h2>
+<table>
+  <thead>
+  <tr>
+  <th colspan="2">Remove</th>
+  <th>Item</th>
+  <th>Qty Available</th>
+  <th>Packaged As</th>
+  <th>*</th>
+  </thead>
+<% for surp in @surpluses %>
+  <% if surp.load %>
+    <tr style="background-color:<%= surp.load.bgcolor %>">
+    <td></td>
+    <td>A</td>
+    <td><%=h surp.item.name%></td>
+    <td><%= surp.qty %></td>
+    <td><%= surp.packaged_as %></td>
+    <td><% if surp.notes != "" %>*<% end %></td>
+  <% else %>
+    <tr>
+    <td><%=check_box_tag "conditions[#{surp.id}][delete]",1,@checkallsurplus == 'true',{:class=>'surptable'}%></td>
+    <td>A</td>
+    <td class="tdleft"><%=h surp.item.name%></td>
+    <td class="tdleft">
+      <% hqp = surp.item.qty_per_pallet.to_i > 0 %>
+      <% qtychange = hqp && "document.getElementById('pallets[#{surp.id}][surplus_individual]').value = this.value / #{surp.item.qty_per_pallet}" %>
+      <% nextid = @surpluses[@surpluses.index(surp) + 1] and nextid = nextid.id %>
+      <% previd = @surpluses[@surpluses.index(surp) - 1] and previd = previd.id %>
+      <% keydownnext = "conditions[#{nextid}][surplus_individual]" %>
+      <% keydownprev = "conditions[#{previd}][surplus_individual]" %>
+      <% keydown = "return arrowmoves('#{keydownnext}', '#{keydownprev}', 'nonexistent', 'nonexistent')" %>
+      <%=text_field_tag "conditions[#{surp.id}][surplus_individual]", h(surp.surplus_individual), :size => 5, :maxlength => 5, :onchange => qtychange, :onkeydown => keydown %>
+      <% if hqp %>
+      / <%= surp.item.qty_per_pallet %> = 
+        <% palletchange = "document.getElementById('conditions[#{surp.id}][surplus_individual]').value = this.value * #{surp.item.qty_per_pallet}" %>
+        <% (surp.surplus_individual && hqp) ? val = surp.surplus_individual.to_f / surp.item.qty_per_pallet.to_f : val = "" %> 
+        <% qkeydownnext = "pallets[#{nextid}][surplus_individual]" %>
+        <% qkeydownprev = "pallets[#{previd}][surplus_individual]" %>
+        <% keydown = "return arrowmoves('#{qkeydownnext}', '#{qkeydownprev}', '#{keydownnext}', '#{keydownprev}')" %>
+        <%=text_field_tag "pallets[#{surp.id}][surplus_individual]", val, :size => 5, :maxlength => 5, :onchange => palletchange, :onkeydown => keydown %> pallets
+      <% end %>
+    </td>
+    <td><%=text_field_tag "conditions[#{surp.id}][packaged_as]", h(surp.packaged_as), :size => 20, :maxlength => 20 %> </td>	
+    <td><% if surp.notes != "" %>*<% end %></td>
+  <% end %>
+  </tr>
+<% end %>
+</table>
+<p><I>*conditions with notes</I>
+<%=link_to "Check All Available(Remove)",{:checkalltype => 'surplus',:checkall => 'true'},
+           {:class => 'btnlink', :href => '#', 
+            :onclick => "checkall('.surptable',true); return false"}%> 
+<%=link_to "UnCheck All Available(Remove)",{:checkalltype => 'surplus',:checkall => 'false'},
+           {:class => 'btnlink', :href => '#', 
+            :onclick => "checkall('.surptable',false); return false"}%></p>                
+<p><%= submit_tag 'Save Changes' %>
+<%= link_to 'Back to Facility', :controller => 'shelters', :action => 'show', :id => @shelter.id %> (<b>abandons changes</b>)</p>
+<%= end_form_tag %>
+<P>
+

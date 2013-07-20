@@ -1,0 +1,235 @@
+html, body, #contents {
+	min-height: 100%;
+	width: 100%;
+	height: 100%;
+}
+
+/*
+ * The "height" above is a hack for IE5+/Win.  Below we adjust
+ * it using the child selector to hide from IE5+/Win
+ */
+
+html>body, html>body #contents {
+	height: auto;}
+
+/*
+ * Without this, Moz1.0 adds a vertical scrollbar
+ */
+
+body { margin: 0}
+/*
+#contents {
+    position: absolute;
+    top: 0;
+    left: 0;
+/*  Use the following to center this at 50% width, or this for 750px: width: 700px, margin-left: -350px: */
+/*
+    left: 50%;
+    width: 50%;
+    margin-left: -25%;
+*/
+
+/*
+#footer {
+/*	position: absolute;
+	bottom: 0; 
+	background-color: #ffffff;
+	text-align: left;
+	padding: 10px;
+	clear:both
+}
+*/
+#main {
+	height: auto;
+	padding: .5em;
+}
+
+/* End footer hacks */
+/*body { background-color: #fff; color: #333; }*/
+body{margin-left:5px}
+body, p, ol, ul, td {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size:   10pt;
+  /* line-height: 18px; */
+}
+/*
+dt {
+  font-weight:	bold;
+}*/
+/*
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}
+*/
+/*a { color: #000; } */
+/* a:visited { color: #333; } */
+/*a:hover { color: #fff; background-color:#000; } */
+
+a, a:visited{color:blue}
+
+#main h1{
+  text-align:center;
+  margin:0;
+  color: #3b523b;
+}
+
+#searches{
+	margin: 2px 0;
+	background-color:silver;
+	border-top:1px solid #FFF; border-left:1px solid #FFF; 
+	border-bottom:1px solid #AFB5B8; border-right:1px solid #AFB5B8;}
+#divsavesearch h5{font-size: .9em;text-align:left; margin:3px 0 3px 0;}
+.filterdiv{padding-bottom: 5px}
+.filterdiv ul{list-style:none;padding:0 10px;margin: 0;}
+.filterdiv li{display:inline;margin-right:20px;}
+#searches{margin: 10px 0; background-color:silver;padding-left:10px}
+#searches input{margin:2px 0;vertical-align:sub;}
+#settings{
+	border-bottom:1px green solid;
+	border-left:1px green solid;
+	border-right:1px green solid;
+	border-top:1px green solid;	
+	margin:2px;
+	font-size: .86em;
+}
+.prioritylink, .prioritylink:visited {color:#ba3e34;font-weight:bold;vertical-align:top;}
+.bold{font-weight:bold;}
+select{vertical-align:middle;}
+#county label{width: 100px;float:left;text-align:right;font-size: 10pt}
+#county input{position:absolute;right:50px}
+.buttonright{left:650px;position:absolute;width:70px;color:red}
+.buttonleft{float:left;}
+#searches input{margin-left: 10px}
+
+.colhide{float:right;margin-right:3px;color:maroon;text-decoration:none;font-size: 7.5pt;font-weight:bold;}
+.sortind{float:left;margin:0 0 3px 3px;border:none}  
+    
+table {font:0.75em Arial, Helvetica, sans-serif; background-color:#F2F2F2;}
+caption { background-color:#B4CDB5; color:black; text-transform:uppercase; 
+	font-size:8pt;border-top:1px solid #FFF; border-left:1px solid #FFF; border-bottom:1px solid 	#AFB5B8; border-right:1px solid #AFB5B8; padding:5px	}
+thead th, .captionrow { background-color:#B4CDB5 ; color:black; padding:0px; text-transform:uppercase; border-top:1px solid #FFF; border-left:1px solid #FFF; border-bottom:1px solid gray; border-right:1px solid gray; }
+th{height:20px}
+tbody td{ color:#000; padding:2px; text-align:center; border-top:1px solid #FFF; border-left:1px solid #FFF; border-bottom:1px solid #AFB5B8; border-right:1px solid #AFB5B8;  font:11.5px Arial, Helvetica, sans-serif}
+tr:hover{background-color:#b2b2b2}
+a:hover{ background-color:white; color:black} 
+.tblaction{width:50px;text-align:left}
+.tdleft{text-align:left;}
+.tdright{text-align:right}
+.captionrow{text-transform:none;}
+a{border:0;background-color:inherit}
+img{border:0}
+img:hover{background-color:white}
+
+caption .left{float:left;vertical-align: -12px;margin-left:5px}
+#caption .center{display:inline;text-align:center;float:left;font-weight:bold;margin-left:130px;font-size:1.2em}
+caption .center{float:left;text-align:center;width:450px;font-weight:bold;font-size:1.1em}
+.pagination{float:right;}
+.pagination a{vertical-align:middle;}
+.leftform{float:left;}
+#savesearch {margin:0}
+#savesearch input{margin-left: 30px;position:absolute;width:150px;display:inline}
+#lpp{margin-left: 30px}
+#footer, #factypes{clear:both;width:760px}
+#factypes{margin-top:30px; padding: 5px 0; border: 2px silver solid;
+    padding-left: 10px; background-color:gray;}
+#factypes h5{display:inline;color:#e5e5e5}	
+#factypes span{font-size: .9em}    
+.unknown{background-color:#EEEEEE}
+.shelter{background-color:#FFFFEE}
+.walk_in_resource{background-color:#E3FBE9}
+.warehouse{background-color:#FFEEFF}
+.donor{background-color:#EEDDFF}
+.unassigned_region_area{background-color:#FFEEDD}
+.info_hotline{background-color:#FFFFFF}
+.animal_shelter{background-color:#FFEEEE}
+.supply_pod{background-color:#EEEEFF}
+.school{background-color:#FFDDBB}
+.open_business{background-color:#FFAAAA}
+.volunteer_camp{background-color:#DDEEFF}
+.family_individual{background-color:#CCFFEE}
+.medical_facility{background-color:#F5EA00}
+.database_training_admin{background-color:#e4d4a1}
+
+#typebuttons{clear:both;padding:5px;float:right}
+.btnlink{background-color: silver;
+	border: 2px white outset;
+	padding: 1px 4px;
+	color:#007900;
+	text-decoration: none;
+	text-align:center;
+	font: bold 90% "Lucida Grande", "Trebuchet MS", Verdana, Helvetica, sans-serif;}
+.btnlink:visited{color: black;}
+.btnlink:hover{border-style:inset;background-color: green;color: white;padding: 2px 3px 0 5px;}
+.btnlink:active{color: black;}
+
+#divsavesearch{height:300px;background-color:silver;padding: 0 10px}
+#divsavesearch input,#divsavesearch select{margin: 5px 0}
+#divsavesearch select{margin: -20px 0 0 200px }
+.warning{color:yellow;background-color:black;}
+
+#userpref fieldset, #password fieldset {border:thin green solid;color:black;margin:5px 10px; height: 190px}
+#userpref {float:left; width: 520px;}
+#userpref input {margin:2px;padding-left:2px}
+#userpref label{margin:4px;width:100px;text-align:right;float:left}
+#password input{color:green}
+#password {margin: 0 10px 0 10px; float: right; height: 220px; background-color: silver; width: 225px;padding:0}
+#password fieldset{height:190px}
+#userdelete {border-top: thin green solid;margin-top:10px;padding: 20px 0 0 20px}
+.prefbutton {margin-top: 10px}
+
+.filterdiv{background-color:silver}
+.filterdiv fieldset {border-color:white;color:black;}
+.filterdiv fieldset{padding:5px;margin: 3px 0}
+.filterdiv legend{font-weight:bold;font-size:.85em;color:black}
+.filterdiv .buttonsearch{float:right;width:70px;color:red;margin-top:-5px;margin-right: 3px}
+#catitem label{width:70px;float:left;text-align:right;margin:3px 5px 0 0}
+#catitem select {margin-bottom:5px}
+#divfacility {background-color:#d7ddd9;padding:1px 3px 3px 3px;border-bottom:1px black solid;border-right:1px black solid;border-left:1px black solid}
+#divfacility label{width: 50px;float:left;text-align:right;font-size: 10pt;margin-right:3px}
+#divfacility ul {list-style:none;padding:0 10px;margin: 0;}
+#divfacility li{width:190px;float:left;margin-right:20px;display:inline}
+#divfacility .includetypes li{width:200px;float:left;margin-right:20px;display:inline}
+.divfacilitytop {border-top:1px black solid} 
+#includefac{background-color:#d7ddd9;display:block;border-top:1px black solid;border-right:1px black solid;border-left:1px black solid}
+
+#listnotes{margin:3px 0;background-color:white}
+#listnotes legend{font-weight:bold;font-size:1.8em;color:green}
+#listnotes legend a{font-size:.5em}
+#listnotes, #listnotes p{font-size:9pt}
+#listnotes fieldset{border: 1px green solid;padding:0 5px;margin-top:5px}
+#listnotes fieldset a{background-color: #B4CDB5;
+	border: 2px white outset;
+	color:blue;
+	text-decoration: none;
+	text-align:center;
+	display:inline;
+	vertical-align:text-bottom;
+	width:100px}
+#listnotes fieldset a:hover{border-style:inset;background-color: green;color: white;padding: 2px 3px 0 5px;}
+#listnotes fieldset ul{width:330px;
+			list-style: none;
+			margin-left: 0;
+			padding-left: 1em;
+			text-indent: -1em;
+			list-style-position:outside;
+			}
+#listnotes li {list-style-image: none;
+			list-style-type: none;}			
+
+#listnotes fieldset ul a{background-color:white;border-style:none;color:green}
+#listnotes fieldset ul a:hover{border-style:none;background-color: white; color: red; padding:0;text-decoration:underline;color:blue}
+.twocolumnlist{float:left;padding:0}
+
+.fieldWithErrors{padding:2px;background-color:red;display:table}
+
+.errorExplanation, .errorExplanation h2,.errorExplanation p,.errorExplanation ul{font-size:10pt;background-color:red;margin:0}
+.errorExplanation {border: thin gray solid}
+
+.input_fs {display:block; margin:0}
+.input_fs label{width:200px;float:left; display:block; clear:left; text-align:right; height:20px; margin-top:3px}
+.input_fs input{float:left; margin-bottom:5px}
+#clientcontact label{width:150px}
+#quick_start_edit{width:740px; height: 300px; display:block; margin: 0 auto 0 auto}
+#textedit{background-color:silver}

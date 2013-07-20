@@ -1,0 +1,16 @@
+<html>
+<head>
+  <%= stylesheet_link_tag 'general' %>
+<script type="text/javascript">
+function setHeight(){
+parent.document.getElementById('subiframe').style.display = 'inline';
+var theHeight = document.getElementById('framePage').scrollHeight;
+parent.document.getElementById('subiframe').height=theHeight + 10;
+}
+</script>
+</head>
+
+<body id="framePage" onload="setHeight()">
+<%= @content_for_layout %>
+</body>
+</html>

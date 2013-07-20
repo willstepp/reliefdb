@@ -1,0 +1,2 @@
+module Quick::StartHelper
+end

@@ -1,0 +1,79 @@
+<%= error_messages_for 'condition' %>
+
+<!--[form:condition]-->
+<%if params[:multiple] == "1" %>
+  <table>
+  <% cols = [] %>
+  <tr>
+  <%for cat in Category.find(:all, :order => "upper(categories.name), upper(items.name)", :include => :items) %>
+    <th><%=h cat.name %></th>
+    <%cols << cat.items%>
+  <%end%>
+  </tr>
+  <% foundone = true %>
+  <% while foundone == true %>
+    <% foundone = false %>
+    <tr>
+    <% for col in cols %>
+      <td>
+      <% if col.size > 0 %>
+      <span style="white-space:nowrap">
+	<% foundone = true %>
+	<% item = col.shift %>
+        <% if @condition.shelter.condition_items(@condition.class).include?(item.id) %>
+          <%= check_box_tag "bogus", "1", true, :disabled => true %>
+	<% else %>
+          <%= check_box_tag "items[#{item.id}]" %>
+	<% end %>
+	<%=h item.name %>
+      </span>
+      <% end %>
+      </td>
+    <% end %>
+    </tr>
+  <% end %>
+  </table>
+  <BR>
+  <label for="new_items">New Items</label> (Please double-check there is no existing item!)<br/>
+  Enter new item names one per line (no commas or anything like that)<BR>
+  <%= text_area_tag 'new_items', nil, :rows => 6, :cols => 40  %>
+<% else %>
+  <p><label for="condition_item">Item</label><br/>
+  <%= select("condition", "item_id", Item.find(:all, :order => "upper(name)").collect {|i| [ i.name, i.id ] }) %>
+<% end %><%# Not mass creation %>
+
+<% if @condition.class == Need %>
+<%if params[:multiple] != "1" %>
+  <p><label for="condition_qty_needed">Qty Needed</label><br/>
+  <%= text_field 'condition', 'qty_needed' , :size => 5, :maxlength => 5 %></p>
+  <p><label for="condition_packaged_as">Packaged As</label><br/>
+  <%= text_field 'condition', 'packaged_as' , :size => 20, :maxlength => 20 %></p>
+<% end %>
+<p><label for="condition_urgency">Urgency</label><br/>
+<%= select :condition, :urgency, Need::Urgency.levels.invert %>
+
+<p><label for="condition_can_buy_local">Can be purchased locally?</label><br/>
+<%= select :condition, :can_buy_local, Need::CanBuyLocal.levels.invert %>
+<% end %>
+
+<% if @condition.class == Surplus %>
+<%if params[:multiple] != "1" %>
+  <p><label for="condition_surplus_individual">Qty Available</label><br/>
+  <%= text_field 'condition', 'surplus_individual', :size => 5, :maxlength => 5  %></p>
+  <p><label for="condition_packaged_as">Packaged As</label><br/>
+  <%= text_field 'condition', 'packaged_as' , :size => 20, :maxlength => 20 %></p>  
+<%end%>
+<% end %>
+
+<p><label for="condition_info_source">Information Source/Changes</label> (<font COLOR="red">Please document!</font>)<br/>
+<%= info_source_explanation %>
+<%= text_area 'condition', 'info_source', :rows => 6, :cols => 80  %></p>
+
+<p><label for="condition_notes">Notes</label><br/>
+<%= text_area 'condition', 'notes', :cols => 80 %></p>
+
+<%= hidden_field_tag :shelter, params[:shelter] %>
+<%= hidden_field_tag :type, params[:type] %>
+<%= hidden_field_tag :return_to_shelter, params[:return_to_shelter] %>
+
+<!--[eoform:condition]-->

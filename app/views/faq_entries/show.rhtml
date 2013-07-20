@@ -1,0 +1,8 @@
+<% for column in FaqEntry.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @faq_entry.send(column.name) %>
+</p>
+<% end %>
+
+<%= link_to 'Edit', :action => 'edit', :id => @faq_entry %> |
+<%= link_to 'Back', :action => 'list' %>
