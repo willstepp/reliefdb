@@ -9,6 +9,8 @@ RAILS_GEM_VERSION = '1.2.6' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
+new_logger = Logger.new(File.join(RAILS_ROOT, "log", "new_logger_#{RAILS_ENV}.log"), 'daily')
+new_logger.formatter = Logger::Formatter.new
 
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here
@@ -24,7 +26,9 @@ Rails::Initializer.run do |config|
 
   # Force all environments to use the same logger level
   # (by default production uses :info, the others :debug)
-  # config.log_level = :debug
+   config.log_level = :info
+   config.active_record.logger = new_logger
+   config.action_controller.logger = new_logger
 
   # Use the database for sessions instead of the file system
   # (create the session table with 'rake db:sessions:create')

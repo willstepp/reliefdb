@@ -1,113 +1,113 @@
 "©.h2=. Welcome to the Relief Database!
 
-h2=. "We're still finishing our SERVER MIGRATION.  OUR REDIRECT FUNCTION IS BROKEN AFTER OUR SERVER MIGRATION...SO IF YOU GOT SENT HERE INSTEAD OF YOUR REGULAR LOCATION, PLEASE GO TO THIS LINK TO GET INSTRUCTIONS ON HOW TO FIGURE OUT HOW TO GET TO YOUR REGULAR LOCATION:":http://50.62.80.109:3000/shelters/show/9676 ", OR CONTACT US FOR HELP NAVIGATING THE "RELIEF DATABASE". This issue appears to be getting fixed. Please do NOT change your permanent links  We may have this fixed within a day.
+h2=. "We're still finishing our SERVER MIGRATION.  OUR REDIRECT FUNCTION IS BROKEN AFTER OUR SERVER MIGRATION...SO IF YOU GOT SENT HERE INSTEAD OF YOUR REGULAR LOCATION, PLEASE GO TO THIS LINK TO GET INSTRUCTIONS ON HOW TO FIGURE OUT HOW TO GET TO YOUR REGULAR LOCATION:":http://citizencommandcenter.org/shelters/show/9676 ", OR CONTACT US FOR HELP NAVIGATING THE "RELIEF DATABASE". This issue appears to be getting fixed. Please do NOT change your permanent links  We may have this fixed within a day.
 
-h3. "INSIDER'S GUIDE TO LOCATING DISASTER RELIEF SUPPORT/Resources":http://50.62.80.109:3000/shelters/show/9312
+h3. "INSIDER'S GUIDE TO LOCATING DISASTER RELIEF SUPPORT/Resources":http://citizencommandcenter.org/shelters/show/9312
 
-h3. "If you want to GATHER SUPPLIES...please look at this page first":http://50.62.80.109:3000/categories/show/41 
+h3. "If you want to GATHER SUPPLIES...please look at this page first":http://citizencommandcenter.org/categories/show/41 
 
 h4.  (scroll to the bottom for privacy policy and admin notes)
 
 ***
 
-h3.  "POWDERHOUSE FIRE Resources":http://50.62.80.109:3000/shelters/show/9717
+h3.  "POWDERHOUSE FIRE Resources":http://citizencommandcenter.org/shelters/show/9717
 
 
-h3.  "OKLAHOMA Orgs supporting Disaster Response":http://50.62.80.109:3000/items/show/5174
+h3.  "OKLAHOMA Orgs supporting Disaster Response":http://citizencommandcenter.org/items/show/5174
 
-h3.  "HURRICANE SANDY, Orgs supporting Disaster Preparation and Response":http://50.62.80.109:3000/items/show/5109
+h3.  "HURRICANE SANDY, Orgs supporting Disaster Preparation and Response":http://citizencommandcenter.org/items/show/5109
 
 h4. * "See a list of the "MOST URGENT NEEDS" 
-in CURRENTLY ACTIVE FEMA/EMA DECLARED Disaster Zones":http://50.62.80.109:3000/conditions/list?preset=77
+in CURRENTLY ACTIVE FEMA/EMA DECLARED Disaster Zones":http://citizencommandcenter.org/conditions/list?preset=77
 
-h4. * "VOLUNTEER OPPORTUNITIES, New York":http://50.62.80.109:3000/conditions/list?preset=171
+h4. * "VOLUNTEER OPPORTUNITIES, New York":http://citizencommandcenter.org/conditions/list?preset=171
 
-h4. * "VOLUNTEER OPPORTUNITIES, New Jersey":http://50.62.80.109:3000/conditions/list?preset=172
-
-
-***
-
-h3. "HURRICANE ISAAC, Orgs supporting the recovery":http://50.62.80.109:3000/conditions/list?preset=166
-
-h3. "HURRICANE ISAAC SUPPORT, Mississippi focused":http://50.62.80.109:3000/conditions/list?preset=169
-
-h3. "HURRICANE ISAAC, Needs list (supplies/volunteers)":http://50.62.80.109:3000/conditions/list?preset=167
-
-h3. "HURRICANE ISAAC, MOST URGENT needs list":http://50.62.80.109:3000/conditions/list?preset=168
-
-h3. "HURRICANE ISAAC, Volunteer requests":http://50.62.80.109:3000/categories/show/14?state=LA
+h4. * "VOLUNTEER OPPORTUNITIES, New Jersey":http://citizencommandcenter.org/conditions/list?preset=172
 
 
 ***
 
-h3. "2012 Oklahoma - Wildfires":http://50.62.80.109:3000/items/show/5071
+h3. "HURRICANE ISAAC, Orgs supporting the recovery":http://citizencommandcenter.org/conditions/list?preset=166
 
-h3. "2012 Oglala Tribe Wind Storm Support":http://50.62.80.109:3000/shelters/show/4869
+h3. "HURRICANE ISAAC SUPPORT, Mississippi focused":http://citizencommandcenter.org/conditions/list?preset=169
 
-h3. "2012 Colorado - Waldo Canyon Wildfire":http://50.62.80.109:3000/items/show/2318
+h3. "HURRICANE ISAAC, Needs list (supplies/volunteers)":http://citizencommandcenter.org/conditions/list?preset=167
 
-h3. "2012 Minnesota - Floods":http://50.62.80.109:3000/items/show/2226
+h3. "HURRICANE ISAAC, MOST URGENT needs list":http://citizencommandcenter.org/conditions/list?preset=168
 
-h3. "2012 Colorado - High Park Wildfire":http://50.62.80.109:3000/items/show/5065
+h3. "HURRICANE ISAAC, Volunteer requests":http://citizencommandcenter.org/categories/show/14?state=LA
 
-h3. "2012 US Spring Tornados":http://50.62.80.109:3000/items/show/5023
 
-h3. "2012 Alabama Tornado":http://50.62.80.109:3000/items/show/5013
+***
 
-h3. "Occupy the World":http://50.62.80.109:3000/items/show/4996
+h3. "2012 Oklahoma - Wildfires":http://citizencommandcenter.org/items/show/5071
+
+h3. "2012 Oglala Tribe Wind Storm Support":http://citizencommandcenter.org/shelters/show/4869
+
+h3. "2012 Colorado - Waldo Canyon Wildfire":http://citizencommandcenter.org/items/show/2318
+
+h3. "2012 Minnesota - Floods":http://citizencommandcenter.org/items/show/2226
+
+h3. "2012 Colorado - High Park Wildfire":http://citizencommandcenter.org/items/show/5065
+
+h3. "2012 US Spring Tornados":http://citizencommandcenter.org/items/show/5023
+
+h3. "2012 Alabama Tornado":http://citizencommandcenter.org/items/show/5013
+
+h3. "Occupy the World":http://citizencommandcenter.org/items/show/4996
 
 h3. "Take a 5 minute "Tour" of the Database,
-and get basic navigational instructions":http://50.62.80.109:3000/shelters/show/994
+and get basic navigational instructions":http://citizencommandcenter.org/shelters/show/994
 
-h3=. "List of Disasters Supported by this Database":http://50.62.80.109:3000/categories/show/61
+h3=. "List of Disasters Supported by this Database":http://citizencommandcenter.org/categories/show/61
 
-h3=. "List of US FEMA disaster management Contacts/Orgs":http://50.62.80.109:3000/items/show/4923
+h3=. "List of US FEMA disaster management Contacts/Orgs":http://citizencommandcenter.org/items/show/4923
 
-h3=. "Twitter Feeds for Various Disasters/Orgs":http://50.62.80.109:3000/items/show/4040
+h3=. "Twitter Feeds for Various Disasters/Orgs":http://citizencommandcenter.org/items/show/4040
 
 h3=. List of Orgs Supporting the following 2011 disasters:
 
-h3. "Philippines Tropical Storm Sendong":http://50.62.80.109:3000/shelters/show/9058
+h3. "Philippines Tropical Storm Sendong":http://citizencommandcenter.org/shelters/show/9058
 
-h4=. "US Central Texas Wildfire Support":http://50.62.80.109:3000/items/show/4723
+h4=. "US Central Texas Wildfire Support":http://citizencommandcenter.org/items/show/4723
 
-h4=. "US Hurricane Irene Support":http://50.62.80.109:3000/items/show/4933
+h4=. "US Hurricane Irene Support":http://citizencommandcenter.org/items/show/4933
 
-h4=. "All 2011 US Spring Storms":http://50.62.80.109:3000/items/show/4721
+h4=. "All 2011 US Spring Storms":http://citizencommandcenter.org/items/show/4721
 
 h4=. "North Dakota Flood Prep/Recovery":http://www.citizencommandcenter.org/items/show/4879
 
-h4=. "Massachusetts Tornado Recovery":http://50.62.80.109:3000/items/show/4855
+h4=. "Massachusetts Tornado Recovery":http://citizencommandcenter.org/items/show/4855
 
-h4=. "Missouri Spring Storms":http://50.62.80.109:3000/items/show/4835
+h4=. "Missouri Spring Storms":http://citizencommandcenter.org/items/show/4835
 
-h4=. "Mississippi Tornado Recovery":http://50.62.80.109:3000/items/show/4768
+h4=. "Mississippi Tornado Recovery":http://citizencommandcenter.org/items/show/4768
 
-h4=. "Georgia Tornado Recovery":http://50.62.80.109:3000/items/show/4757
+h4=. "Georgia Tornado Recovery":http://citizencommandcenter.org/items/show/4757
 
-h4=. "Alabama Tornados":http://50.62.80.109:3000/?preset=149
+h4=. "Alabama Tornados":http://citizencommandcenter.org/?preset=149
 
 
-h3=. "List of Orgs Supporting the Japan Earthquake & Tsunami":http://50.62.80.109:3000/conditions/list?preset=145
+h3=. "List of Orgs Supporting the Japan Earthquake & Tsunami":http://citizencommandcenter.org/conditions/list?preset=145
 
-h3=. "List of Orgs Supporting the New Zealand Earthquake":http://50.62.80.109:3000/items/show/4684
+h3=. "List of Orgs Supporting the New Zealand Earthquake":http://citizencommandcenter.org/items/show/4684
 
 h3=.  - "2010 Haiti Earthquake and On-going Haiti Support: 
-List of ALL ORGS":http://50.62.80.109:3000/list?preset=104
+List of ALL ORGS":http://citizencommandcenter.org/list?preset=104
 
-h3=. "List of Open Shelters in Haiti":http://50.62.80.109:3000/conditions/list?preset=138
+h3=. "List of Open Shelters in Haiti":http://citizencommandcenter.org/conditions/list?preset=138
 
-h3.  - "List of Haiti-based MEDICAL UNITS, sorted ALPHABETICALLY":http://50.62.80.109:3000/conditions/list?preset=116
+h3.  - "List of Haiti-based MEDICAL UNITS, sorted ALPHABETICALLY":http://citizencommandcenter.org/conditions/list?preset=116
 
-h3=. "List of Cholera Treatment Centers/Medical Facilities-Including-CTC-UTC-ORS sites":http://50.62.80.109:3000/conditions/list?preset=137
+h3=. "List of Cholera Treatment Centers/Medical Facilities-Including-CTC-UTC-ORS sites":http://citizencommandcenter.org/conditions/list?preset=137
 
 h4.  - "List of Haiti-based Orphanages/Childrens Homes":http://www.50.62.80.109:3000/items/show/1854
 
-h5.  - "VOLUNTEER in Haiti":http://50.62.80.109:3000/conditions/list?preset=107
+h5.  - "VOLUNTEER in Haiti":http://citizencommandcenter.org/conditions/list?preset=107
 
-"(Humanitarian Organizations Supporting Pakistan Floods)":http://50.62.80.109:3000/conditions/list?preset=126
+"(Humanitarian Organizations Supporting Pakistan Floods)":http://citizencommandcenter.org/conditions/list?preset=126
 
-h2=.  - "Orgs supporting 2010 OIL SPILL in the GULF OF MEXICO":http://50.62.80.109:3000/items/show/4183
+h2=.  - "Orgs supporting 2010 OIL SPILL in the GULF OF MEXICO":http://citizencommandcenter.org/items/show/4183
  
 
 h4. *** DATABASE HINT:  If you already chose a link, go back to the list you just looked at and click "clear all" (in red text) first, so your computer's "cache" does not limit the QUICKSTART list to "very urgent" or by "geographic region."***
@@ -125,15 +125,15 @@ in CURRENTLY ACTIVE(FEMA/EMA)
 DECLARED Disaster Zones":50.62.80.109:3000/conditions/list?preset=77
 
 h4. * "See a list of "ALL NEEDS" 
-in ALL Recovery Zones and Needs Areas":http://50.62.80.109:3000/conditions/list?preset=24
+in ALL Recovery Zones and Needs Areas":http://citizencommandcenter.org/conditions/list?preset=24
 
 h4. * "See a list of ALL AVAILABLE SERVICES & SUPPLIES 
-in ALL DISASTER & RECOVERY ZONES":http://50.62.80.109:3000/conditions/list?preset=3
+in ALL DISASTER & RECOVERY ZONES":http://citizencommandcenter.org/conditions/list?preset=3
 
 
-h5.  - "Other Disasters Supported by this Database":http://50.62.80.109:3000/categories/show/61
+h5.  - "Other Disasters Supported by this Database":http://citizencommandcenter.org/categories/show/61
 
-h3. * Find "VOLUNTEER OPPORTUNITIES":http://50.62.80.109:3000/org/categories/show/14
+h3. * Find "VOLUNTEER OPPORTUNITIES":http://citizencommandcenter.org/org/categories/show/14
 
 h3. * Find "VOLUNTEER HOUSING":50.62.80.109:3000/conditions/list?preset=28
 
@@ -141,29 +141,29 @@ h3. * Find "VOLUNTEER HOUSING":50.62.80.109:3000/conditions/list?preset=28
 h3. * See a list of ORGANIZATIONS listed in this database (Get Contacts!) 
 Choose a Link:
 
-h5. "Alphabetical Listing":http://50.62.80.109:3000/?preset=103
+h5. "Alphabetical Listing":http://citizencommandcenter.org/?preset=103
 
-h5. "Most Recent Listings":http://50.62.80.109:3000/facilities/list?preset=70
+h5. "Most Recent Listings":http://citizencommandcenter.org/facilities/list?preset=70
 
-h5. * Find "SHELTER for EVACUEES & DISASTER SURVIVORS":http://50.62.80.109:3000/items/show/138
+h5. * Find "SHELTER for EVACUEES & DISASTER SURVIVORS":http://citizencommandcenter.org/items/show/138
 
-h5. * Find "SUPPLIES/SERVICES for EVACUEES & SURVIVORS":http://50.62.80.109:3000/conditions/list?preset=3
+h5. * Find "SUPPLIES/SERVICES for EVACUEES & SURVIVORS":http://citizencommandcenter.org/conditions/list?preset=3
 
 h4. * See lists of Relief Supplies and Human Services:
 
-h5. - "AVAILABLE":http://50.62.80.109:3000/conditions/list?preset=3   supplies/services
+h5. - "AVAILABLE":http://citizencommandcenter.org/conditions/list?preset=3   supplies/services
 
-h5. - "NEEDED":http://50.62.80.109:3000/conditions/list?preset=24 supplies/services
+h5. - "NEEDED":http://citizencommandcenter.org/conditions/list?preset=24 supplies/services
 
-h3. * "Find a "CASE MANAGER" to help you find services":http://50.62.80.109:3000/conditions/list?preset=27 
+h3. * "Find a "CASE MANAGER" to help you find services":http://citizencommandcenter.org/conditions/list?preset=27 
 
-h3. * See a list of all of the "ITEMS TRACKED":http://50.62.80.109:3000/items/list in this database:
+h3. * See a list of all of the "ITEMS TRACKED":http://citizencommandcenter.org/items/list in this database:
 
 h3. * SEARCH FOR A SPECIFIC ORGANIZATION OR ITEM:
 
-h5.  - "Facility/Org Search":http://50.62.80.109:3000/facilities/filter
+h5.  - "Facility/Org Search":http://citizencommandcenter.org/facilities/filter
 
-h5.  - "Category/Item Search":http://50.62.80.109:3000/conditions/filter
+h5.  - "Category/Item Search":http://citizencommandcenter.org/conditions/filter
 
 h2. * HELP us make THIS DATABASE Better!  
 
@@ -171,12 +171,12 @@ h4. info "at" citizenactionteam "dot" org
 or 
 +1 978 266 2778, 978 808 7173
 
-h2. * Add a "NEW FACILITY":http://50.62.80.109:3000/shelters/new (logged in users only)
+h2. * Add a "NEW FACILITY":http://citizencommandcenter.org/shelters/new (logged in users only)
 
-h2. * Become a "NEW USER!":http://50.62.80.109:3000/user/login
+h2. * Become a "NEW USER!":http://citizencommandcenter.org/user/login
 
 h6=. Believe it or not, you are already a user.  We don't require passwords to let you see info.  BUT if you want to add an organization to the database, or change something, or see confidential management contact info, then you will need to get a password.  If you just want to see the database, click on one of the links in the gray box above for access to the main database, 
-or "Click Here":http://50.62.80.109:3000/about for an "intro"...
+or "Click Here":http://citizencommandcenter.org/about for an "intro"...
 
 Backstory:  This database was created to help communities "self-organize".  It was created after Katrina, but has lived on to help disasters of all types. Two years after Katrina, the group decided that poverty, and environmental destruction were disasters and so we kept on keeping on...
 
@@ -186,11 +186,11 @@ Backstory:  This database was created to help communities "self-organize".  It w
 
 <p style="text-align:left;">Email Policy:  The only bulk email we send out from "the database" is for database administrative purposes.  Historically, that's been less than once a quarter.  If we notice that you've registered a need for something that has come available, we may email you to let you know, or if you have something that is needed by someone else.  In the future, we plan to have an optional email notification of matches, where you will be able to "opt-in" for these types of mailings.  Currently, however, the only email you'll get from "the database" is your welcome email and an occasional administrative announcement.
 
-"Accuracy Indemnification/Disclaimer":http://50.62.80.109:3000/shelters/show/1072 
-"Fraud Reporting Policies":http://50.62.80.109:3000/shelters/show/1071 
+"Accuracy Indemnification/Disclaimer":http://citizencommandcenter.org/shelters/show/1072 
+"Fraud Reporting Policies":http://citizencommandcenter.org/shelters/show/1071 
 
 <p style="text-align:left;">GO TO THE ABOVE LINKS and read the Indemnification/Disclaimer BEFORE USING THIS DATABASE. [summary: don't believe anything online.  People make errors and/or post things without knowing what's really true.  This listing service is no better than the newspaper, Craig's List, blogs, etc.  You must check for yourself.  DO NOT believe that just because groups are listed in this database that they are totally legit. YOU MUST DO YOUR OWN "VETTING" of the groups.  Most have websites which link to their 501(c)3 tax numbers and other reference information. Or you can call us for our "INFORMAL OPINIONS" if we have any.  Better yet, use your intuition! Call the group and get to know them!  
 
 <p style="text-align:left;">The purpose of this site is not to be exclusive and create hurdles for relief groups to fall over...but to allow ALL groups to participate. For the nation to be able to utilize large numbers of volunteers in a crisis, we MUST be inclusive.  We MUST have faith that there will only be a very small number of cases of fraud.  To this date November 2007, of all of the hundreds of thousands of visitors and thousands of listings since September of 2005, we've only had two reports of fraud by groups posted on this site.  One turned out to be totally unfounded.  Information about the other one can be provided if you call us. Click the link above for more info about fraud reporting.
 
-"*":http://50.62.80.109:3000/conditions/list?preset=123
+"*":http://citizencommandcenter.org/conditions/list?preset=123
