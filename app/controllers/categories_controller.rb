@@ -4,6 +4,10 @@ class CategoriesController < ApplicationController
 
   layout "general"
 
+  def admin
+    @categories = Category.find(:all, :order => "upper(name)")
+  end
+
   def index
     render :action => 'list', :layout => 'reliefdb'
   end

@@ -62,16 +62,16 @@
             :collection => @facilities) %>
 </tbody>            
 </table>            
-<%= form_tag({:action => :list},{:name => "lpp", :class => "leftform"})%>
+<% form_tag({:action => :list},{:name => "lpp", :class => "leftform"}) do %>
 Go To Page 
 <%= select_tag("gotopage",options_for_select((1..@pages).to_a,params[:page].to_i),:onchange =>"parent.location='/facilities/list?page=' + encodeURIComponent(value)")%>
 <span id="lpp">Number of Lines Per Page:</span>
 <%= select_tag("linesperpage",options_for_select(%w{20 50 100 250 500}, session[:filter][:linesperpage]),:onchange =>"parent.location='/facilities/list?linesperpage=' + encodeURIComponent(value)")%>
-<%=end_form_tag%>
+<% end%>
 <%if session['user']%>
-<%=form_tag({:controller => 'searches', :action => 'new', :from => 'facilities'},{:id => 'savesearch'})%>
+<% form_tag({:controller => 'searches', :action => 'new', :from => 'facilities'},{:id => 'savesearch'}) do %>
 <%=submit_tag 'Save This Search'%>
-<%=end_form_tag %>
+<% end %>
 <%end%>
 <%=render :partial => "pagination"%>
 

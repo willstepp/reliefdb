@@ -1,9 +1,16 @@
 <h1>Editing faq_category</h1>
 
-<%= start_form_tag :action => 'update', :id => @faq_category %>
-  <%= render_partial 'form' %>
+<% form_tag :action => 'update', :id => @faq_category do %>
+  <%= error_messages_for 'faq_category' %>
+
+<!--[form:faq_category]-->
+<p><label for="faq_category_name">Name</label><br/>
+<%= text_field 'faq_category', 'name'  %></p>
+<!--[eoform:faq_category]-->
+
+
   <%= submit_tag 'Edit' %>
-<%= end_form_tag %>
+<% end %>
 
 <%= link_to 'Show', :action => 'show', :id => @faq_category %> |
 <%= link_to 'Back', :action => 'list' %>

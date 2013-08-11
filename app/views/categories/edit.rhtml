@@ -4,10 +4,36 @@
 <B>Updated by: </B><%= @category.safe_upd_by%><BR>
 <BR>
 
-<%= start_form_tag :action => 'update', :id => @category %>
-  <%= render_partial 'form' %>
+<% form_tag :action => 'update', :id => @category do %>
+  <%= error_messages_for 'category' %>
+
+  <!--[form:category]-->
+  <p><label for="category_name">Name</label><br/>
+  <%= text_field 'category', 'name'  %></p>
+
+  <p><label for="category_notes">Notes</label><br/>
+  <%= text_area 'category', 'notes'  %></p>
+  <!--[eoform:category]-->
+  <BR>
+  Assign items to this category:<BR>
+  <% for item in Item.find_all_with_uncat() %>
+  <%= "<B>" if item.uncat == "t" %>
+  <%= "<b style=\"color:red\">" if item.nocat == "t" %>
+    <% if @category.items.include?(item) %>
+      <% checked = true %>
+    <% else %>
+      <% checked = false %>
+    <% end %>
+    <%= check_box_tag("items[#{item.id}]", 1, checked) %> <%=h item.name %>
+    <%= "</B>" if item.uncat == "t" or item.nocat == "t" %>
+    <BR>
+  <% end %>
+  <small><b>(unassigned items in bold)</b></small>
+  <small><b><font style="color:red">(uncategorized items in red)</font></b></small>
+  <P>
+
   <%= submit_tag 'Save Changes' %>
-<%= end_form_tag %>
+<% end %>
 
 <%= link_to 'Show', :action => 'show', :id => @category %> |
 <%= link_to 'Back', :action => 'list' %>

@@ -5,7 +5,7 @@
 # ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '1.2.6' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.11' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -58,30 +58,30 @@ end
 # Mime::Type.register "application/x-mobile", :mobile
   Mime::Type.register 'application/pdf', :pdf
 
-ActionMailer::Base.delivery_method = :sendmail
-#ActionMailer::Base.delivery_method = :smtp
-#ActionMailer::Base.smtp_settings = {
-#  :address  => "orion.ocssolutions.com",
-#  :port  => 25, 
-#  :domain  => "www.citizencommandcenter.com",
-#  :user_name  => "citizen",
-#  :password  => "Citizen",
-#  :authentication  => :login
-#    } 
+#ActionMailer::Base.delivery_method = :sendmail
+ActionMailer::Base.delivery_method = :smtp
+ActionMailer::Base.smtp_settings = {
+  :address  => "smtp.gmail.com",
+  :port  => 587, 
+  :domain  => "gmail.com",
+  :user_name  => "willstepp@gmail.com",
+  :password  => "Falliscoming2013",
+  :authentication  => "plain",
+  :enable_starttls_auto => true
+} 
 
 # Include your application configuration below
 ActionController::CgiRequest::DEFAULT_SESSION_OPTIONS[:prefix] = "cat_#{RAILS_ENV}_sess."
 ActionController::Base.perform_caching = true
-#ActionController::Base.fragment_cache_store = ActionController::Caching::Fragments::FileStore.new("/tmp/cat_#{RAILS_ENV}_frag")
-ActionController::Base.fragment_cache_store = ActionController::Caching::Fragments::FileStore.new("tmp/cat_#{RAILS_ENV}_frag")
+ActionController::Base.cache_store = :file_store, "tmp/cat_#{RAILS_ENV}_frag"
 
 # Salted Login Generation Stuff
-require 'environments/localization_environment'
+require 'config/environments/localization_environment'
 require 'localization'
 Localization::load_localized_strings
 
 $DBADMIN = "dbadmin@citizenactionteam.org"
-require 'environments/user_environment'
+require 'config/environments/user_environment'
 
 require "model_extensions"
 require "RedCloth"

@@ -1,9 +1,39 @@
 <h1>Editing project</h1>
 
-<%= start_form_tag :action => 'update', :id => @project %>
-  <%= render :partial => 'form' %>
-
-<%= end_form_tag %>
+<% form_tag :action => 'update', :id => @project do %>
+  <%= error_messages_for 'project' %>
+<div id="projectlist">
+<% form_for :project, @project, :url => {:action => 'update'}, :html => { :method => 'put' } do |f| %>
+  <p>
+  <% if @project.new_record?%>
+    Select Facility/Organization Project Is Assigned To: <%=projects_select%>
+  <%else%>
+    Project Assigned To: <%=@project.shelter.name%> 
+  <%end%>
+  </p>
+  <p>
+    <span class="project_labels">Project Name:</span> <%= f.text_field :project_name %> <br />
+  <span class="project_labels">Notes:</span> <%=f.text_area :project_notes, :cols=> 60, :rows=> 4%>
+  </p>
+  <div id="tasks">
+  <ul id="sortable_list">
+      <%= render :partial => 'task_edit', :collection => @project.tasks %>
+  </ul>
+  <div id="task_bottom">  
+  <p>
+    <%=link_to_function 'Add A Task', {:url =>{:action => "task_add"},:id => "addtask"}, {:href=>url_for(:action => "task_add", :id => "addtask")} do |page|
+        page.insert_html :bottom, :sortable_list, :partial => 'task_edit', :object => Task.new
+        page.sortable ('sortable_list')
+     end %>    
+  <span style="color:red; float:right; margin-right:100px">
+  To ReOrder Tasks, Drag Tasks To New Location In The List</span>
+  </p></div>   
+  
+  </div>
+  <p><%= submit_tag (@project.new_record? ? "Create Project":"Update Project") %></p>
+<% end %>
+</div>
+<% end %>
 
 <%= link_to 'Show This Project', :action => 'show', :id => @project %> |
 <%= link_to 'Back To Project List', :action => 'list' %>

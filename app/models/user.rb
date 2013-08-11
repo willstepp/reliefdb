@@ -22,13 +22,13 @@ class User < ActiveRecord::Base
   end
 
   def self.unverified?(login)
-    find_first(["login = ? AND verified = 0 AND deleted = 0", login.strip.downcase])
+    find(:first, :conditions => ["login = ? AND verified = 0 AND deleted = 0", login.strip.downcase])
   end
   
   def self.authenticate(login, pass)
-    u = find_first(["login = ? AND verified = 1 AND deleted = 0", login.strip.downcase])
+    u = find(:first, :conditions => ["login = ? AND verified = 1 AND deleted = 0", login.strip.downcase])
     return nil if u.nil?
-    if user = find_first(["login = ? AND salted_password = ? AND verified = 1", login.strip.downcase, salted_password(u.salt, hashed(pass.strip))])
+    if user = find(:first, :conditions => ["login = ? AND salted_password = ? AND verified = 1", login.strip.downcase, salted_password(u.salt, hashed(pass.strip))])
 		p user
       user.logged_in_at = DateTime.now.new_offset.to_s
       user.save
@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
   def self.authenticate_by_token(id, token)
     # Allow logins for deleted accounts, but only via this method (and
     # not the regular authenticate call)
-    u = find_first(["id = ? AND security_token = ?", id, token])
+    u = find(:first, :conditions => ["id = ? AND security_token = ?", id, token])
     return nil if u.nil? or u.token_expired?
     return nil if false == u.update_expiry
     u

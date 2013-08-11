@@ -1,7 +1,6 @@
 class AboutController < ApplicationController
 
   layout "general"
-  model "user"
 
   def index
   end

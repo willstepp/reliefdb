@@ -7,7 +7,7 @@
 <%=tf @load.destination.mailing_address %>
 <P>
 
-<%= start_form_tag :action => 'accept', :id => @load %>
+<% form_tag :action => 'accept', :id => @load do %>
 <table>
   <tr><th>Item</th><th>Offered</th><th>Needed</th><th>Accept</th></tr>
 <% @load.items_ary.each do |h| %>

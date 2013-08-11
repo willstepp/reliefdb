@@ -1,8 +1,15 @@
 <h1>New faq_category</h1>
 
-<%= start_form_tag :action => 'create' %>
-  <%= render_partial 'form' %>
+<% form_tag :action => 'create' do %>
+  <%= error_messages_for 'faq_category' %>
+
+<!--[form:faq_category]-->
+<p><label for="faq_category_name">Name</label><br/>
+<%= text_field 'faq_category', 'name'  %></p>
+<!--[eoform:faq_category]-->
+
+
   <%= submit_tag "Create" %>
-<%= end_form_tag %>
+<% end %>
 
 <%= link_to 'Back', :action => 'list' %>

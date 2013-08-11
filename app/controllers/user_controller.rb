@@ -22,20 +22,29 @@ class UserController < ApplicationController
     return if generate_blank
     params['user'].delete('form')
     @user = User.new(params['user'])
+    puts "User Created"
+    puts @user.to_yaml
     begin
-      User.transaction(@user) do
+      puts "User Transaction About to Start"
+      @user.transaction do
+        puts "User Transaction Started"
         @user.new_password = true
+        puts "User About to Save"
         if @user.save
+          puts "User Saved"
           key = @user.generate_security_token
+          puts "User Token Generated"
           url = url_for(:action => 'welcome')
-#          url = "http://dbase.citizenactionteam.org/user/welcome"
           url += "?userid=#{@user.id}&key=#{key}"
+          puts "User Url: #{url}"
           UserNotify.deliver_signup(@user, params['user']['password'], url)
+          puts "User Notified"
           flash['notice'] = l(:user_signup_succeeded)
           redirect_to :action => 'login'
         end
       end
-    rescue
+    rescue Exception => e
+      puts e.message
       flash.now['message'] = l(:user_confirmation_email_error)
     end
   end  
@@ -58,7 +67,7 @@ class UserController < ApplicationController
     return if generate_filled_in
     params['user'].delete('form')
     begin
-      User.transaction(@user) do
+      @user.transaction do
         @user.change_password(params['user']['password'], params['user']['password_confirmation'])
         if @user.save
           #UserNotify.deliver_change_password(@user, params['user']['password'])
@@ -89,7 +98,7 @@ class UserController < ApplicationController
       flash.now['message'] = l(:user_email_address_not_found, "#{params['user']['email']}")
     else
       begin
-        User.transaction(user) do
+        user.transaction do
           key = user.generate_security_token
           url = url_for(:action => 'change_password')
 #          url = "http://dbase.citizenactionteam.org/user/change_password"
@@ -115,9 +124,7 @@ class UserController < ApplicationController
       begin
         case form
         when "edit"
-          changeable_fields = ['firstname', 'lastname']
-          params = params['user'].delete_if { |k,v| not changeable_fields.include?(k) }
-          @user.attributes = params
+          @user.attributes = { :firstname => params[:user][:firstname], :lastname => params[:user][:lastname] }
           if @user.save
             flash.now['message'] = "Changes saved."
           end
@@ -136,7 +143,7 @@ class UserController < ApplicationController
     @user = session['user']
     begin
       if UserSystem::CONFIG[:delayed_delete]
-        User.transaction(@user) do
+        @user.transaction do
           key = @user.set_delete_after
           url = url_for(:action => 'restore_deleted')
           url += "?user[id]=#{@user.id}&key=#{key}"

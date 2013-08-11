@@ -2,13 +2,29 @@
   <%= head_helper :error => true %>
 
   <div class="form-padding">
-    <%= start_form_tag_helper %>
-      <%= render_partial 'edit', :user => @user, :submit => false %></br>
-      <%= render_partial 'password', :submit => false %>
-      
-      <div class="button-bar">
-        <%= button_helper 'signup' %>
+    <% form_tag "/user/signup", :method => :post do %>
+
+      <div class="user_edit">
+        <%= form_input :hidden_field, 'form', :value => 'edit' %>
+        <table>
+          <%= form_input changeable(@user, "firstname"), "firstname" %>
+          <%= form_input changeable(@user, "lastname"), "lastname" %>
+          <%= form_input changeable(@user, "login"), "login", :size => 30 %><br/>
+          <%= form_input changeable(@user, "email"), "email" %>
+        </table>
       </div>
-    <%= end_form_tag %>
+      <br>
+      <div class="user_password">
+        <%= form_input :hidden_field, 'form', :value => 'change_password' %>
+
+        <table>
+          <%= form_input :password_field, "password", :size => 30 %>
+          <%= form_input :password_field, "password_confirmation", :size => 30 %>
+        </table>
+      </div>    
+      <br>
+      <%= submit_tag 'Sign up' %>
+    <% end %>
+
   </div>
 </div>

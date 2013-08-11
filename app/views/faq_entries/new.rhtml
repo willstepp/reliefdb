@@ -1,8 +1,21 @@
 <h1>New faq_entry</h1>
 
-<%= start_form_tag :action => 'create' %>
-  <%= render_partial 'form' %>
+<% form_tag :action => 'create' do %>
+  <%= error_messages_for 'faq_entry' %>
+
+<!--[form:faq_entry]-->
+<p><label for="faq_entry_faq_category_id">Category</label><br/>
+<%= select("faq_entry", "faq_category_id", FaqCategory.find(:all, :order => "upper(name)").collect {|i| [ i.name, i.id ] }) %>
+
+<p><label for="faq_entry_title">Title</label><br/>
+<%= text_field 'faq_entry', 'title', :size => 80 %></p>
+
+<p><label for="faq_entry_text">Text</label><br/>
+<%= text_area 'faq_entry', 'text', :rows => 40, :cols => 80 %></p>
+<!--[eoform:faq_entry]-->
+
+
   <%= submit_tag "Create" %>
-<%= end_form_tag %>
+<% end %>
 
 <%= link_to 'Back', :action => 'list' %>
