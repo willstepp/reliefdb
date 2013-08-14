@@ -4,7 +4,7 @@ class Category < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name
 
-  belongs_to :updated_by, :class_name => "User", :foreign_key => "updated_by_id"
+  belongs_to :updated_by, :class_name => "User", :foreign_key => "updatedbyid"
   before_update :update_history
   after_create :update_history
 
@@ -13,7 +13,7 @@ class Category < ActiveRecord::Base
   end
 
   def self.names_for_select
-    (Category.find(:all,:order => 'name').map {|cat| [cat.name,cat.id]}).unshift(["All","All"])
+    (Category.all.order('name').map {|cat| [cat.name,cat.id]}).unshift(["All","All"])
   end
 
 end

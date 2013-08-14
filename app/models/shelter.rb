@@ -20,7 +20,7 @@ class Shelter < ActiveRecord::Base
   before_save :update_address
 
   belongs_to :cond_updated_by, :class_name => "User", :foreign_key => "cond_updated_by_id"
-  belongs_to :updated_by, :class_name => "User", :foreign_key => "updated_by_id"
+  belongs_to :updated_by, :class_name => "User", :foreign_key => "updatedbyid"
   before_update :update_history
   after_create :update_history
 
@@ -157,7 +157,7 @@ class Shelter < ActiveRecord::Base
     order = "ORDER BY " + sanitize_sql(order) if order
     limit = "LIMIT #{sanitize_sql(limit)}" if limit
     offset = "OFFSET #{sanitize_sql(offset)}" if offset
-    find_by_sql("SELECT shelters.*, u1.firstname AS updfn, u1.lastname AS updln, u2.firstname AS cupdfn, u2.lastname AS cupdln FROM shelters LEFT OUTER JOIN users u1 ON u1.id = shelters.updated_by_id LEFT OUTER JOIN users u2 ON u2.id = shelters.cond_updated_by_id #{conditions} #{order} #{limit} #{offset};")
+    find_by_sql("SELECT shelters.*, u1.firstname AS updfn, u1.lastname AS updln, u2.firstname AS cupdfn, u2.lastname AS cupdln FROM shelters LEFT OUTER JOIN users u1 ON u1.id = shelters.updatedbyid LEFT OUTER JOIN users u2 ON u2.id = shelters.cond_updated_by_id #{conditions} #{order} #{limit} #{offset};")
   end
 
   def avail_matches(cond, sort)

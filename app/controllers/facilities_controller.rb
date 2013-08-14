@@ -85,9 +85,8 @@ class FacilitiesController < ApplicationController
     session[:filter][:linesperpage] = params[:linesperpage] if params[:linesperpage]    
     session[:filter][:linesperpage] ||= 20
     session[:filter][:linesperpage] = 99999 if session[:filter][:linesperpage] == "All"
-    @offset = (params[:page].to_i - 1) * session[:filter][:linesperpage].to_i 
-    @records = Shelter.count(:joins => ((@cond[0].include? "shelters_users") ? ",shelters_users" : ""),
-                            :conditions => @cond[0] == "" ? nil : @cond)         
+    @offset = (params[:page].to_i - 1) * session[:filter][:linesperpage].to_i
+    @records = Shelter.count(:joins => ((@cond[0].include? "shelters_users") ? ",shelters_users" : ""), :conditions => @cond[0] == "" ? nil : @cond)         
     @pages = @records.divmod(session[:filter][:linesperpage].to_i)[0] + (@records.divmod(session[:filter][:linesperpage].to_i)[1] > 0 ? 1:0)
 
     @facilities = Shelter.find(:all,

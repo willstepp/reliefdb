@@ -17,7 +17,7 @@ class Quick::StartController < ApplicationController
       @page = params[:quick_start_edit]
       render :action => 'edit', :layout => 'reliefdb'
     else
-      write_page(File.expand_path("#{RAILS_ROOT}/app/views/quick/start/start.txt"),params[:quick_start_edit])
+      write_page(File.expand_path("#{Rails.root.to_s}/app/views/quick/start/start.txt"),params[:quick_start_edit])
       redirect_to :action=> 'index'
     end
   end
@@ -25,7 +25,7 @@ class Quick::StartController < ApplicationController
   protected
 
   def startpage_path
-    File.expand_path("#{RAILS_ROOT}/app/views/quick/start/start.txt")
+    File.expand_path("#{Rails.root.to_s}/app/views/quick/start/start.txt")
   end
 
   def read_page(file)

@@ -1,8 +1,8 @@
 class SheltersController < ApplicationController
   include TableController
 
-  cache_sweeper :shelter_sweeper, :only => [ :update, :quickupdate ]
-  cache_sweeper :condition_sweeper, :only => [ :update, :quickupdate ]
+  #cache_sweeper :shelter_sweeper, :only => [ :update, :quickupdate ]
+  #cache_sweeper :condition_sweeper, :only => [ :update, :quickupdate ]
 
   layout "general"
 
@@ -20,7 +20,7 @@ class SheltersController < ApplicationController
       end
       @markers = Shelter.markers_for(@shelters)
     elsif params[:map_shelter] and @shelter = Shelter.find(params[:map_shelter])
-      @shelters = Shelter.find_all_by_parish(@shelter.parish, :order => "catname(name)")
+      @shelters = Shelter.where(:parish => @shelter.parish).order('catname(name)')
       @markers = Shelter.markers_for(@shelters, @shelter)
     elsif params[:mapconditions]
       @conditions = params[:mapconditions].split('/').map {|i| i.to_i}
@@ -59,8 +59,8 @@ class SheltersController < ApplicationController
       return
     end
     @title = "Facility: " + @shelter.name
-    @loads_in = Load.find(:all, :conditions => ["loads.destination_id = ? AND loads.status < 1000", @shelter.id], :order => 'loads.id', :include => :destination)
-    @loads_out = Load.find(:all, :conditions => ["loads.source_id = ? AND loads.status < 1000", @shelter.id], :order => 'loads.id', :include => :source)
+    @loads_in = Load.where("loads.destination_id = ? AND loads.status < 1000", @shelter.id).order('loads.id').include(:destination)
+    @loads_out = Load.where("loads.source_id = ? AND loads.status < 1000", @shelter.id).order('loads.id').include(:source)
     store_location    
   end
 
@@ -115,8 +115,8 @@ class SheltersController < ApplicationController
       end
     end
     @shelter = Shelter.find(params[:id])
-    @needs = Need.find_all_by_shelter_id(@shelter.id, :include => :item, :order => "upper(items.name)")
-    @surpluses = Surplus.find_all_by_shelter_id(@shelter.id, :include => :item, :order => "upper(items.name)")
+    @needs = Need.where(:shelter_id => @shelter.id).order('upper(items.name)').include(:item)
+    @surpluses = Surplus.where(:shelter_id => @shelter.id).order('upper(items.name)').include(:item)
     session['quick-edits'] = {}
     @needs.each {|n| session['quick-edits'][n.id] = n}
     @surpluses.each {|n| session['quick-edits'][n.id] = n}
@@ -168,7 +168,7 @@ class SheltersController < ApplicationController
   end
 
   def calculate_locations
-    Shelter.find_all_by_latitude(nil).each do |s|
+    Shelter.where(:latitude => nil).each do |s|
       s.update_address
       if s.latitude
 	ActiveRecord::Base.connection.update("UPDATE shelters SET latitude = #{s.latitude}, longitude = #{s.longitude} WHERE id = #{s.id};")

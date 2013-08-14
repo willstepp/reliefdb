@@ -8,7 +8,7 @@ module ModelExtensions
   end
 
   def sensitive_access?(attr)
-    return [:updated_by, :updated_by_id].include?(attr.to_sym)
+    return [:updated_by, :updatedbyid].include?(attr.to_sym)
   end
 
   def updated_by(user)
@@ -16,7 +16,7 @@ module ModelExtensions
   end
 
   def updated_by_id(user)
-    sensitive_access("updated_by_id", user)
+    sensitive_access("updatedbyid", user)
   end
 
   def sensitive_access(attr, user, bypass=false)

@@ -3,8 +3,8 @@ class ItemsController < ApplicationController
   include TableController
   helper :shelters
 
-  cache_sweeper :condition_sweeper, :only => [ :update ]
-  cache_sweeper :item_sweeper, :only => [ :create, :update, :destroy ]
+  #cache_sweeper :condition_sweeper, :only => [ :update ]
+  #cache_sweeper :item_sweeper, :only => [ :create, :update, :destroy ]
 
   layout "general"
 

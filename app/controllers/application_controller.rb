@@ -5,8 +5,9 @@ require 'user_system'
 require 'date_kit'
 
 class ApplicationController < ActionController::Base
+  protect_from_forgery
   # Pick a unique cookie name to distinguish our session data from others'
-  session :session_key => '_reliefdb_session_id'
+  #session :session_key => '_reliefdb_session_id'
   include Localization
   include UserSystem
 
@@ -30,7 +31,7 @@ class ApplicationController < ActionController::Base
                         :show_regional => "0",
                         :types => Hash[*Shelter::FacilityType.levels.values.sort.collect{|ftp|[ftp,"1"]}.flatten],
                         :linesperpage => 50}
-						
+            
   CONDITION_DEFAULTS = {:urgency_levels => {"1"=>1,"2"=>1,"3"=>1,"4"=>1},
                         :avail_need => "Both",
                         :fac_include => "Selected",
@@ -39,7 +40,7 @@ class ApplicationController < ActionController::Base
   
            
   def filter_set_defaults(type = nil)
-    @searches = Search.find(:all, :conditions => "user_id = #{session['user'].id}").map{|s| [s.save_name, s.id]} if session['user']
+    @searches = Search.where(:user_id => session['user'].id).map{|s| [s.save_name, s.id]} if session['user']
     
     filter = session[:filter]||{} 
     FACILITY_DEFAULTS.each{|k,v|filter[k] ||= v}
@@ -117,7 +118,7 @@ class ApplicationController < ActionController::Base
     end
     #This fixes the bug where if you filter only on facility type, the clear filter and clear all links won't come up, and you have to go back and forth to clear it out.
     if Shelter::FacilityType.levels.length != session[:filter][:types].length
-	@filter += (@filter.length > 0 ? ", " : "") + "Types: " + ((session[:filter][:types].keys).join(", "))
+  @filter += (@filter.length > 0 ? ", " : "") + "Types: " + ((session[:filter][:types].keys).join(", "))
     end
     addcondition("(facility_type IN ('" + Shelter::FacilityType.levels.invert.values_at(*session[:filter][:types].keys).join("','") + "'))") if session[:filter][:types] && (Shelter::FacilityType.levels.length != session[:filter][:types].length)
 
@@ -260,40 +261,40 @@ class ApplicationController < ActionController::Base
     PRIV_TABLE.each {|priv, perms|
       if user.send("priv_#{priv.to_s}".to_sym)
         if perms[action] and perms[action].include?(controller)
-	     return true
-	    end
+       return true
+      end
       end
     }
 
     if controller == :shelters and [:edit, :update, :quickedit, :quickupdate].include?(action)
-      if Shelter.find_by_id(params[:id]).users.include?(user)
+      if Shelter.find(params[:id]).users.include?(user)
         return true
       end
     end
 
     if controller == :conditions
       if [:new, :create].include?(action)
-    	if Shelter.find_by_id(params[:shelter]).users.include?(user)
+      if Shelter.find(params[:shelter]).users.include?(user)
           return true
-	    end
+      end
       elsif [:edit, :update].include?(action)
-    	if Condition.find_by_id(params[:id]).shelter.users.include?(user)
-	      return true
-    	end
+      if Condition.find(params[:id]).shelter.users.include?(user)
+        return true
+      end
       end
     end
 
     if controller == :loads
       if [:new, :create].include?(action)
-        if Shelter.find_by_id(params[:srcid]).users.include?(user)
+        if Shelter.find(params[:srcid]).users.include?(user)
           return true
         end
       elsif [:edit, :update, :destroy].include?(action)
-        if Load.find_by_id(params[:id]).source.users.include?(user)
+        if Load.find(params[:id]).source.users.include?(user)
           return true
         end
       elsif [:accept].include?(action)
-        if Load.find_by_id(params[:id]).allowed_next_statuses(user).include?(10)
+        if Load.find(params[:id]).allowed_next_statuses(user).include?(10)
           return true
         end
       end

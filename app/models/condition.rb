@@ -5,7 +5,7 @@ class Condition < ActiveRecord::Base
 
   before_update { |r| raise "Can not modify condition while assigned to load." if r.load_id and not r.oksave }
 
-  belongs_to :updated_by, :class_name => "User", :foreign_key => "updated_by_id"
+  belongs_to :updated_by, :class_name => "User", :foreign_key => "updatedbyid"
   before_update :update_history
   after_create :update_history
   

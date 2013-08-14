@@ -37,10 +37,11 @@ class ApplicationController < ActionController::Base
                         :category => "All",
                         :item => "All"}
   
+           
   def filter_set_defaults(type = nil)
-    @searches = Search.find(:all, :conditions => "user_id = #{session['user'].id}").map{|s| [s.save_name, s.id]} if session['user']
+    @searches = Search.where(:user_id => session['user'].id).map{|s| [s.save_name, s.id]} if session['user']
     
-    filter = session[:filter]||{}
+    filter = session[:filter]||{} 
     FACILITY_DEFAULTS.each{|k,v|filter[k] ||= v}
     if type == 'conditions'
       CONDITION_DEFAULTS.each{|k,v|filter[k] ||= v} 
@@ -110,13 +111,13 @@ class ApplicationController < ActionController::Base
       addcondition("(shelters.status != 3 OR shelters.status IS NULL)")
     end
 
-#    if session[:filter][:show_only_my] == "1" && !session['user'].nil?
-#      @filter += (@filter.length > 0 ? ", " : "") + "Only My Facilities"
-#      addcondition("(shelters_users.shelter_id = shelters.id) AND (shelters_users.user_id = #{session['user'].id})")
-#    end
-
+    #This doesn't seem to really work, but not dealing with it tonight.
     if session[:filter][:types].nil?
       flash[:filter_error] = "You Must Select One or More Facility Types"
+    end
+    #This fixes the bug where if you filter only on facility type, the clear filter and clear all links won't come up, and you have to go back and forth to clear it out.
+    if Shelter::FacilityType.levels.length != session[:filter][:types].length
+	@filter += (@filter.length > 0 ? ", " : "") + "Types: " + ((session[:filter][:types].keys).join(", "))
     end
     addcondition("(facility_type IN ('" + Shelter::FacilityType.levels.invert.values_at(*session[:filter][:types].keys).join("','") + "'))") if session[:filter][:types] && (Shelter::FacilityType.levels.length != session[:filter][:types].length)
 
@@ -127,6 +128,8 @@ class ApplicationController < ActionController::Base
           fld = "name"
         when "Organization"
           fld = "organization"
+        when "County"
+          fld = "parish"
         when "Main Phone"
           phone=session[:filter][:fac_search][:match].gsub(/[\ \.\(\)\-]/,'')
 #          tail = session[:filter][:fac_search][:condition] != "Matches" ? "" : ".*"
@@ -263,18 +266,18 @@ class ApplicationController < ActionController::Base
     }
 
     if controller == :shelters and [:edit, :update, :quickedit, :quickupdate].include?(action)
-      if Shelter.find_by_id(params[:id]).users.include?(user)
+      if Shelter.find(params[:id]).users.include?(user)
         return true
       end
     end
 
     if controller == :conditions
       if [:new, :create].include?(action)
-    	if Shelter.find_by_id(params[:shelter]).users.include?(user)
+    	if Shelter.find(params[:shelter]).users.include?(user)
           return true
 	    end
       elsif [:edit, :update].include?(action)
-    	if Condition.find_by_id(params[:id]).shelter.users.include?(user)
+    	if Condition.find(params[:id]).shelter.users.include?(user)
 	      return true
     	end
       end
@@ -282,15 +285,15 @@ class ApplicationController < ActionController::Base
 
     if controller == :loads
       if [:new, :create].include?(action)
-        if Shelter.find_by_id(params[:srcid]).users.include?(user)
+        if Shelter.find(params[:srcid]).users.include?(user)
           return true
         end
       elsif [:edit, :update, :destroy].include?(action)
-        if Load.find_by_id(params[:id]).source.users.include?(user)
+        if Load.find(params[:id]).source.users.include?(user)
           return true
         end
       elsif [:accept].include?(action)
-        if Load.find_by_id(params[:id]).allowed_next_statuses(user).include?(10)
+        if Load.find(params[:id]).allowed_next_statuses(user).include?(10)
           return true
         end
       end

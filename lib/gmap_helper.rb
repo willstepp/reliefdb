@@ -2,8 +2,8 @@
 #
 # == Installation
 #
-# - Put this file (gmap_helper.rb) in your RAILS_ROOT/lib/ directory
-# - Include the file in your RAILS_ROOT/app/helpers/application_helper.rb 
+# - Put this file (gmap_helper.rb) in your Rails.root.to_s/lib/ directory
+# - Include the file in your Rails.root.to_s/app/helpers/application_helper.rb 
 #
 #   module ApplicationHelper
 #    include GmapHelper

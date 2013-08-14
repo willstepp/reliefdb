@@ -5,7 +5,7 @@ class LoadsController < ApplicationController
 
   layout 'general'
 
-  cache_sweeper :condition_sweeper, :only => [ :create, :update, :change_status ]
+  #cache_sweeper :condition_sweeper, :only => [ :create, :update, :change_status ]
 
   def index
     list
@@ -38,9 +38,7 @@ class LoadsController < ApplicationController
   end
   
   def admin_list
-    @loads = Load.find(:all,
-                       :conditions => 'status > 1000',
-                       :order => 'status,updated_at desc')
+    @loads = Load.where('status > 1000').order('status,updated_at desc')
   end
 
   def show

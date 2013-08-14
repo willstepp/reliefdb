@@ -1,7 +1,7 @@
 <%@help = url_for :controller => "/about", :action => "help", :id => "facility" %>
 <div id="settings">
 	<span class="bold">State:</span>	
-    <%= state_select%>
+    <%= state_select %>
 	<%=link_to image_tag("pdf.png",:alt=>"Show"),{:action => "list", :listtype => "print"}, :style => "float:right; margin-top:-20px" if session['user'] && (session['user'].priv_write)%>
 	<br />
 	<%if not @filter.blank?%>
@@ -63,7 +63,7 @@
             :collection => @facilities) %>
 </tbody>            
 </table>            
-<% form_tag({:action => :list},{:name => "lpp", :class => "leftform"}) do %>
+<%= form_tag({:action => :list},{:name => "lpp", :class => "leftform"}) do %>
 Go To Page 
 <%= select_tag("gotopage",options_for_select((1..@pages).to_a,params[:page].to_i),:onchange =>"parent.location='/facilities/list?page=' + encodeURIComponent(value)")%>
 <span id="lpp">Number of Lines Per Page:</span>

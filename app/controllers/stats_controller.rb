@@ -25,7 +25,7 @@ class StatsController < ApplicationController
   
   def historical_count(interval)
     History.find_by_sql(["select login,firstname || ' ' || lastname as name,recap.* from (
-      select updated_by_id,
+      select updatedbyid,
         sum(case when was_new = true and objtype = 'Category' then 1 else 0 end) as category_new,
         sum(case when (was_new = false or was_new IS NULL) and objtype = 'Category' then 1 else 0 end) as category_update,
         sum(case when was_new = true and (objtype = 'Need' or objtype = 'Surplus') then 1 else 0 end) as condition_new,
@@ -33,9 +33,9 @@ class StatsController < ApplicationController
         sum(case when was_new = true and objtype = 'Item'then 1 else 0 end) as item
       from histories
       where timestamp >= current_date - interval ?
-      group by updated_by_id ) as recap
+      group by updatedbyid ) as recap
       join users
-        on users.id = recap.updated_by_id
+        on users.id = recap.updatedbyid
       order by login",interval])
   end
 end

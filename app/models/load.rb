@@ -4,7 +4,7 @@ class Load < ActiveRecord::Base
   belongs_to :destination, :class_name => "Shelter", :foreign_key => "destination_id"
   belongs_to :final_destination, :class_name => "Shelter", :foreign_key => "final_destination_id"
 
-  belongs_to :updated_by, :class_name => "User", :foreign_key => "updated_by_id"
+  belongs_to :updated_by, :class_name => "User", :foreign_key => "updatedbyid"
   before_update :update_history
   after_create :update_history
 

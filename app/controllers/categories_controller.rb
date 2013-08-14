@@ -5,7 +5,7 @@ class CategoriesController < ApplicationController
   layout "general"
 
   def admin
-    @categories = Category.find(:all, :order => "upper(name)")
+    @categories = Category.where(:order => "upper(name)")
   end
 
   def index
@@ -14,7 +14,7 @@ class CategoriesController < ApplicationController
 
   def list
     @title = "Categories"
-    @categories = Category.find(:all, :order => "upper(name)")
+    @categories = Category.where(:order => "upper(name)")
     store_location
     render :layout => 'reliefdb'    
   end
@@ -65,7 +65,7 @@ class CategoriesController < ApplicationController
     pitems = params[:items] || []
     pitems.each {|k, v|
       if v == "1"
-        @category.items << Item.find_by_id(k.to_i)
+        @category.items << Item.find(k.to_i)
       end
     }
     @category.set_updated_by session['user']
@@ -88,7 +88,7 @@ class CategoriesController < ApplicationController
     items = []
     pitems.each {|k, v|
       if v == "1"
-	items << Item.find_by_id(k.to_i)
+	items << Item.find(k.to_i)
       end
     }
     params[:category][:items] = items

@@ -67,7 +67,7 @@
 </tbody>
 </table>            
 <div id=tablefooter>
-    <% form_tag({:action => :list},{:name => "lpp", :class => "leftform"}) do %>
+    <%= form_tag({:action => :list},{:name => "lpp", :class => "leftform"}) do %>
 Go To Page 
 <%= select_tag("gotopage",options_for_select((1..@pages).to_a,params[:page].to_i),:onchange =>"parent.location='/conditions/list?page=' + encodeURIComponent(value)")%>
 <span id="lpp">Number of Lines Per Page:</span>

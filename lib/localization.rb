@@ -42,7 +42,7 @@ module Localization
 
   def self.load_localized_strings
     # Load language files
-    Dir[RAILS_ROOT + '/lang/*.yaml'].each do |filename|
+    Dir[Rails.root.to_s + '/lang/*.yaml'].each do |filename|
       filename =~ /(([a-z]+_?)+)\.yaml$/
       hash = YAML::load(File.read(filename))
       file_charset = hash['file_charset'] || 'ascii'
@@ -54,8 +54,8 @@ module Localization
         hash.each do |key, value|
           symbol_hash[key.to_sym] = i.iconv(value)
           if key =~ /^active_record_errors_(.*)/
-            ActiveRecord::Errors.default_error_messages[$1.to_sym] =
-              symbol_hash[key.to_sym]
+            #I18n.translate('activerecord.errors.messages')
+            #ActiveRecord::Errors.default_error_messages[$1.to_sym] = symbol_hash[key.to_sym]
           end
         end
       end

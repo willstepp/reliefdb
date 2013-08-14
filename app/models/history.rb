@@ -7,7 +7,7 @@ end
 
 
 class History < ActiveRecord::Base
-  belongs_to :updated_by, :class_name => "User", :foreign_key => "updated_by_id"
+  belongs_to :updated_by, :class_name => "User", :foreign_key => "updatedbyid"
 
   serialize :obj
 
@@ -34,7 +34,7 @@ class History < ActiveRecord::Base
 	out = tf(o.info_source)
       end
       out << '<BR><div id="changes' + h.id.to_s + '" style="display:none">'
-      for col in old.class.columns.reject {|c| c.name =~ /ted_at$/ || ['lock_version', 'type', 'info_source', 'updated_by_id'].include?(c.name) }
+      for col in old.class.columns.reject {|c| c.name =~ /ted_at$/ || ['lock_version', 'type', 'info_source', 'updatedbyid'].include?(c.name) }
         if o.sensitive_access?(col.name)
           if o.sensitive_access(col.name, nil, true) != old.sensitive_access(col.name, nil, true)
             out << "<B>#{col.name} changed.</B><BR>"

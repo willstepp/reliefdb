@@ -68,7 +68,6 @@ class UserNotify < ActionMailer::Base
     @recipients = "#{user.email}"
     @from       = UserSystem::CONFIG[:email_from].to_s
     @subject    = "[#{UserSystem::CONFIG[:app_name]}] "
-    @sent_on    = Time.now
     @headers['Content-Type'] = "text/plain; charset=#{UserSystem::CONFIG[:mail_charset]}; format=flowed"
   end
 end

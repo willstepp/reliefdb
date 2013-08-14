@@ -3,8 +3,8 @@ class ConditionsController < ApplicationController
   include TableController
   helper :shelters
 
-  cache_sweeper :shelter_sweeper, :only => [ :create, :update, :destroy ]
-  cache_sweeper :condition_sweeper, :only => [ :update, :destroy ]
+  #cache_sweeper :shelter_sweeper, :only => [ :create, :update, :destroy ]
+  #cache_sweeper :condition_sweeper, :only => [ :update, :destroy ]
 
   layout "general" 
 
@@ -145,7 +145,7 @@ class ConditionsController < ApplicationController
     @offset = (params[:page].to_i - 1) * session[:filter][:linesperpage].to_i
 
     sql = " from conditions join shelters on shelters.id = conditions.shelter_id join items on items.id = conditions.item_id" +
-          " left outer join users uc on uc.id = conditions.updated_by_id" + 
+          " left outer join users uc on uc.id = conditions.updatedbyid" + 
           (@cond[0].include?("(shelters_users.shelter_id = shelters.id)") ? " join shelters_users on shelters_users.shelter_id = shelters.id":"") 
     sql += " join categories_items on categories_items.item_id = conditions.item_id" if @cond[0].include?("categories_items")
     sql += ' where ' + @cond[0].gsub(/\(shelters_users.shelter_id = shelters.id\) AND/,"") if @cond[0].length > 0

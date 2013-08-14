@@ -13,22 +13,22 @@ module ApplicationHelper
 
   def display_history_for(o)
     out =  '<script type="text/javascript">
-	      function toggleDisplay(elid) {
-		el = document.getElementById(elid);
-		if (el.style.display == "none") {
-		  el.style.display = "inline";
-		} else {
-		  el.style.display = "none";
-		}
-	      }
-	    </script>'
+        function toggleDisplay(elid) {
+    el = document.getElementById(elid);
+    if (el.style.display == "none") {
+      el.style.display = "inline";
+    } else {
+      el.style.display = "none";
+    }
+        }
+      </script>'
     out << '<b>Info Source/Changes: </b><br />'
     out << '<div id="shorthistory">'
     out << tf(o.access("info_source", session['user']))
     out << '<br />
-	    <a href="javascript:void(0)" onclick="toggleDisplay(\'shorthistory\'); toggleDisplay(\'fullhistory\');"><small>(see full history)</small></a>
-	    </div>
-	    <div id="fullhistory" style="display:none">'
+      <a href="javascript:void(0)" onclick="toggleDisplay(\'shorthistory\'); toggleDisplay(\'fullhistory\');"><small>(see full history)</small></a>
+      </div>
+      <div id="fullhistory" style="display:none">'
     for entry in o.history
       out << "<b>" + h(entry.timestamp) + " by " + h(entry.safe_upd_by) + ":</b><br />" + (entry.update_desc || "")
       out << '<a href="javascript:void(0)" onclick="toggleDisplay(\'changes' + entry.id.to_s + '\')"><small>(show/hide changes)</small></a><br />'
@@ -49,11 +49,11 @@ module ApplicationHelper
   def autoselect_location
     out = javascript_tag "
       function set_shelter_location(str) {
-	fields = str.split(' / ');
-	document.getElementById('shelter_state').value = fields[0];
-	document.getElementById('shelter_region').value = fields[1];
-	document.getElementById('shelter_parish').value = fields[2];
-	document.getElementById('shelter_town').value = fields[3];
+  fields = str.split(' / ');
+  document.getElementById('shelter_state').value = fields[0];
+  document.getElementById('shelter_region').value = fields[1];
+  document.getElementById('shelter_parish').value = fields[2];
+  document.getElementById('shelter_town').value = fields[3];
       }
     "
     fields = 'state, region, parish, town'
@@ -84,15 +84,15 @@ module ApplicationHelper
       if @sortclass.sorts[c]
         if @sorts.include?(c)
           lets = ((0..9).to_a + ('A'..'E').to_a).reverse
-	  let = lets[(@sorts.size - @sorts.index(c) - 1)]
-	  color = "#" + let.to_s*4 + "FF"
-	  out << "<th id=\"th_#{id}\" style=\"background-color:#{color}\">"
+    let = lets[(@sorts.size - @sorts.index(c) - 1)]
+    color = "#" + let.to_s*4 + "FF"
+    out << "<th id=\"th_#{id}\" style=\"background-color:#{color}\">"
         else
           out << "<th id=\"th_#{id}\">"
         end
         out << link_to(c, {:sort => c, :sort_req_id => (session['sort_req_id'] || 0) + 1}, {:style => "color:black;"})
       else
-	out << "<th id=\"th_#{id}\">"
+  out << "<th id=\"th_#{id}\">"
         out << c
       end
       out << "<br /><div style=\"font-size:80%;padding-top:5px\">"
