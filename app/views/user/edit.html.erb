@@ -2,7 +2,7 @@
 <div title="<%= title_helper %>" class="form">
   <%= head_helper :error => true %>
 
-    <% form_tag "/user/edit", :method => :post do %>
+    <%= form_tag "/user/edit", :method => :post do %>
       <div class="user_edit">
         <%= form_input :hidden_field, 'form', :value => 'edit' %>
         <table>
@@ -17,7 +17,7 @@
 
     <br>
 
-    <% form_tag "/user/edit", :method => :post do %>
+    <%= form_tag "/user/edit", :method => :post do %>
       <div>
         <%= form_input :hidden_field, 'form', :value => 'change_password' %>
         <table>
@@ -30,7 +30,7 @@
 
     <hr>
 
-    <% form_tag "/user/edit", :method => :post do %>
+    <%= form_tag "/user/edit", :method => :post do %>
       <div class="user_delete">
         <%= form_input :hidden_field, 'form', :value => 'delete' %>
         <%= form_input :submit_button, 'delete_account' %>

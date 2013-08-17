@@ -1,7 +1,7 @@
 <h1>Editing load</h1>
 <small><%= link_to 'Delete', {:action => 'destroy', :id => @load.id}, :confirm => 'Permanently delete this load?' %></small>
 <p>
-<% form_tag :action => 'update', :id => @load do %>
+<%= form_tag :action => 'update', :id => @load do %>
   <%= error_messages_for 'load' %>
 
 <B>Source:</B><BR>

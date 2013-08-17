@@ -1,4 +1,4 @@
-class UserNotify < ActionMailer::Base
+class UserMailer < ActionMailer::Base
   def signup(user, password, url=nil)
     setup_email(user, "Welcome!")
     body    :name => user.firstname,

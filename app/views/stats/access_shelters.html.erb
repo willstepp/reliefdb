@@ -16,7 +16,7 @@
 
 <% if session['user'] && session['user'].priv_admin %>
 	<p>
-	<% form_tag :action=>'add_shelter' do -%>
+	<%= form_tag :action=>'add_shelter' do -%>
 	<%=select(:shelter, :id,Shelter.find(:all,
            		     :select => "id,name",
 	                 :order => "name").map{|s|[truncate(s.name,60,'...'),s.id]})%>

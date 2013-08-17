@@ -4,7 +4,7 @@
 <B>Updated by: </B><%= @category.safe_upd_by%><BR>
 <BR>
 
-<% form_tag :action => 'update', :id => @category do %>
+<%= form_tag :action => 'update', :id => @category do %>
   <%= error_messages_for 'category' %>
 
   <!--[form:category]-->

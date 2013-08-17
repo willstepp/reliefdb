@@ -60,7 +60,7 @@ module UserHelper
   end
 
   def title_helper      
-    "#{controller.controller_class_name} #{controller.action_name}"
+    "#{controller_name.classify} #{controller.action_name}"
   end
 
   def head_helper(options = {})

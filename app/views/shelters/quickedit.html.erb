@@ -4,7 +4,7 @@
 <P>
 <A HREF="#avail">[jump to Availabilities]</A>
 <P>
-<% form_tag :action => 'quickupdate', :id => @shelter do %>
+<%= form_tag :action => 'quickupdate', :id => @shelter do %>
 <%= submit_tag 'Save Changes' %>
 <P>
 <%= link_to 'Back to Facility', :controller => 'shelters', :action => 'show', :id => @shelter.id %> (<b>abandons changes</b>)<P>

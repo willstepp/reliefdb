@@ -12,7 +12,7 @@ Please do not enter Availability information on this form. Finish entering needs
 Please do not enter Needs information on this form. Finish entering available items/services here, then after you click create, select the Quick Need Creator to enter needs information.
 <%end%>
 
-<% form_tag({:action => 'create'},{:name => 'quickform'}) do %>
+<%= form_tag({:action => 'create'},{:name => 'quickform'}) do %>
   <%= error_messages_for 'condition' %>
 
 <!--[form:condition]-->

@@ -2,7 +2,9 @@
 <div id="settings">
 	<span class="bold">State:</span>	
     <%= state_select %>
-	<%=link_to image_tag("pdf.png",:alt=>"Show"),{:action => "list", :listtype => "print"}, :style => "float:right; margin-top:-20px" if session['user'] && (session['user'].priv_write)%>
+    <% if session['user'] && (session['user'].priv_write) %>
+        <a href="<%= url_for(:action => "list", :listtype => "print") %>" style="float:right;margin-top:-30px"><img src="<%= image_path("pdf.png") %>" alt="Show"/></a>
+    <% end %>
 	<br />
 	<%if not @filter.blank?%>
     <span class="bold">List Includes:</span>
@@ -35,8 +37,8 @@
     </div>
     <div class = "center">
     Facilities/Organizations List
-    </div>    
-    <%=render :partial => "pagination"%>
+    </div>
+    <%= render :partial => "pagination" %>
 </caption>
 <thead>
     <tr>
@@ -70,7 +72,7 @@ Go To Page
 <%= select_tag("linesperpage",options_for_select(%w{20 50 100 250 500}, session[:filter][:linesperpage]),:onchange =>"parent.location='/facilities/list?linesperpage=' + encodeURIComponent(value)")%>
 <% end%>
 <%if session['user']%>
-<% form_tag({:controller => 'searches', :action => 'new', :from => 'facilities'},{:id => 'savesearch'}) do %>
+<%= form_tag({:controller => 'searches', :action => 'new', :from => 'facilities'},{:id => 'savesearch'}) do %>
 <%=submit_tag 'Save This Search'%>
 <% end %>
 <%end%>

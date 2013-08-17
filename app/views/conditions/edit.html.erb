@@ -5,7 +5,7 @@
   <h1><%=h @condition.item.name %> available at <%=h @condition.shelter.name %></h1>
 <%end%>
 <small><%= link_to 'Delete', {:action => 'destroy', :id => @condition.id}, :confirm => 'Permanently delete this record?' %></small>
-<% form_tag :action => 'update', :id => @condition do %>
+<%= form_tag :action => 'update', :id => @condition do %>
   <%= error_messages_for 'condition' %>
 
 <!--[form:condition]-->

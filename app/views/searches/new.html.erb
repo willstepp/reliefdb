@@ -2,7 +2,7 @@
 <h5>Saved Searches</h5>
 <p>You May Save Up To 150 Searches</p>
 
-<% form_tag ({:action => :post},{:name => "savesearch"}) do %>
+<%= form_tag ({:action => :post},{:name => "savesearch"}) do %>
     <%if @searches.length < 150%>
         <%=radio_button_tag('selected_action','new',false)%> Save New Search As
         <%=text_field_tag('newname',nil,:size => '30', :maxlength => '30')%>

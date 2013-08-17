@@ -1,29 +1,29 @@
 <div title="<%= title_helper %>" class="form">
-  <%= head_helper :error => true %>
+  <%= head_helper(:error => true).html_safe %>
 
   <div class="form-padding">
-    <% form_tag "/user/signup", :method => :post do %>
+    <%= form_tag "/user/signup", :method => :post do %>
 
       <div class="user_edit">
-        <%= form_input :hidden_field, 'form', :value => 'edit' %>
+        <%= form_input(:hidden_field, 'form', :value => 'edit') %>
         <table>
-          <%= form_input changeable(@user, "firstname"), "firstname" %>
-          <%= form_input changeable(@user, "lastname"), "lastname" %>
-          <%= form_input changeable(@user, "login"), "login", :size => 30 %><br/>
-          <%= form_input changeable(@user, "email"), "email" %>
+          <%= form_input(changeable(@user, "firstname"), "firstname").html_safe %>
+          <%= form_input(changeable(@user, "lastname"), "lastname").html_safe %>
+          <%= form_input(changeable(@user, "login"), "login", :size => 30).html_safe %><br/>
+          <%= form_input(changeable(@user, "email"), "email").html_safe %>
         </table>
       </div>
       <br>
       <div class="user_password">
-        <%= form_input :hidden_field, 'form', :value => 'change_password' %>
+        <%= form_input(:hidden_field, 'form', :value => 'change_password').html_safe %>
 
         <table>
-          <%= form_input :password_field, "password", :size => 30 %>
-          <%= form_input :password_field, "password_confirmation", :size => 30 %>
+          <%= form_input(:password_field, "password", :size => 30).html_safe %>
+          <%= form_input(:password_field, "password_confirmation", :size => 30).html_safe %>
         </table>
       </div>    
       <br>
-      <%= submit_tag 'Sign up' %>
+      <%= submit_tag('Sign up') %>
     <% end %>
 
   </div>

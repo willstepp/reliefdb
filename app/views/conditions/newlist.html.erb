@@ -74,7 +74,7 @@ Go To Page
 <%= select_tag("linesperpage",options_for_select(%w{20 50 100 250 500}, session[:filter][:linesperpage]),:onchange =>"parent.location='/conditions/list?linesperpage=' + encodeURIComponent(value)")%>
 <% end%>
 <%if session['user']%>    
-<% form_tag({:controller => 'searches', :action => 'new', :from => 'conditions'},{:id => 'savesearch'})do %>
+<%= form_tag({:controller => 'searches', :action => 'new', :from => 'conditions'},{:id => 'savesearch'})do %>
 <%=submit_tag 'Save This Search'%>
 <% end %>
 <%end%>

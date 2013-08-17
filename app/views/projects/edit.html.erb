@@ -1,6 +1,6 @@
 <h1>Editing project</h1>
 
-<% form_tag :action => 'update', :id => @project do %>
+<%= form_tag :action => 'update', :id => @project do %>
   <%= error_messages_for 'project' %>
 <div id="projectlist">
 <% form_for :project, @project, :url => {:action => 'update'}, :html => { :method => 'put' } do |f| %>

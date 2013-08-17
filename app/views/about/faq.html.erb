@@ -16,7 +16,7 @@
   <H2><%= c.name %></H2>
   <% c.faq_entries.each do |e| %>
     <H4><A name="<%= e.id %>"><%= e.title %></A></H4>
-    <%=tf e.text %>
+    <%= e.text %>
   <% end %>
   <P>
 <% end %>

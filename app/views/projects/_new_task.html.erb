@@ -1,5 +1,5 @@
 <div>
-	<% form_tag "create_task", :id => "task_add" do %>
+	<%= form_tag "create_task", :id => "task_add" do %>
 	<%=text_field_tag "task_name[]"%>
 	<%=submit_tag "Save"%>
 	<%=submit_to_remote "create_task", "Save", :url => {:action => "create_task"}%>

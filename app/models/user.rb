@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
     write_attribute("verified", 1)
     write_attribute("priv_read", 1)
     write_attribute("priv_new_shelters", 1)
-    update_without_callbacks
+    save(:callbacks => false)
   end
 
   def generate_security_token(hours = nil)
@@ -88,6 +88,8 @@ class User < ActiveRecord::Base
   attr_accessor :password, :password_confirmation
 
   def validate_password?
+    puts "USER::Validate_Password?"
+    puts @new_password
     @new_password
   end
 
@@ -99,15 +101,18 @@ class User < ActiveRecord::Base
   after_validation :crypt_password
   def crypt_password
     if @new_password
+      puts 'CRYPT_PASSWORD'
       write_attribute("salt", self.class.hashed("salt-#{Time.now}"))
-      write_attribute("salted_password", self.class.salted_password(salt, self.class.hashed(@password.strip)))
+      write_attribute("salted_password", self.class.salted_password(salt, self.class.hashed(self.password.strip)))
+    else
+      puts 'DO NOT CRYPT_PASSWORD'
     end
   end
 
   def new_security_token(hours = nil)
     write_attribute('security_token', self.class.hashed(self.salted_password + Time.now.to_i.to_s + rand.to_s))
     write_attribute('token_expiry', Time.at(Time.now.to_i + token_lifetime(hours)))
-    update_without_callbacks
+    save(:callbacks => false)
     return self.security_token
   end
 

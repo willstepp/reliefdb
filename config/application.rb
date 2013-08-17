@@ -39,6 +39,17 @@ module Reliefdb
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      :address  => "smtp.gmail.com",
+      :port  => 587, 
+      :domain  => "gmail.com",
+      :user_name  => "willstepp@gmail.com",
+      :password  => "Falliscoming2013",
+      :authentication  => "plain",
+      :enable_starttls_auto => true
+    }  
   end
 end
 
@@ -46,18 +57,6 @@ end
 # Mime::Type.register "text/richtext", :rtf
 # Mime::Type.register "application/x-mobile", :mobile
 Mime::Type.register 'application/pdf', :pdf
-
-#ActionMailer::Base.delivery_method = :sendmail
-ActionMailer::Base.delivery_method = :smtp
-ActionMailer::Base.smtp_settings = {
-  :address  => "smtp.gmail.com",
-  :port  => 587, 
-  :domain  => "gmail.com",
-  :user_name  => "willstepp@gmail.com",
-  :password  => "Falliscoming2013",
-  :authentication  => "plain",
-  :enable_starttls_auto => true
-} 
 
 # Include your application configuration below
 #ActionController::CgiRequest::DEFAULT_SESSION_OPTIONS[:prefix] = "cat_#{RAILS_ENV}_sess."
@@ -82,12 +81,12 @@ $ZOOM_CLOSE = 9
 $ZOOM_VERYCLOSE = 7
 
 def html_escape(s)
-  s.to_s.gsub(/&/, "&amp;").gsub(/\"/, "&quot;").gsub(/>/, "&gt;").gsub(/</, "&lt;")
+  s.to_s.gsub(/&/, "&amp;").gsub(/\"/, "&quot;").gsub(/>/, "&gt;").gsub(/</, "&lt;").html_safe
 end
 alias h html_escape
 
 def tf(str)
-  h(str).strip.gsub("\n", "<BR>")
+  h(str).strip.gsub("\n", "<BR>").html_safe
 end
 
 def sqlsafe(str)
