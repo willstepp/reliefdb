@@ -7,6 +7,6 @@ module Localization
   }
 
   if CONFIG[:web_charset] == 'utf-8'
-    $KCODE = 'u'
+    #$KCODE = 'u'
   end
 end
