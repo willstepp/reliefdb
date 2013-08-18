@@ -1,12 +1,11 @@
 source 'http://rubygems.org'
 
 gem 'rails', '4.0.0'
+
 gem 'RedCloth'
 gem 'pg'
 gem 'thin'
 gem 'dynamic_form'
-
-gem 'iconv'
 
 gem 'json'
 
