@@ -24,7 +24,7 @@ module ApplicationHelper
       </script>'
     out << '<b>Info Source/Changes: </b><br />'
     out << '<div id="shorthistory">'
-    out << tf(o.access("info_source", User.find(session['user'])))
+    out << tf(o.access("info_source", session['user']))
     out << '<br />
       <a href="javascript:void(0)" onclick="toggleDisplay(\'shorthistory\'); toggleDisplay(\'fullhistory\');"><small>(see full history)</small></a>
       </div>
@@ -124,7 +124,7 @@ module ApplicationHelper
     else
       return
     end
-    link_to_remote(text, :url => { :action => act, :id => colid, :state => params[:state], :region => params[:region], :parish => params[:parish] }, :update => { :success => "show_all_#{tableid}" }, :before => "#{jfunc}")
+    link_to(text, :url => { :action => act, :id => colid, :state => params[:state], :region => params[:region], :parish => params[:parish] }, :update => { :success => "show_all_#{tableid}" }, :before => "#{jfunc}", :remote => true)
   end
 
   def cond_sort_form(cls)
@@ -167,7 +167,7 @@ module ApplicationHelper
     out << " Include closed facilities | "
     out << check_box_tag("show_regional", "1", params[:show_regional] != "0", :onclick => "window.location = '#{url_for(:show_regional => (params[:show_regional].to_i + 1) % 2)}'")
     out << " Include regional facilities "
-    if User.find(session['user'])
+    if session['user']
       out << " | "
       out << "<span style=\"background-color:red\">" if params[:show_only_my] != "0"
       out << check_box_tag("show_only_my", "1", params[:show_only_my] != "0", :onclick => "window.location = '#{url_for(:show_only_my => (params[:show_only_my].to_i + 1) % 2)}'")

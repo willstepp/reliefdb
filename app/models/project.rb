@@ -1,4 +1,5 @@
 class Project < ActiveRecord::Base
+  set_primary_key :id 
   belongs_to :shelter
   after_update :save_tasks
   has_many :tasks, 

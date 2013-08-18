@@ -1,4 +1,5 @@
 class Item < ActiveRecord::Base
+  set_primary_key :id 
   has_and_belongs_to_many :categories, :order => "upper(name)"
   has_many :conditions
   has_many :needs

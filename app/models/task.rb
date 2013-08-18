@@ -1,4 +1,5 @@
 class Task < ActiveRecord::Base
+  set_primary_key :id 
   belongs_to :project
   attr_accessor :should_destroy
   

@@ -1,4 +1,5 @@
 class Surplus < Condition
+  set_primary_key :id 
   def qty
     begin
       surplus_individual.to_i || 0

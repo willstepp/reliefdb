@@ -2,7 +2,7 @@ require 'digest/sha1'
 
 # this model expects a certain database layout and its based on the name/login pattern. 
 class User < ActiveRecord::Base
-
+  set_primary_key :id 
   has_and_belongs_to_many :shelters, :order => 'upper(name)'
   has_many :searches, :order => 'save_name'
 

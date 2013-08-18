@@ -6,6 +6,8 @@ class ::DateTime
 end
 
 class Shelter < ActiveRecord::Base
+  set_primary_key :id 
+
   has_many :conditions
   has_many :needs, :order => "urgency"
   has_many :surpluses, :class_name => "Surplus"
@@ -478,7 +480,7 @@ class Shelter < ActiveRecord::Base
   end
 
   def allowed_write?(user)
-    user and (user.priv_write or users.include?(user))
+    user and (User.find(user).priv_write or users.include?(User.find(user)))
   end
 
 end

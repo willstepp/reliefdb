@@ -1,7 +1,8 @@
 module ModelExtensions
   def access(attr, user)
     if sensitive_access?(attr)
-      send(attr, user)
+      u = user ? User.find(user) : nil
+      send(attr, u)
     else
       send(attr)
     end
@@ -27,7 +28,7 @@ module ModelExtensions
     if val.nil? or val == ""
       ""
     else
-      if user and user.priv_read_sensitive
+      if user and User.find(user).priv_read_sensitive
         return val
       elsif respond_to?('trust_user?') and trust_user?(user)
         return val

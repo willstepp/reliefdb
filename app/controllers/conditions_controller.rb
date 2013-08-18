@@ -155,7 +155,7 @@ class ConditionsController < ApplicationController
     @pages = @records.divmod(session[:filter][:linesperpage].to_i)[0] + (@records.divmod(session[:filter][:linesperpage].to_i)[1] > 0 ? 1:0)
     order = session[:filter][:cond_sort].collect{|c|Condition.col_for_sort[Condition.cols.index(c.gsub(/\ DESC|\ ASC/,''))] + ' ' + c[c.rindex(' ') + 1,c.length]}.join(",") if session[:filter][:cond_sort] 
     order = "conditions.updated_at DESC" if order.blank?
-    sql = "select is_this_user(shelters.id,#{User.find(session['user']).nil? ? '0':User.find(session['user']).id}),conditions.id, shelters.facility_type,conditions.shelter_id,conditions.item_id,conditions.type,uc.firstname as ucfn, uc.lastname as ucln,packaged_as," + Condition.cols.join(',') + sql
+    sql = "select is_this_user(shelters.id,#{session['user'].nil? ? '0':session['user']}),conditions.id, shelters.facility_type,conditions.shelter_id,conditions.item_id,conditions.type,uc.firstname as ucfn, uc.lastname as ucln,packaged_as," + Condition.cols.join(',') + sql
     sql = sql + ' order by ' + order
     sql = sql + " LIMIT " + session[:filter][:linesperpage].to_s + " OFFSET " + @offset.to_s    
     @conditions = Condition.find_by_sql [sql,*@cond]    
@@ -351,7 +351,12 @@ class ConditionsController < ApplicationController
         "<td></td>"
       end
     }
+    @extra_columns.each do |ec|
+      puts ec.class
+      puts ec.to_yaml
+    end
     store_location
+    @controller = self
     render :action => 'matches'
   end
 

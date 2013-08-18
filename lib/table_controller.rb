@@ -297,7 +297,7 @@ module TableController
         out << val.to_s
       end
       out << "</td>" if tds
-      return out
+      out
     }
   end
 

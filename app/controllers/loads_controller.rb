@@ -34,6 +34,7 @@ class LoadsController < ApplicationController
     cond, sort = condsort_from_params
     @records = Load.shelter_records_for(cond, sort)
     @shelter_ids = @records.map {|r| r['shelterid'].to_i }
+    @controller = self
     store_location
   end
   
@@ -44,7 +45,7 @@ class LoadsController < ApplicationController
   def show
     @load = Load.find(params[:id])
     @title = "Load: #{@load.title}"
-    @nextstatuses = @load.allowed_next_statuses(User.find(session['user']))
+    @nextstatuses = @load.allowed_next_statuses(session['user'])
   end
 
   def new

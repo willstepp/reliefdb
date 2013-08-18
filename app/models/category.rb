@@ -1,4 +1,5 @@
 class Category < ActiveRecord::Base
+  set_primary_key :id 
   has_and_belongs_to_many :items, :order => "upper(name)"
 
   validates_presence_of :name
