@@ -1,16 +1,26 @@
-<div id="listnotes"><fieldset><legend><%=caption%>:<%=dataset.name%>
-<%=link_to "Edit This #{caption}", {:controller => caption.pluralize.downcase, :action => "edit", :id => dataset.id} if session['user'] && (session['user'].priv_write)%> </legend>
-<%=simple_format( "<span class = 'bold'>Notes:</span> #{h dataset.notes}") if not dataset.notes.blank?%>
-<%if dataset.respond_to?("categories")%>
-<span class = "bold">Categories Where This Item Is Listed:</span> <ul class="twocolumnlist">
-	<%@abc=dataset.categories.map{|ct|"<li>" + link_to(ct.name, {:controller => "categories", :action => "show", :id => ct.id}, :class => "links") + "</li>"}%>
-<%else%>
-<span class = "bold">Items In This Category:</span><ul class="twocolumnlist">
-	<%@abc=dataset.items.map{|x|"<li>&#187&nbsp" + link_to(x.name, {:controller => "items", :action => "show", :id => x.id}, :class => "links") + "</li>"}%>
-<%end%>
-<%=@abc[0..((@abc.size.to_f/2)-1).ceil]%>
-</ul>
-<ul class = "twocolumnlist">	
-<%=@abc[((@abc.size.to_f/2)-1).ceil + 1..@abc.size]%>
-</ul>
-</fieldset></div>
+<div id="listnotes">
+  <fieldset>
+    <legend><%=caption%>:<%=dataset.name%>
+      <%=link_to "Edit This #{caption}", {:controller => caption.pluralize.downcase, :action => "edit", :id => dataset.id} if session['user'] && (session['user'].priv_write)%> 
+    </legend>
+    <%=simple_format( "<span class = 'bold'>Notes:</span> #{h dataset.notes}") if not dataset.notes.blank?%>
+    <%if dataset.respond_to?("categories")%>
+      <span class = "bold">Categories Where This Item Is Listed:</span> 
+      <ul class="twocolumnlist">
+	    <%@abc=dataset.categories.map{|ct|"<li>" + link_to(ct.name, {:controller => "categories", :action => "show", :id => ct.id}, :class => "links") + "</li>"}%>
+    <%else%>
+      <span class = "bold">Items In This Category:</span>
+      <ul class="twocolumnlist">
+	    <%@abc=dataset.items.map{|x|("<li>&#187&nbsp;" + link_to(x.name, {:controller => "items", :action => "show", :id => x.id}, :class => "links") + "</li>")}%>
+    <%end%>
+    <% @abc[0..((@abc.size.to_f/2)-1).ceil].each do |li| %>
+      <%= li.html_safe %>
+    <% end %>
+      </ul>
+      <ul class = "twocolumnlist">
+        <% @abc[((@abc.size.to_f/2)-1).ceil + 1..@abc.size].each do |li| %>
+          <%= li.html_safe %>
+        <% end %>
+      </ul>
+  </fieldset>
+</div>

@@ -74,7 +74,7 @@
 <% end %>
 
 <p><label for="condition_info_source">Information Source/Changes</label> (<font COLOR="red">Please document!</font>)<br/>
-<%= info_source_explanation %>
+<%= info_source_explanation.html_safe %>
 <%= text_area 'condition', 'info_source', :rows => 6, :cols => 80  %></p>
 
 <p><label for="condition_notes">Notes</label><br/>

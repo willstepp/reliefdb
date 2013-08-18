@@ -9,7 +9,7 @@
     </thead>
   </tr>
   
-<% for category in @categories %>
+<% @categories.each do |category| %>
   <tr>
   <% for column in Category.list_columns %>
     <td><%=h category.name %></td>

@@ -36,16 +36,16 @@
 </SPAN>
 <% end %>
 
-<b>Organization: </b><%= h(@shelter.organization) %><br />
-<b>Facility Type: </b><%= @shelter.facility_type.bgcolored %><br />
-<b>Status: </b><%= @shelter.status.colored %><br />
+<b>Organization: </b><%= h(@shelter.organization).html_safe %><br />
+<b>Facility Type: </b><%= @shelter.facility_type.bgcolored.html_safe %><br />
+<b>Status: </b><%= @shelter.status.colored.html_safe %><br />
 <br />
 <b>Address:</b><br />
-<%= h(@shelter.mailing_address_without_name).gsub("\n", "<br />") %>
+<%= h(@shelter.mailing_address_without_name).gsub("\n", "<br>").html_safe %>
 <br />
 <% if @shelter.dc %>
-  <b>Population Served: </b><%=h @shelter.dc_population %><br />
-  <b>Shelters Served: </b><%=h @shelter.dc_shelters %><br />
+  <b>Population Served: </b><%=h(@shelter.dc_population).html_safe %><br />
+  <b>Shelters Served: </b><%=h(@shelter.dc_shelters).html_safe %><br />
   <% if @shelter.dc_more == 2 %>
     <I style="color:green">Able to serve more shelters</I><br />
   <% elsif @shelter.dc_more == 1 %>
@@ -71,11 +71,11 @@
 <br />
 <% if not @shelter.txt_resources.blank?%>
 	<b>Resources:</b><br />
-	<%=tf @shelter.txt_resources %>
+	<%=tf(@shelter.txt_resources).html_safe %>
 <% end%>
 <p>
-<%=text_with_label('Main/General Business Number: ',@shelter.access("main_phone", session['user']), {:clean => false, :labelstyle => "color:red"})%>	
-<%=text_with_label('Main/General Business E-mail Address: ',@shelter.access("email", session['user']))%>
+<%=text_with_label('Main/General Business Number: ',@shelter.access("main_phone", session['user']), {:clean => false, :labelstyle => "color:red"}) %>	
+<%=text_with_label('Main/General Business E-mail Address: ',@shelter.access("email", session['user'])) %>
 <%=text_with_label('Website: ',link_to(@shelter.website, @shelter.website, :target => "_new"),:clean => false) if @shelter.website%>
 <br />
 <%=text_with_label('Management Contact: ',@shelter.access("mgt_contact", session['user']))-%>
@@ -120,7 +120,7 @@
 <br />
 <%end%>
 
-<%= display_history_for(@shelter) %>
+<%= display_history_for(@shelter).html_safe %>
 <br />
 <b>Created At: </b><%= @shelter.access("created_at", session['user']) %><br />
 <b>Updated At: </b><%= @shelter.access("updated_at", session['user']) %><br />
@@ -148,7 +148,7 @@
 Load Legend: 
 <% Load::Status.levels.keys.sort.each do |i| %>
   <% break if i > 1000 %>
-  <%= Load::Status.new(i).bgcolored %>
+  <%= Load::Status.new(i).bgcolored.html_safe %>
 <% end %>
 <br />
 <b><font size="+1">Needs:</font></b><br />
@@ -196,11 +196,11 @@ Load Legend:
   <% else %>
     <tr>
   <% end %>
-  <td><%=link_to h(surp.item.name), :controller => 'items', :action => 'show', :id => surp.item.id %></td>
-  <td><%=h surp.avail_qty %></td>
+  <td><%= link_to surp.item.name, :controller => 'items', :action => 'show', :id => surp.item.id %></td>
+  <td><%= surp.avail_qty %></td>
   <td>
     <% if surp.load %>
-      <%=link_to h(surp.load.title), :controller => 'loads', :action => 'show', :id => surp.load %>
+      <%=link_to surp.load.title, :controller => 'loads', :action => 'show', :id => surp.load %>
     <% end %>
   </td>
   <td><% if surp.notes != "" %>*<% end %></td>

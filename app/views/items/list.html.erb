@@ -45,7 +45,7 @@ Totals Last Updated: <%= DateTime.now.new_offset.ctime %><br />
 <table id="catitems">
 <tbody>
 <% for cat in Category.find(:all, :order => 'name') %>
-<tr id = <%="\"cr#{cat.id}\"" %> class="captionrow">
+<tr id = <%= "cr#{cat.id}" %> class="captionrow">
 <td class="tdleft"><%= link_to_remote cat.name, {:url =>{:action => "expand", :id => cat}, 
   :before => "$('spin#{cat.id}').style.visibility = 'visible'", 
   :complete => "$('spin#{cat.id}').style.visibility = 'hidden'"},
@@ -54,10 +54,10 @@ Totals Last Updated: <%= DateTime.now.new_offset.ctime %><br />
 <td>Qty Needed</td>
 <td>At # of Shelters</td>
 <td>Qty Per Pallet</td>
-<td style="width:60px" class="tdleft">	
-	<%=link_to(image_tag("show.png",:alt=>"Show"),:controller => "categories",:action => 'show', :id => cat.id)%>
+<td style="width:60px" class="tdleft">
+  <a href="<%= url_for(:controller => "categories", :action => "show", :id => cat.id) %>"><img src="<%= image_path("show.png") %>"/></a>
     <%if session['user'] && (session['user'].priv_write)%>
-        <%=link_to(image_tag("edit.png",:alt=>"Edit"),:controller => "categories", :action => 'edit', :id => cat.id)%>
+        <a href="<%= url_for(:controller => "categories", :action => "edit", :id => cat.id) %>"><img src="<%= image_path("edit.png") %>"/></a>
     <%end%>
 	<%=image_tag "spinner.gif", :id =>"spin#{cat.id}",:style=>"visibility:hidden"%>
 </td></tr>

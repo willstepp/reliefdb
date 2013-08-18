@@ -1,16 +1,16 @@
 <%=link_to "My Saved Searches",{:controller => 'searches', :action => 'list'},:style => "float:right;margin-right:15px;color:green"%>
 <div title="<%= title_helper %>" class="form">
-  <%= head_helper :error => true %>
+  <%= head_helper(:error => true).html_safe %>
 
     <%= form_tag "/user/edit", :method => :post do %>
       <div class="user_edit">
         <%= form_input :hidden_field, 'form', :value => 'edit' %>
         <table>
-          <%= form_input changeable(@user, "firstname"), "firstname" %>
-          <%= form_input changeable(@user, "lastname"), "lastname" %>
-          <%= form_input changeable(@user, "login"), "login", :size => 30 %><br/>
-          <%= form_input changeable(@user, "email"), "email" %>
-          <%= form_input :submit_button, @user.new_record? ? 'signup' : 'change_settings', :class => 'two_columns' %>
+          <%= form_input(changeable(@user, "firstname"), "firstname").html_safe %>
+          <%= form_input(changeable(@user, "lastname"), "lastname").html_safe %>
+          <%= form_input(changeable(@user, "login"), "login", :size => 30).html_safe %><br/>
+          <%= form_input(changeable(@user, "email"), "email").html_safe %>
+          <%= form_input(:submit_button, @user.new_record? ? 'signup' : 'change_settings', :class => 'two_columns').html_safe %>
         </table>
       </div>
     <% end %>
@@ -21,9 +21,9 @@
       <div>
         <%= form_input :hidden_field, 'form', :value => 'change_password' %>
         <table>
-          <%= form_input :password_field, "password", :size => 30 %>
-          <%= form_input :password_field, "password_confirmation", :size => 30 %>
-          <%= form_input :submit_button, 'change_password' %>
+          <%= form_input(:password_field, "password", :size => 30).html_safe %>
+          <%= form_input(:password_field, "password_confirmation", :size => 30).html_safe %>
+          <%= form_input(:submit_button, 'change_password').html_safe %>
         </table>
       </div>                                                                          
     <% end %>
@@ -32,8 +32,8 @@
 
     <%= form_tag "/user/edit", :method => :post do %>
       <div class="user_delete">
-        <%= form_input :hidden_field, 'form', :value => 'delete' %>
-        <%= form_input :submit_button, 'delete_account' %>
+        <%= form_input(:hidden_field, 'form', :value => 'delete').html_safe %>
+        <%= form_input(:submit_button, 'delete_account').html_safe %>
       </div>
     <% end %>
   </div>

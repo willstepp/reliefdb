@@ -81,7 +81,9 @@ class ActiveRecord::Base
   include ModelExtensions
 
   def self.public_sanitize_sql(str)
-    sanitize_sql(str)
+    #sanitize_sql(str)
+    puts "SANITIZING SQL"
+    send(:sanitize_sql_array, str)
   end
 
   # Class methods have to go here
@@ -152,7 +154,7 @@ class ColoredLevelSetting < LevelSetting
 
   def colored
     s = to_s
-    return '<FONT color="' + color + '">' + s + '</FONT>'
+    return ('<FONT color="' + color + '">' + s + '</FONT>').html_safe
   end
 
   def bgcolor
@@ -165,7 +167,7 @@ class ColoredLevelSetting < LevelSetting
 
   def bgcolored
     s = to_s
-    return '<span style="white-space:nowrap;background-color:' + bgcolor + '">' + s + '</span>'
+    return ('<span style="white-space:nowrap;background-color:' + bgcolor + '">' + s + '</span>').html_safe
   end
 
 end

@@ -13,7 +13,7 @@ class Category < ActiveRecord::Base
   end
 
   def self.names_for_select
-    (Category.all.order('name').map {|cat| [cat.name,cat.id]}).unshift(["All","All"])
+    (Category.all(:order => 'name').map {|cat| [cat.name,cat.id]}).unshift(["All","All"])
   end
 
 end

@@ -25,28 +25,28 @@ function sheltermap(lng, lat) {
 <%= javascript_include_tag 'prototype' %>
 
 <br>
-<%= cond_sort_form(Load) %>
+<%= cond_sort_form(Load).html_safe %>
 <BR>
 
-<%=t_begin @tableid, @cols %>
+<%=t_begin(@tableid, @cols).html_safe %>
 <% for r in @records %>
   <% shelter = Shelter.find(r['shelterid'].to_i) %>
   <% ld = Load.find(r['loadid'].to_i) %>
   <% issrc = (r['is_source'] == "t")%>
   <tr style="background-color:<%=shelter.facility_type.bgcolor%>">
   <td align="center"><B>
-  <%= Shelter.text_icon_for(shelter) %>
+  <%= Shelter.text_icon_for(shelter).html_safe %>
   </B></td>
   <td style="background-color:<%= issrc ? '#AAFFAA' : '#FFAAAA' %>"><b><%= issrc ? "Source" : "Dest" %></b></td>
-  <td><%= state_link(shelter) %></td>
-  <td><%= region_or_state(shelter) %></td>
-  <td><%= parish_or_region(shelter) %></td>
-  <td><%= town_or_parish(shelter) %></td>
-  <td><%=h shelter.organization %></td>
-  <td><%=link_to h(shelter.name), :controller => 'shelters', :action => 'show', :id => shelter %></td>
-  <td><%=h ld.title %></td>
-  <td><b><%= ld.status.colored %></b></td>
-  <td><%=h issrc ? ld.next_src_date : ld.next_dst_date %></td>
+  <td><%= state_link(shelter).html_safe %></td>
+  <td><%= region_or_state(shelter).html_safe %></td>
+  <td><%= parish_or_region(shelter).html_safe %></td>
+  <td><%= town_or_parish(shelter).html_safe %></td>
+  <td><%= shelter.organization %></td>
+  <td><%=link_to shelter.name, :controller => 'shelters', :action => 'show', :id => shelter %></td>
+  <td><%= ld.title.html_safe %></td>
+  <td><b><%= ld.status.colored.html_safe %></b></td>
+  <td><%= issrc ? ld.next_src_date : ld.next_dst_date %></td>
   <% if ld.transport_avail == 0 %>
   <td style="background-color:#FF4444">
   <% else %>
@@ -61,7 +61,7 @@ function sheltermap(lng, lat) {
   <% end %>
     <%= ld.routing_type %>
   </td>
-  <td><%= ld.updated_txt %></td>
+  <td><%= ld.updated_txt.html_safe %></td>
   <td><%= link_to 'Show', :action => 'show', :id => ld %></td>
   <td><%= link_to 'Edit', :action => 'edit', :id => ld %></td>
   </tr>

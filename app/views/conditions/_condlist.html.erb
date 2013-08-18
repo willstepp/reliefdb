@@ -20,37 +20,37 @@ function sheltermap(lng, lat) {
 }
 </script>
 <%= javascript_include_tag 'prototype' %> <br />
-<%= cond_sort_form("Condition") %> <br />
-<%=t_begin @tableid, @cols %> <% for conditionid in @condition_ids %> 
+<%= cond_sort_form("Condition").html_safe %> <br />
+<%= t_begin(@tableid, @cols).html_safe %> 
+    <% for conditionid in @condition_ids %> 
+        <% condition = Condition.find(conditionid) %>
+        <tr style="background-color: <%=condition.shelter.facility_type.bgcolor.html_safe %>">
+        <td align="center"><b><%= Shelter.text_icon_for(condition.shelter).html_safe %> </b></td>
+        <td><%= state_link(condition.shelter).html_safe %></td>
+        <td><%= region_or_state(condition.shelter).html_safe %></td>
+        <td><%= parish_or_region(condition.shelter).html_safe %></td>
+        <td><%= town_or_parish(condition.shelter).html_safe %></td>
+        <td><%= condition.shelter.organization.html_safe %></td>
+        <td><%=link_to (condition.shelter.name).html_safe, :controller => 'shelters', :action => 'show', :id => condition.shelter %></td>
+        <td><%= condition.shelter.status.colored.html_safe %></td>
+        <td><%= condition.shelter.hours.html_safe %></td>
+        <td><%= (condition.class == Need) ? "Needed" : "Available" %></td>
+        <td><%=link_to (condition.item.name), { :controller => 'items', :action => 'show', :id => condition.item_id } %></td>
+        <% if condition.class == Need %>
+            <td><%=condition.urgency.name%></td>
+            <td><%= condition.qty_needed%></td> <% else %>
+            <td></td>
+            <td><%=(condition.surplus_individual)%> </td>
+        <% end %>
+        <td><%= condition.updated_at.strftime("%m/%d/%y")%></td>
 
-    <% condition = Condition.find(conditionid) %>
-    <tr style="background-color: <%=condition.shelter.facility_type.bgcolor%>">
-    <td align="center"><b><%= Shelter.text_icon_for(condition.shelter) %> </b></td>
-    <td><%= state_link(condition.shelter) %></td>
-    <td><%= region_or_state(condition.shelter) %></td>
-    <td><%= parish_or_region(condition.shelter) %></td>
-    <td><%= town_or_parish(condition.shelter) %></td>
-    <td><%=h condition.shelter.organization %></td>
-    <td><%=link_to h(condition.shelter.name), :controller => 'shelters', :action => 'show', :id => condition.shelter %></td>
-    <td><%= condition.shelter.status.colored %></td>
-    <td><%=h condition.shelter.hours %></td>
-    <td><%= (condition.class == Need) ? "Needed" : "Available" %></td>
-    <td><%=link_to (h condition.item.name), { :controller => 'items', :action => 'show', :id => condition.item_id } %></td>
-    <% if condition.class == Need %>
-        <td><%=h condition.urgency.name%></td>
-        <td><%=h condition.qty_needed%></td> <% else %>
-        <td></td>
-        <td><%=h(condition.surplus_individual)%> </td>
+        <% for p in (@extra_columns || []) %> 
+            <%= p.call(conditionid) %> 
+        <% end %>
+        <td><%= link_to 'Show', :controller => 'conditions', :action => 'show', :id => conditionid %></td>
+        <td><%= link_to 'Edit', :controller => 'conditions', :action => 'edit', :id => conditionid %></td>
+        </tr>
     <% end %>
-    <td><%=h condition.updated_at.strftime("%m/%d/%y")%></td>
-
-    <% for p in (@extra_columns || []) %> 
-        <%= p.call(conditionid) %> 
-    <% end %>
-    <td><%= link_to 'Show', :controller => 'conditions', :action => 'show', :id => conditionid %></td>
-    <td><%= link_to 'Edit', :controller => 'conditions', :action => 'edit', :id => conditionid %></td>
-    </tr>
-<% end %>
 </table>
 <% if @condition_pages %> <%= link_to 'Previous page', { :page => @condition_pages.current.previous } if @condition_pages.current.previous %> 
 Showing page <%=params[:page] || 1%> of <%=@condition_pages.page_count%> <%= link_to 'Next page', { :page => @condition_pages.current.next } if @condition_pages.current.next %>

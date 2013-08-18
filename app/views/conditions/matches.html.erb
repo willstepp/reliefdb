@@ -3,4 +3,4 @@
 </h1>
 <%=link_to 'Back to Facility', :controller => "shelters", :action => "show", :id => params[:id] %><BR>
                          
-<%= render_partial 'conditions/condlist' %>
+<%= render :partial => 'conditions/condlist' %>

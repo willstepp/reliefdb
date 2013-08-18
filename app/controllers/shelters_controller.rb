@@ -59,12 +59,13 @@ class SheltersController < ApplicationController
       return
     end
     @title = "Facility: " + @shelter.name
-    @loads_in = Load.where("loads.destination_id = ? AND loads.status < 1000", @shelter.id).order('loads.id').include(:destination)
-    @loads_out = Load.where("loads.source_id = ? AND loads.status < 1000", @shelter.id).order('loads.id').include(:source)
+    @loads_in = Load.where("loads.destination_id = ? AND loads.status < 1000", @shelter.id).order('loads.id').includes(:destination)
+    @loads_out = Load.where("loads.source_id = ? AND loads.status < 1000", @shelter.id).order('loads.id').includes(:source)
     store_location    
   end
 
   def new
+    @user = session['user']
     @shelter = Shelter.new
     @title = "New Facility"
     @shelter.status = 0
@@ -78,6 +79,7 @@ class SheltersController < ApplicationController
   end
 
   def create
+    @user = session['user']
     @shelter = Shelter.new()
     @shelter.set_updated_by session['user']
     @shelter.users << session['user']
@@ -85,6 +87,9 @@ class SheltersController < ApplicationController
       flash[:notice] = 'Facility was successfully created.'
       redirect_to :action => 'show', :id => @shelter.id
     else
+      puts "FACILITY CREATE ERROR:"
+      puts @shelter.errors.full_messages
+      flash[:notice] = @shelter.errors.full_messages
       render :action => 'new'
     end
   end

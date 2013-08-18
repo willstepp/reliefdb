@@ -131,7 +131,7 @@ class UserController < ApplicationController
 
   def edit
     return if generate_filled_in
-    if params['user']['form']
+    if params['user'] and params['user']['form']
       form = params['user'].delete('form')
       begin
         case form

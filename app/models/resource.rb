@@ -5,6 +5,6 @@ class Resource < ActiveRecord::Base
   has_and_belongs_to_many :shelters
 
   def self.all_names
-    [""] + self.all.order('upper(kind), upper(name)').map {|r| r.kind + ": " + r.name}
+    [""] + self.all(:order => 'upper(kind), upper(name)').map {|r| r.kind + ": " + r.name}
   end
 end

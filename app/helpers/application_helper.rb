@@ -181,7 +181,7 @@ module ApplicationHelper
     out << "Legend: "
     Shelter::FacilityType.levels.invert.sort.each do |a|
       f = Shelter::FacilityType.new(a[1])
-      out << link_to(f.bgcolored, :factype => f.to_s)
+      out << link_to(f.bgcolored.html_safe, :factype => f.to_s).html_safe
       out << " "
     end
     out << "<br />"
@@ -197,7 +197,7 @@ module ApplicationHelper
       out << " | "
       out << link_to("<B style=\"color:red\">Clear All Sort/Filter Settings</B>", :clear_all => true, :state => nil)
     end
-    return out
+    return out ? out.html_safe : out
   end
 
   def back_to(default)
@@ -239,6 +239,7 @@ module ApplicationHelper
     out = "<b style = '#{style}'>#{label}</b>"
     out << (clean ? h(field) : field)
     out << '<br />'
+    out ? out.html_safe : out
   end
 #-----new code above this line---------------------------------------
 end

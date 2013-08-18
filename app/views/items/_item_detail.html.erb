@@ -1,12 +1,12 @@
   <tr class="itemrow">
-  <td class="tdleft"><%=h item_detail.name %></td>
-  <td class="tdright"><%= no_empty_cell(item_detail.tot_needed) %></td>
-  <td class="tdright"><%= no_empty_cell(item_detail.shelters_need) %></td>
-  <td class="tdright"><%= no_empty_cell(item_detail.qty_per_pallet) %></td>
+  <td class="tdleft"><%= item_detail.name %></td>
+  <td class="tdright"><%= no_empty_cell(item_detail.tot_needed).html_safe %></td>
+  <td class="tdright"><%= no_empty_cell(item_detail.shelters_need).html_safe %></td>
+  <td class="tdright"><%= no_empty_cell(item_detail.qty_per_pallet).html_safe %></td>
   <td class="tdleft">
-    <%=link_to(image_tag("show.png",:alt=>"Show"), :action => 'show', :id => item_detail)%>
+    <a href="<%= url_for(:action => 'show', :id => item_detail) %>"><img src="<%= image_path('show.png') %>"/></a>
     <%if session['user'] && (session['user'].priv_write)%>
-    <%=link_to(image_tag("edit.png",:alt=>"Edit"),:action => 'edit', :id => item_detail)%>
+      <a href="<%= url_for(:action => 'edit', :id => item_detail) %>"><img src="<%= image_path('edit.png') %>"/></a>
     <%end%>
   </td> 
   </tr>

@@ -5,7 +5,7 @@ class CategoriesController < ApplicationController
   layout "general"
 
   def admin
-    @categories = Category.where(:order => "upper(name)")
+    @categories = Category.all(:order => "upper(name)")
   end
 
   def index
@@ -14,7 +14,7 @@ class CategoriesController < ApplicationController
 
   def list
     @title = "Categories"
-    @categories = Category.where(:order => "upper(name)")
+    @categories = Category.all(:order => "upper(name)")
     store_location
     render :layout => 'reliefdb'    
   end

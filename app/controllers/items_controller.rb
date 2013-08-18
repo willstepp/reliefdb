@@ -19,7 +19,7 @@ class ItemsController < ApplicationController
     render :layout => 'reliefdb'
   end
   
-  def expand    
+  def expand
     if request.xhr?
       cat = Category.find(params[:id])
       @items = Item.items_with_counts params[:id], (request.env["HTTP_USER_AGENT"].include?("MSIE") ? "DESC":"ASC")

@@ -1,32 +1,34 @@
 <tr class = "<%=Shelter.facility_type(condition_detail.facility_type).gsub(/[\ \/\-]/,'_').downcase%>">
 <% for col in session[:filter][:cond_columns]%>
 <% @class = %w{shelters.name items.name}.include?(col.split[0]) ? 'tdleft' : nil %>
-<td <%="class = \"#{@class}\"" if @class%> >
+<td <%="class = #{@class}" if @class%> >
     <%=case col.split[0]
         when "shelters.name"
-            link_to(h(condition_detail.shelter_name),{:controller => "shelters",:action => "show", :id => condition_detail.shelter_id})
+            link_to(h(condition_detail.shelter_name),{:controller => "shelters",:action => "show", :id => condition_detail.shelter_id}).html_safe
         when "items.name"
-            link_to(h(condition_detail.item_name),{:controller => "items",:action => "show", :id => condition_detail.item_id})
+            link_to(h(condition_detail.item_name),{:controller => "items",:action => "show", :id => condition_detail.item_id}).html_safe
         when "conditions.urgency"
-            no_empty_cell(condition_detail.urgency)
+            no_empty_cell(condition_detail.urgency).html_safe
         when "shelters.status"
-            h condition_detail.status.to_s.empty? ? "&nbsp":Shelter.status(condition_detail.status)
+            h condition_detail.status.to_s.empty? ? "&nbsp":Shelter.status(condition_detail.status).html_safe
         when "conditions.qty_needed"
-            no_empty_cell(condition_detail.need_qty)
+            no_empty_cell(condition_detail.need_qty).html_safe
         when "conditions.surplus_individual"
-            no_empty_cell(condition_detail.avail_qty)
+            no_empty_cell(condition_detail.avail_qty).html_safe
         when "conditions.updated_at"
-            no_empty_cell(condition_detail.updated_info)
+            no_empty_cell(condition_detail.updated_info).html_safe
 		else    
-            no_empty_cell(condition_detail.send(col.split(/\./)[1]))
+            no_empty_cell(condition_detail.send(col.split(/\./)[1])).html_safe
     end%>
 </td>
 <%end%>
 
 <td align="left">
-<%=link_to(image_tag("show.png",:alt=>"Show"),:controller => 'conditions', :action => 'show', :id => condition_detail.id)%>
-<%if condition_detail.is_this_user == 't'%>
-<%=link_to(image_tag("edit.png",:alt=>"Edit"),:controller => 'conditions', :action => 'edit', :id => condition_detail.id)%>
+
+<a href="<%= url_for(:controller => 'conditions', :action => 'show', :id => condition_detail.id) %>"><img src="<%= image_path('show.png') %>" alt="show" /></a>
+<% if condition_detail.is_this_user == 't' %>
+    <a href="<%= url_for(:controller => 'conditions', :action => 'edit', :id => condition_detail.id) %>"><img src="<%= image_path('edit.png') %>" alt="edit" /></a>
 <%end%>
+
 </td>
 </tr>
