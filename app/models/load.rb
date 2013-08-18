@@ -1,5 +1,5 @@
 class Load < ActiveRecord::Base
-  set_primary_key :id 
+  #set_primary_key :id 
   has_many :conditions
   belongs_to :source, :class_name => "Shelter", :foreign_key => "source_id"
   belongs_to :destination, :class_name => "Shelter", :foreign_key => "destination_id"

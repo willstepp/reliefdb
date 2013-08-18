@@ -7,7 +7,7 @@ end
 
 
 class History < ActiveRecord::Base
-  set_primary_key :id 
+  #set_primary_key :id 
   belongs_to :updated_by, :class_name => "User", :foreign_key => "updatedbyid"
 
   serialize :obj

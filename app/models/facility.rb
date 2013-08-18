@@ -1,5 +1,5 @@
 class Facility < ActiveRecord::Base
-  set_primary_key :id 
+  #set_primary_key :id 
   set_table_name = "shelters"
   has_many :users
        

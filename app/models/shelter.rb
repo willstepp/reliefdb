@@ -6,7 +6,7 @@ class ::DateTime
 end
 
 class Shelter < ActiveRecord::Base
-  set_primary_key :id 
+  ##set_primary_key :id 
 
   has_many :conditions
   has_many :needs, :order => "urgency"

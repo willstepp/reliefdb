@@ -2,7 +2,7 @@ require 'digest/sha1'
 
 # this model expects a certain database layout and its based on the name/login pattern. 
 class User < ActiveRecord::Base
-  set_primary_key :id 
+  #set_primary_key :id 
   has_and_belongs_to_many :shelters, :order => 'upper(name)'
   has_many :searches, :order => 'save_name'
 
@@ -133,7 +133,7 @@ class User < ActiveRecord::Base
   end
 
   validates_presence_of :login, :on => :create
-  validates_format_of :login, :with => /^[a-zA-Z0-9_]+$/, :message => 'may only contain letters, numbers, and underscore (_).'
+  validates_format_of :login, :with => /[a-zA-Z0-9_]+/, :message => 'may only contain letters, numbers, and underscore (_).', :multiline => true
   validates_presence_of :firstname
   validates_presence_of :lastname
   validates_presence_of :email

@@ -1,5 +1,5 @@
 class Condition < ActiveRecord::Base
-  set_primary_key :id 
+  #set_primary_key :id 
   
   belongs_to :shelter
   belongs_to :item

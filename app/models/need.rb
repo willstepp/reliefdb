@@ -1,5 +1,5 @@
 class Need < Condition
-  set_primary_key :id 
+  #set_primary_key :id 
   
   before_update :update_history
   after_create :update_history
