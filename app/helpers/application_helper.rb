@@ -201,7 +201,7 @@ module ApplicationHelper
   end
 
   def back_to(default)
-    if session['return-to'] != request.request_uri
+    if session['return-to'] != request.url
       link_to("Back", session['return-to'])
     else
       link_to("Back", default)

@@ -6,18 +6,12 @@ require 'date_kit'
 
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  # Pick a unique cookie name to distinguish our session data from others'
-  #session :session_key => '_reliefdb_session_id'
+
   include Localization
   include UserSystem
 
   helper :user
   helper :date
-#  model :user
-#  model :shelter
-#  model :condition
-#  model :item
-#  model :category
 
   before_filter :login_required
   before_filter :log_auth
@@ -156,7 +150,7 @@ class ApplicationController < ActionController::Base
 
   # Copied from user_system, we need it public for partials to call if they link to an edit
   def store_location
-    session['return-to'] = request.request_uri
+    session['return-to'] = request.url
   end
  
   PRIV_TABLE = {

@@ -1,49 +1,29 @@
-Reliefdb::Application.routes.draw do |map|
-  # The priority is based upon order of creation: first created -> highest priority.
-  
-  # Sample of regular route:
-  # map.connect 'products/:id', :controller => 'catalog', :action => 'view'
-  # Keep in mind you can assign values other than :controller and :action
+Reliefdb::Application.routes.draw do
+  root :to => 'facilities#list'
 
-  # Sample of named route:
-  # map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
-  # This route can be invoked with purchase_url(:id => product.id)
+  match 'shelters/list/:state/counties/:parish', :to => 'shelters#list'
+  match 'shelters/list/:state/:region', :to => 'shelters#list'
+  match 'shelters/list/:state', :to => 'shelters#list'
+  match 'shelters/totals/:state/counties/:parish', :to => 'shelters#totals'
+  match 'shelters/totals/:state/:region', :to => 'shelters#totals'
+  match 'shelters/totals/:state', :to => 'shelters#totals'
 
-  # You can have the root of your site routed by hooking up '' 
-  # -- just remember to delete public/index.html.
-  #map.connect '', :controller => "quick/start" -- right now this is broken (11/4/08)
-   map.connect '', :controller => "facilities", :action => 'list'
+  match 'conditions/list/:state/counties/:parish', :to => 'conditions#list'
+  match 'conditions/list/:state/:region', :to => 'conditions#list'
+  match 'conditions/list/:state', :to => 'conditions#list'
 
-  # Allow downloading Web Service WSDL as a file with an extension
-  # instead of a file named 'wsdl'
-  map.connect ':controller/service.wsdl', :action => 'wsdl'
+  match 'items/show/:id/:state/counties/:parish', :to => 'items#show'
+  match 'items/show/:id/:state/:region', :to => 'items#show'
+  match 'items/show/:id/:state', :to => 'items#show'
 
-  # Shelter listings
-  map.connect 'shelters/list/:state/counties/:parish', :controller => 'shelters', :action => 'list'
-  map.connect 'shelters/list/:state/:region', :controller => 'shelters', :action => 'list'
-  map.connect 'shelters/list/:state', :controller => 'shelters', :action => 'list'
-  map.connect 'shelters/totals/:state/counties/:parish', :controller => 'shelters', :action => 'totals'
-  map.connect 'shelters/totals/:state/:region', :controller => 'shelters', :action => 'totals'
-  map.connect 'shelters/totals/:state', :controller => 'shelters', :action => 'totals'
+  match 'categories/show/:id/:state/counties/:parish', :to => 'categories#show'
+  match 'categories/show/:id/:state/:region', :to => 'categories#show'
+  match 'categories/show/:id/:state', :to => 'categories#show'
 
-  # Condition listings
-  map.connect 'conditions/list/:state/counties/:parish', :controller => 'conditions', :action => 'list'
-  map.connect 'conditions/list/:state/:region', :controller => 'conditions', :action => 'list'
-  map.connect 'conditions/list/:state', :controller => 'conditions', :action => 'list'
+  match 'conditions/matches/:id/:avail/:state/counties/:parish', :to => 'conditions#matches'
+  match 'conditions/matches/:id/:avail/:state/:region', :to => 'conditions#matches'
+  match 'conditions/matches/:id/:avail/:state', :to => 'conditions#matches'
+  match 'conditions/matches/:id/:avail', :to => 'conditions#matches'
 
-  map.connect 'items/show/:id/:state/counties/:parish', :controller => 'items', :action => 'show'
-  map.connect 'items/show/:id/:state/:region', :controller => 'items', :action => 'show'
-  map.connect 'items/show/:id/:state', :controller => 'items', :action => 'show'
-
-  map.connect 'categories/show/:id/:state/counties/:parish', :controller => 'categories', :action => 'show'
-  map.connect 'categories/show/:id/:state/:region', :controller => 'categories', :action => 'show'
-  map.connect 'categories/show/:id/:state', :controller => 'categories', :action => 'show'
-
-  map.connect 'conditions/matches/:id/:avail/:state/counties/:parish', :controller => 'conditions', :action => 'matches'
-  map.connect 'conditions/matches/:id/:avail/:state/:region', :controller => 'conditions', :action => 'matches'
-  map.connect 'conditions/matches/:id/:avail/:state', :controller => 'conditions', :action => 'matches'
-  map.connect 'conditions/matches/:id/:avail', :controller => 'conditions', :action => 'matches'
-  # Install the default route as the lowest priority.
-#  map.connect ':controller/:action/:id.:format'
-  map.connect ':controller/:action/:id'
+  match ':controller(/:action(/:id))(.:format)'
 end
