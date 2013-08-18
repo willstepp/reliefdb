@@ -2,7 +2,7 @@
 <div id="settings">
 	<span class="bold">State:</span>	
     <%= state_select %>
-    <% if session['user'] && (session['user'].priv_write) %>
+    <% if session['user'] && (User.find(session['user']).priv_write) %>
         <a href="<%= url_for(:action => "list", :listtype => "print") %>" style="float:right;margin-top:-30px"><img src="<%= image_path("pdf.png") %>" alt="Show"/></a>
     <% end %>
 	<br />
@@ -71,7 +71,7 @@ Go To Page
 <span id="lpp">Number of Lines Per Page:</span>
 <%= select_tag("linesperpage",options_for_select(%w{20 50 100 250 500}, session[:filter][:linesperpage]),:onchange =>"parent.location='/facilities/list?linesperpage=' + encodeURIComponent(value)")%>
 <% end%>
-<%if session['user']%>
+<%if session['user'] %>
 <%= form_tag({:controller => 'searches', :action => 'new', :from => 'facilities'},{:id => 'savesearch'}) do %>
 <%=submit_tag 'Save This Search'%>
 <% end %>

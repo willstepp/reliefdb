@@ -24,7 +24,7 @@ module ApplicationHelper
       </script>'
     out << '<b>Info Source/Changes: </b><br />'
     out << '<div id="shorthistory">'
-    out << tf(o.access("info_source", session['user']))
+    out << tf(o.access("info_source", User.find(session['user'])))
     out << '<br />
       <a href="javascript:void(0)" onclick="toggleDisplay(\'shorthistory\'); toggleDisplay(\'fullhistory\');"><small>(see full history)</small></a>
       </div>
@@ -43,7 +43,13 @@ module ApplicationHelper
     if vals[0] != ""
       vals.unshift("")
     end
-    ("<select id=\"select#{field}\" onchange=\"document.getElementById('#{table.singularize}_#{field}').value = this.value\">" + options_for_select(vals) + "</select>").html_safe
+    vals.reject!{ |v| v.nil? or v.empty?}
+    output = "<select id=\"select#{field}\" onchange=\"document.getElementById('#{table.singularize}_#{field}').value = this.value\">"
+    vals.each do |v|
+      output << "<option value='#{v}'>#{v}</option>"
+    end
+    output << "</select>"
+    output.html_safe
   end
 
   def autoselect_location
@@ -161,7 +167,7 @@ module ApplicationHelper
     out << " Include closed facilities | "
     out << check_box_tag("show_regional", "1", params[:show_regional] != "0", :onclick => "window.location = '#{url_for(:show_regional => (params[:show_regional].to_i + 1) % 2)}'")
     out << " Include regional facilities "
-    if session['user']
+    if User.find(session['user'])
       out << " | "
       out << "<span style=\"background-color:red\">" if params[:show_only_my] != "0"
       out << check_box_tag("show_only_my", "1", params[:show_only_my] != "0", :onclick => "window.location = '#{url_for(:show_only_my => (params[:show_only_my].to_i + 1) % 2)}'")

@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
   
            
   def filter_set_defaults(type = nil)
-    @searches = Search.where(:user_id => session['user'].id).map{|s| [s.save_name, s.id]} if session['user']
+    @searches = Search.where(:user_id => User.find(session['user']).id).map{|s| [s.save_name, s.id]} if session['user']
     
     filter = session[:filter]||{} 
     FACILITY_DEFAULTS.each{|k,v|filter[k] ||= v}
@@ -69,9 +69,9 @@ class ApplicationController < ActionController::Base
   end
      
   def conditions_for_facility   
-    if session[:filter][:show_only_my] == "1" && !session['user'].nil?
+    if session[:filter][:show_only_my] == "1" && !User.find(session['user']).nil?
       @filter += (@filter.length > 0 ? ", " : "") + "Only My Facilities"
-      addcondition("(shelters_users.shelter_id = shelters.id) AND (shelters_users.user_id = #{session['user'].id})")
+      addcondition("(shelters_users.shelter_id = shelters.id) AND (shelters_users.user_id = #{User.find(session['user']).id})")
       return
     end
     
@@ -143,8 +143,8 @@ class ApplicationController < ActionController::Base
   
 #----- new code above this line ---------------------------------------------------
   def log_auth
-    if session['user']
-      response.headers["X-Cat-Auth-User"] = session['user'].login
+    if session['user'] and User.find(session['user'])
+      response.headers["X-Cat-Auth-User"] = User.find(session['user']).login
     end
   end
 
@@ -228,7 +228,7 @@ class ApplicationController < ActionController::Base
 #    return true if controller == :searches   
 
     if (controller == :about) or (controller.to_s.split('/')[0] == 'quick') or (PRIV_TABLE[:read][action] and PRIV_TABLE[:read][action].include?(controller))       
-      logger.info("User #{session['user'] ? session['user'].login : '(anonymous)'} authorized for #{controller}/#{action} from #{request.remote_ip} at #{Time.now.to_s}")
+      logger.info("User #{session['user'] ? User.find(session['user']).login : '(anonymous)'} authorized for #{controller}/#{action} from #{request.remote_ip} at #{Time.now.to_s}")
       return false
     end
 

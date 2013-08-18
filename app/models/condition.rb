@@ -11,6 +11,7 @@ class Condition < ActiveRecord::Base
   
   attr_accessor :can_update
 #-----new code below this line----------------------------------
+
   def self.cols
     ["shelters.name as shelter_name","shelters.organization","shelters.state","shelters.town","shelters.status","shelters.main_phone","shelters.parish","conditions.updated_at","items.name as item_name","conditions.qty_needed","conditions.surplus_individual","conditions.urgency"]
   end

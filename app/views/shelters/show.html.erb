@@ -61,9 +61,9 @@
 <tr><th><b>County/Parish:</b></th><td><%=link_to h(@shelter.parish), {:action => 'list', :state => @shelter.state, :parish => @shelter.parish}%></td></tr>
 </table>
 <br />
-<%=text_with_label('Capacity: ',@shelter.access("capacity", session['user']))%>
-<%=text_with_label('Current Population: ',@shelter.access("current_population", session['user']))%>
-<%=text_with_label('Workers at Facility: ',@shelter.access("workers", session['user']))%>
+<%=text_with_label('Capacity: ',@shelter.access("capacity", User.find(session['user'])))%>
+<%=text_with_label('Current Population: ',@shelter.access("current_population", User.find(session['user'])))%>
+<%=text_with_label('Workers at Facility: ',@shelter.access("workers", User.find(session['user'])))%>
 <br />
 <%=text_with_label('Facility has Loading Dock: ',@shelter.loading_dock) if @shelter.loading_dock != 'Unknown'%>
 <%=text_with_label('Facility has Forklift: ',@shelter.forklift) if @shelter.forklift != 'Unknown'%>
@@ -74,18 +74,18 @@
 	<%=tf(@shelter.txt_resources).html_safe %>
 <% end%>
 <p>
-<%=text_with_label('Main/General Business Number: ',@shelter.access("main_phone", session['user']), {:clean => false, :labelstyle => "color:red"}) %>	
-<%=text_with_label('Main/General Business E-mail Address: ',@shelter.access("email", session['user'])) %>
+<%=text_with_label('Main/General Business Number: ',@shelter.access("main_phone", User.find(session['user'])), {:clean => false, :labelstyle => "color:red"}) %>	
+<%=text_with_label('Main/General Business E-mail Address: ',@shelter.access("email", User.find(session['user']))) %>
 <%=text_with_label('Website: ',link_to(@shelter.website, @shelter.website, :target => "_new"),:clean => false) if @shelter.website%>
 <br />
-<%=text_with_label('Management Contact: ',@shelter.access("mgt_contact", session['user']))-%>
-<%=text_with_label('Management Phone: ',@shelter.access("mgt_phone", session['user']))-%>
-<%=text_with_label('Supply Contact: ',@shelter.access("supply_contact", session['user']))-%>
-<%=text_with_label('Supply Phone: ',@shelter.access("supply_phone", session['user']))-%>
-<%=text_with_label('Other Contacts:',h(@shelter.access("other_contacts", session['user'])).gsub("\n", "<br />"),:clean => false)-%>
-<%=text_with_label('Make Checks Payable To: ',@shelter.access("make_payable_to", session['user']))-%>
+<%=text_with_label('Management Contact: ',@shelter.access("mgt_contact", User.find(session['user'])))-%>
+<%=text_with_label('Management Phone: ',@shelter.access("mgt_phone", User.find(session['user'])))-%>
+<%=text_with_label('Supply Contact: ',@shelter.access("supply_contact", User.find(session['user'])))-%>
+<%=text_with_label('Supply Phone: ',@shelter.access("supply_phone", User.find(session['user'])))-%>
+<%=text_with_label('Other Contacts:',h(@shelter.access("other_contacts", User.find(session['user']))).gsub("\n", "<br />"),:clean => false)-%>
+<%=text_with_label('Make Checks Payable To: ',@shelter.access("make_payable_to", User.find(session['user'])))-%>
 
-<%=text_with_label('Hours: ',@shelter.access("hours", session['user']))%>
+<%=text_with_label('Hours: ',@shelter.access("hours", User.find(session['user'])))%>
 <br />
 <%=text_with_label 'Mission: ',tf(@shelter.mission), :clean => false%>
 <br />
@@ -111,19 +111,19 @@
 <%=text_with_label('Explanation ',@shelter.temp_perm_explanation)%>
 
 <br />
-<b>Notes: </b><%= simple_format h(@shelter.access("notes", session['user']))%>
-<%if session['user'] && session['user'].priv_write %>
+<b>Notes: </b><%= @shelter.access("notes", User.find(session['user']))%>
+<%if User.find(session['user']) && User.find(session['user']).priv_write %>
 <fieldset style='background-color:yellow; width:700px; margin-bottom:10px; padding: 0 10px 10px 10px'>
 <legend>CAT Internal Notes</legend>	
-<%=simple_format h(@shelter.cat_notes)%>
+<%= @shelter.cat_notes %>
 </fieldset>
 <br />
 <%end%>
 
 <%= display_history_for(@shelter).html_safe %>
 <br />
-<b>Created At: </b><%= @shelter.access("created_at", session['user']) %><br />
-<b>Updated At: </b><%= @shelter.access("updated_at", session['user']) %><br />
+<b>Created At: </b><%= @shelter.access("created_at", User.find(session['user'])) %><br />
+<b>Updated At: </b><%= @shelter.access("updated_at", User.find(session['user'])) %><br />
 <b>Updated By: </b><%= @shelter.safe_upd_by%><br />
 <P><hr>
 <table id="data">
@@ -160,7 +160,7 @@ Load Legend:
   <th>Load</th>
   </tr>
 
-<% for need in Need.find_all_by_shelter_id(@shelter.id, :include => :item, :order => "upper(items.name), qty_needed DESC, urgency") %>
+<% for need in Need.where(:shelter_id => @shelter.id).order('qty_needed DESC, urgency').includes(:item) %>
   <% if need.load %>
     <tr style="background-color:<%= need.load.bgcolor %>">
   <% else %>
@@ -190,7 +190,7 @@ Load Legend:
   <th>Item</th>
   <th>Qty Available</th>
   <th>Load</th>
-<% for surp in Surplus.find_all_by_shelter_id(@shelter.id, :include => :item, :order => "upper(items.name), surplus_individual DESC") %>
+<% for surp in Surplus.where(:shelter_id => @shelter.id).order('surplus_individual DESC').includes(:item) %>
   <% if surp.load %>
     <tr style="background-color:<%= surp.load.bgcolor %>">
   <% else %>
@@ -242,4 +242,3 @@ Load Legend:
   <% end %>
 </table>
 <br />
-    

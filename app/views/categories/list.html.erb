@@ -13,7 +13,7 @@
   <tr>
     <td class="tdleft"><%=h category.name %></td>
     <td><%=link_to(image_tag("show.png",:alt=>"Show"),:action => 'show', :id => category)%>
-    <%if session['user'] && (session['user'].priv_write)%>
+    <%if User.find(session['user']) && (User.find(session['user']).priv_write)%>
         <%=link_to(image_tag("edit.png",:alt=>"Edit"),:action => 'edit', :id => category)%>
     <%end%>
     </td>

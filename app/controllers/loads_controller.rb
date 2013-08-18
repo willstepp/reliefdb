@@ -44,7 +44,7 @@ class LoadsController < ApplicationController
   def show
     @load = Load.find(params[:id])
     @title = "Load: #{@load.title}"
-    @nextstatuses = @load.allowed_next_statuses(session['user'])
+    @nextstatuses = @load.allowed_next_statuses(User.find(session['user']))
   end
 
   def new
@@ -67,10 +67,10 @@ class LoadsController < ApplicationController
     begin
       @load.source = Shelter.find(params[:srcid])
       @load.destination = Shelter.find(params[:dstid])
-      @load.set_updated_by session['user']
+      @load.set_updated_by User.find(session['user'])
       @load.status = 0
       noerr = @load.update_attributes(params[:load])
-      noerr && @load.update_sending(session['user'], params[:sending] || {})
+      noerr && @load.update_sending(User.find(session['user']), params[:sending] || {})
     rescue ErrorAdded
       noerr = false
     end
@@ -91,9 +91,9 @@ class LoadsController < ApplicationController
     noerr = true
     begin
       @load = Load.find(params[:id])
-      @load.set_updated_by session['user']
+      @load.set_updated_by User.find(session['user'])
       noerr = @load.update_attributes(params[:load])
-      noerr && (@load.status == 0) && @load.update_sending(session['user'], params[:sending] || {})
+      noerr && (@load.status == 0) && @load.update_sending(User.find(session['user']), params[:sending] || {})
     rescue ErrorAdded
       noerr = false
     end
@@ -115,7 +115,7 @@ class LoadsController < ApplicationController
           return
         end
       end
-      @load.accept_with_sending(session['user'], sending)
+      @load.accept_with_sending(User.find(session['user']), sending)
       redirect_to :action => 'show', :id => @load
       return
     end
@@ -130,8 +130,8 @@ class LoadsController < ApplicationController
   def change_status
     @load = Load.find(params[:id])
     @newstat = params[:newstatus].to_i
-    if @newstat != @load.status and @load.allowed_next_statuses(session['user']).include?(@newstat)
-      @load.move_to_status(session['user'], @newstat)
+    if @newstat != @load.status and @load.allowed_next_statuses(User.find(session['user'])).include?(@newstat)
+      @load.move_to_status(User.find(session['user']), @newstat)
     end
     redirect_to :action => 'show', :id => params[:id]
   end

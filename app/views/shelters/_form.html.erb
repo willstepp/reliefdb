@@ -172,7 +172,7 @@ State / Region / County / Town<br>
 <p><label for="shelter_notes">Notes</label><br/>
 <%= text_area 'shelter', 'notes', :cols => 80  %></p>
 
-<%if session['user'] && session['user'].priv_write %>
+<%if User.find(session['user']) && User.find(session['user']).priv_write %>
 <fieldset style='background-color:yellow; width:700px; margin-bottom:10px; padding: 0 10px 10px 10px'>
 <legend>CAT Internal Notes</legend>	
 <%= text_area 'shelter', 'cat_notes', :cols => 80, :rows => 8 %>

@@ -6,7 +6,7 @@
 <BR>
 <B>In general, if you're not sure about a field, just leave it blank. Not all fields will apply to all facilities, and everything but Name is allowed to be blank. Likewise, if you have information that you're not sure where it goes, just put it in the Notes at the bottom. You can enter as much information as you want there.</B><BR>
 
-<%= form_tag :action => 'create' do %>
+<%= form_tag :action => 'create' %>
   <%= error_messages_for 'shelter' %>
 
 <!--[form:shelter]-->
@@ -181,15 +181,11 @@ State / Region / County / Town<br>
 <p><label for="shelter_notes">Notes</label><br/>
 <%= text_area 'shelter', 'notes', :cols => 80  %></p>
 
-<%if session['user'] && session['user'].priv_write %>
+<%if User.find(session['user']) && User.find(session['user']).priv_write %>
 <fieldset style='background-color:yellow; width:700px; margin-bottom:10px; padding: 0 10px 10px 10px'>
 <legend>CAT Internal Notes</legend> 
 <%= text_area 'shelter', 'cat_notes', :cols => 80, :rows => 8 %>
 </fieldset>
-<%end%>
-<!--[eoform:shelter]-->
-
-
   <%= submit_tag "Create" %>
 <% end %>
 

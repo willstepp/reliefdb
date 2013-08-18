@@ -15,7 +15,7 @@ Tom McGehee<BR>
 </DD>
 </DL></TD></TR></TABLE>
 </span>
-<% if session['user'] && session['user'].priv_read_sensitive %>
+<% if User.find(session['user']) && User.find(session['user']).priv_read_sensitive %>
 <P>
 <BR>
 <h3>Registered Users</h3>
@@ -42,7 +42,7 @@ Tom McGehee<BR>
     <td><%=h user.email %></td>
     <td><%=link_to h(user.login), :controller => 'stats', :action => 'access_shelters', :id => user %></td>
     <td><%=h user.logged_in_at %></td>
-    <% if session['user'] && session['user'].priv_admin %>
+    <% if User.find(session['user']) && User.find(session['user']).priv_admin %>
         <td><%=check_box_tag("verified[#{user.id}]", "1", user.verified == 1 ,:onclick => "window.location = '#{url_for(:id=> user.id, :verified => "#{(user.verified.to_i + 1) % 2}")}'")%></td>
         <td><%=check_box_tag("priv_read[#{user.id}]", "1", user.priv_read ,:onclick => "window.location = '#{url_for(:id=> user.id, :priv_read => "#{!user.priv_read}")}'")%></td>
         <td><%=check_box_tag("priv_new_shelters[#{user.id}]", "1", user.priv_new_shelters ,:onclick => "window.location = '#{url_for(:id=> user.id, :priv_new_shelters => "#{!user.priv_new_shelters}")}'")%></td>

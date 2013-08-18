@@ -57,7 +57,7 @@ end
 
 module YAML
   def YAML.add_ruby_type(type_tag, &transfer_proc)
-    resolver.add_type( "tag:ruby.yaml.org,2002:#{type_tag}", transfer_proc)
+    #resolver.add_type( "tag:ruby.yaml.org,2002:#{type_tag}", transfer_proc)
   end
 end
 ## Ugly fix off some mailing list for dumping classes to YAML
@@ -67,7 +67,9 @@ class Module
    end
    def to_yaml( opts = {} )
      YAML::quick_emit( nil, opts ) { |out|
-       out << "!ruby/module "
+      puts 'MODULE::to_yaml'
+      puts out.class
+       out += "!ruby/module "
        self.name.to_yaml( :Emitter => out )
      }
    end

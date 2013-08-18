@@ -3,7 +3,7 @@ class SearchesController < ApplicationController
   layout 'reliefdb'
   
   def new 
-    user = User.find(session['user'].id)
+    user = User.find(User.find(session['user']).id)
     @searches = user.searches.map{|s|    
       [s.save_name + s.updated_on.strftime(' (Last Updated %a, %m/%d/%Y %I:%M %p)'),s.id]
       }      
@@ -25,14 +25,14 @@ class SearchesController < ApplicationController
       redirect_to :action => 'new'
       return
     end    
-    user = User.find(session['user'].id)
+    user = User.find(User.find(session['user']).id)
     if params[:selected_action] == 'new'
       if params[:newname].nil? || params[:newname].empty? 
        flash[:notice] = "You Must Enter A Name For This Search"
        redirect_to :action => 'new'
        return          
       end
-      srch = Search.new(:user_id => session['user'].id,:save_name => params[:newname],:save_data =>session[:filter])
+      srch = Search.new(:user_id => User.find(session['user']).id,:save_name => params[:newname],:save_data =>session[:filter])
       user.searches << srch
       if srch.save
       url = url_for(:controller => session[:search_return], :action=>'list',:preset => srch.id)
@@ -67,7 +67,7 @@ class SearchesController < ApplicationController
   end
   
   def list
-    user = User.find(session['user'].id)
+    user = User.find(User.find(session['user']).id)
     @searches = user.searches    
   end
   

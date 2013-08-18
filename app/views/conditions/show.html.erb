@@ -20,7 +20,7 @@
   <B>Packaged As:</B> <%=h @condition.packaged_as %><BR>
 <%end%>
 <BR>
-<B>Notes:</B> <%=simple_format h(@condition.notes).html_safe%><BR>
+<B>Notes:</B> <%= @condition.notes.html_safe%><BR>
 <%= display_history_for(@condition).html_safe %>
 <P>
 <%= link_to 'Edit', :action => 'edit', :id => @condition %> |

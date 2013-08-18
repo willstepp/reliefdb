@@ -85,7 +85,7 @@ class ItemsController < ApplicationController
         @item.categories << Category.find_by_id(k.to_i)
       end
     }
-    @item.set_updated_by session['user']
+    @item.set_updated_by User.find(session['user'])
     if @item.save
       flash[:notice] = 'Item was successfully created.'
       redirect_back_or_default :action => 'list'
@@ -109,7 +109,7 @@ class ItemsController < ApplicationController
       end
     }
     params[:item][:categories] = categories
-    @item.set_updated_by session['user']
+    @item.set_updated_by User.find(session['user'])
     if @item.update_attributes(params[:item])
       flash[:notice] = 'Item was successfully updated.'
       redirect_back_or_default :action => 'show', :id => @item

@@ -46,7 +46,7 @@ module UserSystem
     end
     puts "LOGIN_REQUIRED: PROTECTED"
 
-    if user? and authorize?(session['user'])
+    if user? and authorize?(User.find(session['user']))
       return true
     end
     puts "LOGIN_REQUIRED: NO USER AND NOT AUTHORIZED"
@@ -100,7 +100,9 @@ module UserSystem
     puts "key: #{key}"
     if id and key
       puts "INSIDE USER?: Authenticating by token"
-      session['user'] = User.authenticate_by_token(id, key)
+      u = User.authenticate_by_token(id, key)
+      #store user id instead of user object
+      session['user'] = u ? u.id : nil
       return true if not session['user'].nil?
       puts "INSIDE USER?: Authentication by token failed"
     end

@@ -5,7 +5,7 @@
   <td class="tdright"><%= no_empty_cell(item_detail.qty_per_pallet).html_safe %></td>
   <td class="tdleft">
     <a href="<%= url_for(:action => 'show', :id => item_detail) %>"><img src="<%= image_path('show.png') %>"/></a>
-    <%if session['user'] && (session['user'].priv_write)%>
+    <%if session['user'] && (User.find(session['user']).priv_write)%>
       <a href="<%= url_for(:action => 'edit', :id => item_detail) %>"><img src="<%= image_path('edit.png') %>"/></a>
     <%end%>
   </td> 

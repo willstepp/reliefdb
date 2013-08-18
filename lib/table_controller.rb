@@ -198,11 +198,11 @@ module TableController
     if params[:show_only_my].nil?
       params[:show_only_my] = "0"
     end
-    if params[:show_only_my] == "1" && session['user']
+    if params[:show_only_my] == "1" && User.find(session['user'])
       if cond
-        cond[0] += " AND (shelters_users.shelter_id = shelters.id) AND (shelters_users.user_id = #{session['user'].id})"
+        cond[0] += " AND (shelters_users.shelter_id = shelters.id) AND (shelters_users.user_id = #{User.find(session['user']).id})"
       else
-        cond = ["(shelters_users.shelter_id = shelters.id) AND (shelters_users.user_id = #{session['user'].id})"]
+        cond = ["(shelters_users.shelter_id = shelters.id) AND (shelters_users.user_id = #{User.find(session['user']).id})"]
       end
     end
 

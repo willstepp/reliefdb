@@ -1,9 +1,9 @@
 <div id="listnotes">
   <fieldset>
     <legend><%=caption%>:<%=dataset.name%>
-      <%=link_to "Edit This #{caption}", {:controller => caption.pluralize.downcase, :action => "edit", :id => dataset.id} if session['user'] && (session['user'].priv_write)%> 
+      <%=link_to "Edit This #{caption}", {:controller => caption.pluralize.downcase, :action => "edit", :id => dataset.id} if User.find(session['user']) && (User.find(session['user']).priv_write)%> 
     </legend>
-    <%=simple_format( "<span class = 'bold'>Notes:</span> #{h dataset.notes}") if not dataset.notes.blank?%>
+    <%= "<span class = 'bold'>Notes:</span> #{dataset.notes}" if not dataset.notes.blank?%>
     <%if dataset.respond_to?("categories")%>
       <span class = "bold">Categories Where This Item Is Listed:</span> 
       <ul class="twocolumnlist">

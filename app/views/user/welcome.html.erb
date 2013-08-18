@@ -2,7 +2,7 @@
 
 Your account has now been verified. You are currently logged in, and now have permission to create and edit new facilities. If you also require access to edit existing facilities, please E-mail <%=link_to $DBADMIN, "mailto:#{$DBADMIN}"%>.
 <P>
-When you next return to the site, use the login '<%=session['user'].login%>' and the password you entered on the signup form.
+When you next return to the site, use the login '<%=User.find(session['user']).login%>' and the password you entered on the signup form.
 <P>
 Your help in keeping this vital informational resource accurate and up-to-date is deeply appreciated, by CAT, and by all the users of the database. If you have any suggestions on how to make this site more useful or easier to use, please <%= link_to "send them to us", "mailto:#{$DBADMIN}" %>!
 <P>

@@ -64,12 +64,12 @@ Mime::Type.register 'application/pdf', :pdf
 #ActionController::Base.cache_store = :file_store, "tmp/cat_#{RAILS_ENV}_frag"
 
 # Salted Login Generation Stuff
-require 'config/environments/localization_environment'
+require_relative './environments/localization_environment'
 require 'localization'
 Localization::load_localized_strings
 
 $DBADMIN = "dbadmin@citizenactionteam.org"
-require 'config/environments/user_environment'
+require_relative './environments/user_environment'
 
 require "model_extensions"
 

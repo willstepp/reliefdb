@@ -18,7 +18,7 @@
 
 <td align="left">
 <a href="<%= url_for(:controller => 'shelters', :action => 'show', :id => facility_detail.id) %>"><img src="<%= image_path('show.png') %>" alt="show" /></a>
-<%if session['user'] && (session['user'].priv_write or facility_detail.users.include?(session['user']))%>
+<%if session['user'] && (User.find(session['user']).priv_write or facility_detail.users.include?(User.find(session['user'])))%>
     <a href="<%= url_for(:controller => 'shelters', :action => 'edit', :id => facility_detail.id) %>"><img src="<%= image_path('edit.png') %>" alt="edit" /></a>
 <%end%>
 </td>

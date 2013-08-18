@@ -155,7 +155,7 @@ class ConditionsController < ApplicationController
     @pages = @records.divmod(session[:filter][:linesperpage].to_i)[0] + (@records.divmod(session[:filter][:linesperpage].to_i)[1] > 0 ? 1:0)
     order = session[:filter][:cond_sort].collect{|c|Condition.col_for_sort[Condition.cols.index(c.gsub(/\ DESC|\ ASC/,''))] + ' ' + c[c.rindex(' ') + 1,c.length]}.join(",") if session[:filter][:cond_sort] 
     order = "conditions.updated_at DESC" if order.blank?
-    sql = "select is_this_user(shelters.id,#{session['user'].nil? ? '0':session['user'].id}),conditions.id, shelters.facility_type,conditions.shelter_id,conditions.item_id,conditions.type,uc.firstname as ucfn, uc.lastname as ucln,packaged_as," + Condition.cols.join(',') + sql
+    sql = "select is_this_user(shelters.id,#{User.find(session['user']).nil? ? '0':User.find(session['user']).id}),conditions.id, shelters.facility_type,conditions.shelter_id,conditions.item_id,conditions.type,uc.firstname as ucfn, uc.lastname as ucln,packaged_as," + Condition.cols.join(',') + sql
     sql = sql + ' order by ' + order
     sql = sql + " LIMIT " + session[:filter][:linesperpage].to_s + " OFFSET " + @offset.to_s    
     @conditions = Condition.find_by_sql [sql,*@cond]    
@@ -218,7 +218,7 @@ class ConditionsController < ApplicationController
 
   def show
     begin
-      @condition = Condition.find(params[:id])
+      @condition = Condition.where(:id => params[:id]).first
     rescue
       flash[:notice] = "I Am Sorry, But That Is Not A Valid ID"
       redirect_to :action => 'list'
@@ -258,7 +258,7 @@ class ConditionsController < ApplicationController
       	    item = Item.new
       	    item.name = itemname
       	    item.categories = [cat]
-            item.set_updated_by session['user']
+            item.set_updated_by User.find(session['user'])
       	    item.save
       	  end
     	  items << item
@@ -281,14 +281,14 @@ class ConditionsController < ApplicationController
       end
       @condition.shelter = @shelter
       @condition.item = item
-      @condition.set_updated_by session['user']
+      @condition.set_updated_by User.find(session['user'])
       if @condition.save
       	partial = true
       else
       	success = false
       end
     end
-    @shelter.update_cond(session['user'])
+    @shelter.update_cond(User.find(session['user']))
     if success
       flash[:notice] = 'Condition was successfully created.'
       redirect_back_or_default :controller => 'shelters', :action => 'show', :id => params[:shelter]
@@ -301,14 +301,14 @@ class ConditionsController < ApplicationController
   end
 
   def edit
-    @condition = Condition.find(params[:id])
+    @condition = Condition.where(:id => params[:id]).first
     @title = "Edit #{@condition.class == Need ? "Need" : "Availability"}: " + @condition.name
   end
 
   def update
-    @condition = Condition.find(params[:id])
-    @condition.set_updated_by session['user']
-    @condition.shelter.update_cond(session['user'])
+    @condition = Condition.where(:id => params[:id]).first
+    @condition.set_updated_by User.find(session['user'])
+    @condition.shelter.update_cond(User.find(session['user']))
     if @condition.update_attributes(params[:condition])
       flash[:notice] = 'Condition was successfully updated.'
       redirect_back_or_default :controller => 'shelters', :action => 'show', :id => @condition.shelter_id
@@ -318,7 +318,7 @@ class ConditionsController < ApplicationController
   end
 
   def destroy
-    condition = Condition.find(params[:id])
+    condition = Condition.where(:id => params[:id]).first
     shelter = condition.shelter_id
     condition.destroy
     redirect_to :controller => 'shelters', :action => 'show', :id => shelter

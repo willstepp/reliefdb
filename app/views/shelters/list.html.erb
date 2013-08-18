@@ -35,7 +35,7 @@ function sheltermap(lng, lat) {
   <tr style="background-color:<%=shelter.facility_type.bgcolor%>">
   <td><%=link_to h(shelter.name), :action => 'show', :id => shelter %></td>
   <td><%=h shelter.organization %></td>
-  <td><%=h shelter.access('main_phone', session['user'])%></td>
+  <td><%=h shelter.access('main_phone', User.find(session['user']))%></td>
   <td><%= state_link(shelter) %></td>
   <td><%= region_or_state(shelter) %></td>
   <td><%= parish_or_region(shelter) %></td>
@@ -46,7 +46,7 @@ function sheltermap(lng, lat) {
   <td><%= shelter.status.colored %></td>
   <td><%= shelter.info_updated_txt %></td>
   <td><%= shelter.conditions_updated_txt %></td>
-  <td><%=h shelter.access('hours', session['user'])%></td>
+  <td><%=h shelter.access('hours', User.find(session['user']))%></td>
   <td><%=tf shelter.address %></td>
   <td><%= if shelter.dc then "Yes" else "No" end %></td>
   <td>
@@ -58,7 +58,7 @@ function sheltermap(lng, lat) {
       <% end %>
     <% end %>
   </td>
-  <%# if not shelter.access(:other_contacts, session['user']).nil? and shelter.access(:other_contacts, session['user']).length > 0 %>
+  <%# if not shelter.access(:other_contacts, User.find(session['user'])).nil? and shelter.access(:other_contacts, User.find(session['user'])).length > 0 %>
     <%#=link_to "Yes", :action => 'show', :id => shelter %>
   <%# end %>
   <td><%= link_to 'Show', :action => 'show', :id => shelter %></td>

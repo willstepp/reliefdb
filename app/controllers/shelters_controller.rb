@@ -65,7 +65,7 @@ class SheltersController < ApplicationController
   end
 
   def new
-    @user = session['user']
+    @user = User.find(session['user'])
     @shelter = Shelter.new
     @title = "New Facility"
     @shelter.status = 0
@@ -79,10 +79,10 @@ class SheltersController < ApplicationController
   end
 
   def create
-    @user = session['user']
+    @user = User.find(session['user'])
     @shelter = Shelter.new
-    @shelter.set_updated_by session['user']
-    @shelter.users << session['user']
+    @shelter.set_updated_by User.find(session['user'])
+    @shelter.users << User.find(session['user'])
     puts params[:shelter]
     if @shelter.update_attributes(params[:shelter])
       flash[:notice] = 'Facility was successfully created.'
@@ -103,7 +103,7 @@ class SheltersController < ApplicationController
 
   def update    
     @shelter = Shelter.find(params[:id])
-    @shelter.set_updated_by session['user']
+    @shelter.set_updated_by User.find(session['user'])
     if @shelter.update_attributes(params[:shelter])
       flash[:notice] = 'Facility was successfully updated.'
       redirect_to :action => 'show', :id => @shelter
@@ -132,7 +132,7 @@ class SheltersController < ApplicationController
 
   def quickupdate
     @shelter = Shelter.find(params[:id])
-    @shelter.update_cond(session['user'])
+    @shelter.update_cond(User.find(session['user']))
     params[:conditions].each do |id, condattrs|
       begin
         condition = Condition.find(id)
@@ -156,7 +156,7 @@ class SheltersController < ApplicationController
               next
             end
         end
-        condition.set_updated_by session['user']
+        condition.set_updated_by User.find(session['user'])
         if condition.update_attributes(condattrs)
           flash[:notice] = 'Condition was successfully updated.'
         else

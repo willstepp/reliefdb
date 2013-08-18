@@ -81,8 +81,6 @@ class ActiveRecord::Base
   include ModelExtensions
 
   def self.public_sanitize_sql(str)
-    #sanitize_sql(str)
-    puts "SANITIZING SQL"
     send(:sanitize_sql_array, str)
   end
 
@@ -107,7 +105,6 @@ class LevelSetting
   end
 
   def to_s
-#    @val.to_s
     name
   end
 

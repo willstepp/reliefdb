@@ -62,11 +62,11 @@
 (to accept indicated qtys, just change status to Accepted)
 <P>
 <% end %>
-<B>Notes: </B><%= simple_format h(@load.access("notes", session['user']))%>
+<B>Notes: </B><%= @load.access("notes", User.find(session['user'])) %>
 <%= display_history_for(@load).html_safe %>
 <BR>
-<B>Created At: </B><%= @load.access("created_at", session['user']) %><BR>
-<B>Updated At: </B><%= @load.access("updated_at", session['user']) %><BR>
+<B>Created At: </B><%= @load.access("created_at", User.find(session['user'])) %><BR>
+<B>Updated At: </B><%= @load.access("updated_at", User.find(session['user'])) %><BR>
 <B>Updated By: </B><%= @load.safe_upd_by%><BR>
 <P><hr>
 <%= link_to 'Edit', :action => 'edit', :id => @load %> |

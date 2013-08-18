@@ -68,7 +68,7 @@ function sheltermap(lng, lat) {
 <% end %>
 </table>
 
-<%if session['user'] && (session['user'].priv_admin)%>
+<%if User.find(session['user']) && (User.find(session['user']).priv_admin)%>
   <p><%= link_to 'Administrative: List Done/Closed Loads', :action => 'admin_list' %></p>
 <%end%>
 

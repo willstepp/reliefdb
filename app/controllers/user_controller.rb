@@ -12,6 +12,8 @@ class UserController < ApplicationController
       flash.now['message'] = "Your account has not yet been verified. Please check your E-mail and click the verification link. If you have already done this, and it didn't work, try cutting and pasting the URL into your browser's address bar, making sure to get all of it. If you still have problems, <a style='color:red' href=\"#{url_for :action=> :resend_verification }\"> click here to resend your verification email</a> or you can <A HREF=\"mailto:#{$DBADMIN}\">E-mail us</a>, and we will manually verify your account."
       session[:unverified_user] = User.unverified?(params['user']['login']).id
     elsif session['user'] = User.authenticate(params['user']['login'], params['user']['password'])
+      #store user id in session instead of object
+      session['user'] = User.find(session['user']).id
       flash['notice'] = l(:user_login_succeeded)
       redirect_back_or_default :controller => 'facilities', :action => 'list'
     else
@@ -152,7 +154,7 @@ class UserController < ApplicationController
   end
 
   def delete
-    @user = session['user']
+    @user = User.find(session['user'])
     begin
       if UserSystem::CONFIG[:delayed_delete]
         @user.transaction do
@@ -172,7 +174,7 @@ class UserController < ApplicationController
   end
 
   def restore_deleted
-    @user = session['user']
+    @user = User.find(session['user'])
     @user.deleted = 0
     if not @user.save
       flash.now['notice'] = l(:user_restore_deleted_error, "#{@user['login']}")
@@ -214,7 +216,7 @@ class UserController < ApplicationController
 
   # Generate a template user for certain actions on get
   def generate_filled_in
-    @user = session['user']
+    @user = User.find(session['user'])
     case request.method
     when :get
       render

@@ -68,7 +68,7 @@ class CategoriesController < ApplicationController
         @category.items << Item.find(k.to_i)
       end
     }
-    @category.set_updated_by session['user']
+    @category.set_updated_by User.find(session['user'])
     if @category.save
       flash[:notice] = 'Category was successfully created.'
       redirect_to :action => 'list'
@@ -92,7 +92,7 @@ class CategoriesController < ApplicationController
       end
     }
     params[:category][:items] = items
-    @category.set_updated_by session['user']
+    @category.set_updated_by User.find(session['user'])
     if @category.update_attributes(params[:category])
       flash[:notice] = 'Category was successfully updated.'
       redirect_back_or_default :action => 'show', :id => @category

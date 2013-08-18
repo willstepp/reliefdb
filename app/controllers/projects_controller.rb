@@ -11,8 +11,8 @@ class ProjectsController < ApplicationController
 #         :redirect_to => { :action => :list }
 
   def list
-    @user = session['user'].id
-    @shelters = Shelter.project_shelters(session['user'], true)
+    @user = User.find(session['user']).id
+    @shelters = Shelter.project_shelters(User.find(session['user']), true)
     @project_pages, @projects = paginate :projects, :per_page => 10    
   end
 

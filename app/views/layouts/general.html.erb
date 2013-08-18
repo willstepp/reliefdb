@@ -31,7 +31,7 @@
     			<%= link_to "Quick Start", { :controller => "/quick/start" }, :class => "x-highlighted" %> 
     			| <%= link_to "Board", "http://www.relief.proboards49.com/", :target => "_new", :class => "x-highlighted" %>
     			<% if session['user'] %> | <%= link_to "User Preferences", { :controller => "/user", :action => "edit" } %>
-                <%if session['user'].priv_admin%> | <%=link_to "Admin", :controller => "admin", :action => "list"%><%end%>    			
+                <%if session['user'] and User.find(session['user']).priv_admin %> | <%=link_to "Admin", :controller => "admin", :action => "list"%><%end%>    			
     			<% end %> <br />
     		</div>
     		<div style="white-space:nowrap;width:770px;clear:both;background-color:#d9d9d9">
