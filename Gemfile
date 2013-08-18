@@ -6,6 +6,7 @@ gem 'RedCloth'
 gem 'pg'
 gem 'thin'
 gem 'dynamic_form'
+gem 'iconv'
 
 gem 'json'
 
