@@ -43,7 +43,7 @@ module ApplicationHelper
     if vals[0] != ""
       vals.unshift("")
     end
-    "<select id=\"select#{field}\" onchange=\"document.getElementById('#{table.singularize}_#{field}').value = this.value\">" + options_for_select(vals) + "</select>"
+    ("<select id=\"select#{field}\" onchange=\"document.getElementById('#{table.singularize}_#{field}').value = this.value\">" + options_for_select(vals) + "</select>").html_safe
   end
 
   def autoselect_location

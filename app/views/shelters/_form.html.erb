@@ -21,7 +21,7 @@
 
 <p><B>Start With an Existing Location</B><br/>
 State / Region / County / Town<br>
-<%= autoselect_location %></p>
+<%= autoselect_location.html_safe %></p>
 
 <p><label for="shelter_state">State</label><br/>
 <%= text_field 'shelter', 'state', :size => 2, :maxlength => 2 %></p>

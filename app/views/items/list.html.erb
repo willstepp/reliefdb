@@ -16,9 +16,9 @@ Click <%=image_tag("edit.png",:alt=>"Edit")%>To Edit Item</p>
   <tr>
     <td style="width:93%" class="tdleft"><%=h item.name %></td>
     <td style="width:50px">
-      <%=link_to(image_tag("show.png",:alt=>"Show"), :action => 'show', :id => item)%>
+      <a href="<%= url_for(:action => "show", :id => item.id) %>"><img src="<%= image_path("show.png") %>"/></a>
       <%if session['user'] && (session['user'].priv_write)%>
-      <%=link_to(image_tag("edit.png",:alt=>"Edit"),:action => 'edit', :id => item)%>
+          <a href="<%= url_for(:action => "edit", :id => item.id) %>"><img src="<%= image_path("edit.png") %>"/></a>
       <%end%>
     </td> 
   </tr>

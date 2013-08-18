@@ -14,7 +14,7 @@
 <% if @nextstatuses and @nextstatuses.size > 0 %>
 <small>[<B>Move to Status: </B>
 <% for i in @nextstatuses %>
-  <%= link_to(Load::Status.new(i).colored, {:action => 'change_status', :id => @load, :newstatus => i }) %>  
+  <%= link_to(Load::Status.new(i), {:action => 'change_status', :id => @load, :newstatus => i }, :style => "color:#{Load::Status.new(i).color}") %>  
 <% end %>
 ]</small>
 <BR>
@@ -63,7 +63,7 @@
 <P>
 <% end %>
 <B>Notes: </B><%= simple_format h(@load.access("notes", session['user']))%>
-<%= display_history_for(@load) %>
+<%= display_history_for(@load).html_safe %>
 <BR>
 <B>Created At: </B><%= @load.access("created_at", session['user']) %><BR>
 <B>Updated At: </B><%= @load.access("updated_at", session['user']) %><BR>

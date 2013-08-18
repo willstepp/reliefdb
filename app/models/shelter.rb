@@ -453,27 +453,27 @@ class Shelter < ActiveRecord::Base
     self.users.include?(user)
   end
 
-  def mgt_phone(user)
+  def mgt_phone(user = nil)
     sensitive_access("mgt_phone", user)
   end
 
-  def supply_phone(user)
+  def supply_phone(user = nil)
     sensitive_access("supply_phone", user)
   end
 
-  def mgt_contact(user)
+  def mgt_contact(user = nil)
     sensitive_access("mgt_contact", user)
   end
 
-  def supply_contact(user)
+  def supply_contact(user = nil)
     sensitive_access("supply_contact", user)
   end
 
-  def other_contacts(user)
+  def other_contacts(user = nil)
     sensitive_access("other_contacts", user)
   end
 
-  def email(user)
+  def email(user = nil)
     sensitive_access("email", user)
   end
 

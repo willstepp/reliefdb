@@ -22,9 +22,9 @@ class History < ActiveRecord::Base
       # New object
       h.was_new = true
     end
-    if o.respond_to?('info_source')
+    if !h.was_new and o.respond_to?('info_source')
       old = o.class.find_by_id(o.id)
-      if old.info_source == o.info_source
+      if old and (old.info_source == o.info_source)
         out = ""
       else
         out = tf(o.info_source)

@@ -80,9 +80,10 @@ class SheltersController < ApplicationController
 
   def create
     @user = session['user']
-    @shelter = Shelter.new()
+    @shelter = Shelter.new
     @shelter.set_updated_by session['user']
     @shelter.users << session['user']
+    puts params[:shelter]
     if @shelter.update_attributes(params[:shelter])
       flash[:notice] = 'Facility was successfully created.'
       redirect_to :action => 'show', :id => @shelter.id
@@ -120,11 +121,11 @@ class SheltersController < ApplicationController
       end
     end
     @shelter = Shelter.find(params[:id])
-    @needs = Need.where(:shelter_id => @shelter.id).order('upper(items.name)').include(:item)
-    @surpluses = Surplus.where(:shelter_id => @shelter.id).order('upper(items.name)').include(:item)
+    @needs = Need.where(:shelter_id => @shelter.id).order('upper(items.name)').includes(:item)
+    @surpluses = Surplus.where(:shelter_id => @shelter.id).order('upper(items.name)').includes(:item)
     session['quick-edits'] = {}
-    @needs.each {|n| session['quick-edits'][n.id] = n}
-    @surpluses.each {|n| session['quick-edits'][n.id] = n}
+    @needs.each {|n| session['quick-edits'][n.id] = {:id => n.id, :type => :need}}
+    @surpluses.each {|n| session['quick-edits'][n.id] = {:id => n.id, :type => :surplus}}
     @title = "Quick Edit: " + @shelter.name
     render :layout => 'reliefdb'
   end
@@ -146,7 +147,9 @@ class SheltersController < ApplicationController
       if condattrs[:delete]
         condition.destroy()
       else
-        if session['quick-edits'] and oldcond = session['quick-edits'][id.to_i]
+        s = session['quick-edits'][id.to_i]
+        oc = s[:type] == :need ? Need.find(s[:id]) : Surplus.find(s[:id])
+        if session['quick-edits'] and oldcond = oc
           oldattrs = oldcond.attributes
           oldcond.attributes = condattrs
             if oldcond.attributes == oldattrs
