@@ -40,10 +40,19 @@ GEM
     arel (2.2.3)
     bcrypt-ruby (3.0.1)
     builder (3.0.4)
+    coffee-rails (3.1.1)
+      coffee-script (>= 2.2.0)
+      railties (~> 3.1.0)
+    coffee-script (2.2.0)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.6.3)
     daemons (1.1.9)
     dynamic_form (1.1.4)
     erubis (2.7.0)
     eventmachine (1.0.3)
+    execjs (1.4.0)
+      multi_json (~> 1.0)
     hike (1.2.3)
     i18n (0.6.5)
     iconv (1.0.3)
@@ -84,6 +93,11 @@ GEM
     rake (10.1.0)
     rdoc (3.12.2)
       json (~> 1.4)
+    sass (3.2.10)
+    sass-rails (3.1.0)
+      actionpack (~> 3.1.0)
+      railties (~> 3.1.0)
+      sass (>= 3.1.4)
     sprockets (2.0.4)
       hike (~> 1.2)
       rack (~> 1.0)
@@ -98,16 +112,23 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.37)
+    uglifier (2.1.2)
+      execjs (>= 0.3.0)
+      multi_json (~> 1.0, >= 1.0.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   RedCloth
+  coffee-rails (~> 3.1.0)
   dynamic_form
   iconv
+  json
   pg
   prototype_legacy_helper (= 0.0.0)!
   psych
   rails (= 3.1.0)
+  sass-rails (~> 3.1.0)
   thin
+  uglifier

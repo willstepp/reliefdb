@@ -44,7 +44,7 @@ class UserController < ApplicationController
           url = url_for(:action => 'welcome')
           url += "?userid=#{@user.id}&key=#{key}"
           puts "User Url: #{url}"
-          UserMailer.deliver_signup(@user, params['user']['password'], url)
+          UserMailer.signup(@user, params['user']['password'], url).deliver
           puts "User Notified"
           flash['notice'] = l(:user_signup_succeeded)
           redirect_to :action => 'login'
@@ -61,7 +61,7 @@ class UserController < ApplicationController
     key = @user.generate_security_token
     url = url_for(:action => 'welcome')
     url += "?userid=#{@user.id}&key=#{key}"
-    UserMailer.deliver_signup(@user, '', url)
+    UserMailer.signup(@user, '', url).deliver
     flash['notice'] = 'Verification Email Has Been Resent To You'
     redirect_to :action => 'login'    
   end
@@ -79,7 +79,7 @@ class UserController < ApplicationController
         puts 'USERCONTROLLER::change_password saving user'
         if @user.save
           puts 'USERCONTROLLER::change_password saved user'
-          #UserMailer.deliver_change_password(@user, params['user']['password'])
+          #UserMailer.change_password(@user, params['user']['password']).deliver
           #flash.now['notice'] = l(:user_updated_password, "#{@user.email}")
           flash.now['notice'] = "Password changed."
         else
@@ -116,7 +116,7 @@ class UserController < ApplicationController
           url = url_for(:action => 'change_password')
 #          url = "http://dbase.citizenactionteam.org/user/change_password"
           url += "?userid=#{user.id}&key=#{key}"
-          UserMailer.deliver_forgot_password(user, url)
+          UserMailer.forgot_password(user, url).deliver
           flash['notice'] = l(:user_forgotten_password_emailed, "#{params['user']['email']}")
           unless user?
             redirect_to :action => 'login'
@@ -161,7 +161,7 @@ class UserController < ApplicationController
           key = @user.set_delete_after
           url = url_for(:action => 'restore_deleted')
           url += "?user[id]=#{@user.id}&key=#{key}"
-          UserMailer.deliver_pending_delete(@user, url)
+          UserMailer.pending_delete(@user, url).deliver
         end
       else
         destroy(@user)
@@ -190,7 +190,7 @@ class UserController < ApplicationController
   protected
 
   def destroy(user)
-    UserMailer.deliver_delete(user)
+    UserMailer.delete(user).deliver
     flash['notice'] = l(:user_delete_finished, "#{user['login']}")
     user.destroy()
   end

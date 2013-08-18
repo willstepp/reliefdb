@@ -5,11 +5,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title><%=h( @title && @title + " (CitizenActionTeam.org Database)" || "CitizenActionTeam.org Database" )%>
 </title>
-<%= stylesheet_link_tag 'reliefdb' %> 
-<%= javascript_include_tag 'general' %>
-<%= javascript_include_tag 'prototype.js' %>
-<%= javascript_include_tag 'effects.js' %>
-<%= javascript_include_tag 'dragdrop.js' %>
+  <%= stylesheet_link_tag 'application' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tag %>
 
 </head>
 <body>
@@ -19,7 +17,7 @@
 	<% if not @noheader %>
 		<%=render :partial => "/layouts/top"%>
 		<% end %>
-		<div style="background-image:url('/images/bg.jpg');background-repeat:repeat-x;border-top: 5px white solid;float:left; min-width:740px"> 
+		<div style="background-image:url('/assets/bg.jpg');background-repeat:repeat-x;border-top: 5px white solid;float:left; min-width:740px"> 
 		<%= yield  %> 
 		</div>
 	</div>

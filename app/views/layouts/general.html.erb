@@ -5,8 +5,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title><%=h( @title && @title + " (CitizenActionTeam.org Database)" || "CitizenActionTeam.org Database" )%>
 </title>
-<%= stylesheet_link_tag 'general' %> 
-<%= javascript_include_tag 'general' %>
+  <%= stylesheet_link_tag 'application' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tag %>
 
 </head>
 <body>
@@ -16,7 +17,7 @@
 		
 		<% if not @noheader %>
 		<div id="header" style="width:760px">
-		    <div id="headerleft" style="float:left;width:400px;height:45px;background-image:url('/images/header.gif');background-repeat:no-repeat;background-position:left 21px">
+		    <div id="headerleft" style="float:left;width:400px;height:45px;background-image:url(<%= image_path('header.gif') %>);background-repeat:no-repeat;background-position:left 21px">
 		    <%= link_to "Main", "http://www.reliefdatabase.org/", :target => "_new", :class => "hl-spacing" %> 
     			| <%= link_to "News", "http://www.reliefdatabase.org/News.html", :target => "_new" %> 
     			| <%= link_to "Donate!", "http://www.reliefdatabase.org/ReliefDbase~CATDonations.html", :target => "_new" %>
@@ -69,7 +70,7 @@
     		<% end %>
     	</div>
 		<% end %>
-		<div style="background-image:url('/images/bg.jpg');background-repeat:repeat-x;border-top: 5px white solid"> 
+		<div style="background-image:url('/assets/bg.jpg');background-repeat:repeat-x;border-top: 5px white solid"> 
 		<%= @content_for_layout %>
         <%= yield %>
 		</div>

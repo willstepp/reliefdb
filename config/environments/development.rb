@@ -26,5 +26,11 @@ Reliefdb::Application.configure do
   # The breakpoint server port that script/breakpointer connects to.
   BREAKPOINT_SERVER_PORT = 42531
   $GOOGLE_KEY = 'ABQIAAAAbdITJ03kesz7Bl8t1chadRSJPN39Uo-fCoyfn8FrewnykWh4jRQemVYjd4oQu-zHhgzrDS42_44kSQ'
+
+  # Do not compress assets
+  config.assets.compress = false
+
+  # Expands the lines which load the assets
+  config.assets.debug = true
 end
 
