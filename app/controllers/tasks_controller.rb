@@ -5,8 +5,7 @@ class TasksController < ApplicationController
   end
 
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
-  verify :method => :post, :only => [ :destroy, :create, :update ],
-         :redirect_to => { :action => :list }
+  #verify :method => :post, :only => [ :destroy, :create, :update ],:redirect_to => { :action => :list }
 
   def list
     @tasks_pages, @tasks = paginate :tasks, :per_page => 10

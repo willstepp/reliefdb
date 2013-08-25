@@ -1,0 +1,8 @@
+log
+tmp
+test
+public/assets
+public/system
+.bundle
+.DS_STORE
+*.sqlite3

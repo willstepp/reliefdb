@@ -8,6 +8,7 @@ vendor/bundle
 log/*
 tmp/**/*
 db/*.sqlite3
+public/assets
 public/system/*
 coverage/
 spec/tmp/*
