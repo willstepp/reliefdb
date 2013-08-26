@@ -6,7 +6,7 @@ Reliefdb::Application.configure do
   config.cache_classes = true
 
   # Full error reports are disabled and caching is turned on
-  config.consider_all_requests_local       = false
+  config.consider_all_requests_local       = true
   config.action_controller.perform_caching = true
 
   # Specifies the header that your server uses for sending files
@@ -56,7 +56,7 @@ Reliefdb::Application.configure do
   config.assets.compile = false
 
   # Generate digests for assets URLs
-  config.assets.digest = true
+  config.assets.digest = false
 
   config.eager_load = true
 end

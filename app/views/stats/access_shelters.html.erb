@@ -14,7 +14,7 @@
   <% end %>
 </table>
 
-<% if User.find(session['user']) && User.find(session['user']).priv_admin %>
+<% if session['user'] && User.find(session['user']) && User.find(session['user']).priv_admin %>
 	<p>
 	<%= form_tag :action=>'add_shelter' do -%>
 	<%=select(:shelter, :id,Shelter.find(:all,

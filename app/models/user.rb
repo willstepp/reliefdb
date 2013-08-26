@@ -6,8 +6,10 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :shelters, :order => 'upper(name)'
   has_many :searches, :order => 'save_name'
 
-  attr_accessor :new_password
-  
+  before_create :format_login
+
+  attr_accessor :new_password, :login, :password, :password_confirmation
+
   def initialize(attributes = nil)
     super
     @new_password = false
@@ -85,8 +87,6 @@ class User < ActiveRecord::Base
     
   protected
 
-  attr_accessor :password, :password_confirmation
-
   def validate_password?
     puts "USER::Validate_Password?"
     puts @new_password
@@ -128,9 +128,15 @@ class User < ActiveRecord::Base
     hashed(salt + hashed_password)
   end
 
+  def format_login
+    self.login = self.login.strip.downcase
+  end
+
+=begin
   def login=(str)
     write_attribute('login', str && str.strip.downcase)
   end
+=end
 
   validates_presence_of :login, :on => :create
   validates_format_of :login, :with => /[a-zA-Z0-9_]+/, :message => 'may only contain letters, numbers, and underscore (_).', :multiline => true

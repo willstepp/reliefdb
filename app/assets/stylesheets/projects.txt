@@ -1,7 +1,7 @@
 html, body, #contents {
-	min-height: 100%;
-	width: 100%;
-	height: 100%;
+  min-height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 /*
@@ -10,7 +10,7 @@ html, body, #contents {
  */
 
 html>body, html>body #contents {
-	height: auto;}
+  height: auto;}
 
 /*
  * Without this, Moz1.0 adds a vertical scrollbar
@@ -31,17 +31,17 @@ body { margin: 0}
 
 /*
 #footer {
-/*	position: absolute;
-	bottom: 0; 
-	background-color: #ffffff;
-	text-align: left;
-	padding: 10px;
-	clear:both
+/*  position: absolute;
+  bottom: 0; 
+  background-color: #ffffff;
+  text-align: left;
+  padding: 10px;
+  clear:both
 }
 */
 #main {
-	height: auto;
-	padding: .5em;
+  height: auto;
+  padding: .5em;
 }
 
 /* End footer hacks */
@@ -85,7 +85,7 @@ table th, table td{border-bottom: 1px green solid}
 
 .task_Done{background-color:lime}
 .percentdone{width: 100px; background-image:url('assets/percentdone.png'); border: 1px gray solid; 
-	display:block; color:white; text-align:center; float:left; margin: 0 10px; margin-top:-3px}
+  display:block; color:white; text-align:center; float:left; margin: 0 10px; margin-top:-3px}
 .project_name{float:left; width:300px}
 #project_list {list-style:square}
 #project_list li{clear:left; height:23px;}

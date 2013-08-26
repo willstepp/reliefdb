@@ -8,7 +8,7 @@ class UserController < ApplicationController
       render and return
     end
     @user = User.new(params['user'])
-    if User.unverified?(params['user']['login'])
+    if User.unverified?(params[:user][:login])
       flash.now['message'] = "Your account has not yet been verified. Please check your E-mail and click the verification link. If you have already done this, and it didn't work, try cutting and pasting the URL into your browser's address bar, making sure to get all of it. If you still have problems, <a style='color:red' href=\"#{url_for :action=> :resend_verification }\"> click here to resend your verification email</a> or you can <A HREF=\"mailto:#{$DBADMIN}\">E-mail us</a>, and we will manually verify your account."
       session[:unverified_user] = User.unverified?(params['user']['login']).id
     elsif session['user'] = User.authenticate(params['user']['login'], params['user']['password'])

@@ -1,5 +1,5 @@
     <div id="searches">
-     <%if User.find(session['user'])%>
+     <%if session['user'] && User.find(session['user'])%>
         <%if @searches.size == 0%>
             You Have No Saved Searches
         <%else%>

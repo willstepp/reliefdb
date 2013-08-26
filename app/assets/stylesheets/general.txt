@@ -1,7 +1,7 @@
 html, body, #contents {
-	min-height: 100%;
-	width: 100%;
-	height: 100%;
+  min-height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 /*
@@ -10,7 +10,7 @@ html, body, #contents {
  */
 
 html>body, html>body #contents {
-	height: auto;
+  height: auto;
 }
 
 /*
@@ -32,17 +32,17 @@ body { margin: 0}
 }
 
 #footer {
-	position: absolute;
-	bottom: 0;
-	background-color: #ffffff;
-	text-align: left;
-	padding: 10px;
+  position: absolute;
+  bottom: 0;
+  background-color: #ffffff;
+  text-align: left;
+  padding: 10px;
 }
 
 #main {
-	margin-bottom: 5em;
-	height: auto;
-	padding: .5em;
+  margin-bottom: 5em;
+  height: auto;
+  padding: .5em;
 }
 
 /* End footer hacks */
@@ -56,7 +56,7 @@ body, p, ol, ul, td {
 }
 
 dt {
-  font-weight:	bold;
+  font-weight:  bold;
 }
 
 pre {
@@ -252,26 +252,26 @@ div.spacedline {
   color: #3b523b;
 }
 #includediv, #otherincludes{
-	margin: 10px 0;
-	background-color:silver;
+  margin: 10px 0;
+  background-color:silver;
 }
 #includetypes{height: 130px; background-color:silver;}
 #includetypes h5{font-size: .9em;text-align:center; margin:0}
 
 #includediv ul,#includetypes ul{
-	list-style:none;
-	margin:10 0;
-	padding: 10px;
+  list-style:none;
+  margin:10 0;
+  padding: 10px;
 }
 #includediv li{
-	display:inline;
-	margin-right:20px;
+  display:inline;
+  margin-right:20px;
 }
 #includetypes li{
-	width:190px;
-	float:left;
-	margin-right:20px;
-	display:inline
+  width:190px;
+  float:left;
+  margin-right:20px;
+  display:inline
 }
 #otherincludes{
     clear:both

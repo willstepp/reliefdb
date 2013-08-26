@@ -16,7 +16,7 @@ gem 'uglifier', ">= 1.3.0"
 gem 'therubyracer', :platforms => :ruby
 
 gem 'rails-observers'
-
+gem 'prototype-rails'
 gem 'protected_attributes'
 
 #for observe_field
