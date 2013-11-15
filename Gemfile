@@ -5,6 +5,8 @@ gem 'rails', '4.0.0'
 
 gem 'pg'
 
+gem 'thin'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
@@ -31,6 +33,7 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-gem 'rails_admin'
-
+gem 'rails_admin', :git => 'https://github.com/willstepp/rails_admin.git'
 gem "devise"
+gem "cancan"
+gem 'paper_trail', '>= 3.0.0.rc1'
