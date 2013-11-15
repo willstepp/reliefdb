@@ -1,4 +1,8 @@
 Reliefdb::Application.routes.draw do
+  root 'home#index'
+  devise_for :users
+  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+
   resources :categories
 
   resources :facilities
@@ -14,7 +18,7 @@ Reliefdb::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'home#index'
+  
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
