@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Website:</strong>
+  <%= @facility.website %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @facility.phone %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @facility.address %>
+</p>
+
+<p>
+  <strong>Headquarters:</strong>
+  <%= @facility.headquarters %>
+</p>
+
+<p>
+  <strong>Contact name:</strong>
+  <%= @facility.contact_name %>
+</p>
+
+<p>
+  <strong>Twitter:</strong>
+  <%= @facility.twitter %>
+</p>
+
+<p>
+  <strong>Facebook:</strong>
+  <%= @facility.facebook %>
+</p>
+
+<%= link_to 'Edit', edit_facility_path(@facility) %> |
+<%= link_to 'Back', facilities_path %>

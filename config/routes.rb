@@ -1,4 +1,12 @@
 Reliefdb::Application.routes.draw do
+  resources :categories
+
+  resources :facilities
+
+  resources :loads
+
+  resources :items
+
   resources :organizations
 
   get "home/index"
