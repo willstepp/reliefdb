@@ -30,8 +30,6 @@ Reliefdb::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
-  config.assets.digest = false
-
   config.active_record.mass_assignment_sanitizer = :strict
 
   config.eager_load = false
