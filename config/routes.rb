@@ -1,49 +1,56 @@
-ActionController::Routing::Routes.draw do |map|
+Reliefdb::Application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
+  # See how all your routes lay out with "rake routes".
+
+  # You can have the root of your site routed with "root"
+  # root 'welcome#index'
+
+  # Example of regular route:
+  #   get 'products/:id' => 'catalog#view'
+
+  # Example of named route that can be invoked with purchase_url(id: product.id)
+  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
+
+  # Example resource route (maps HTTP verbs to controller actions automatically):
+  #   resources :products
+
+  # Example resource route with options:
+  #   resources :products do
+  #     member do
+  #       get 'short'
+  #       post 'toggle'
+  #     end
+  #
+  #     collection do
+  #       get 'sold'
+  #     end
+  #   end
+
+  # Example resource route with sub-resources:
+  #   resources :products do
+  #     resources :comments, :sales
+  #     resource :seller
+  #   end
+
+  # Example resource route with more complex sub-resources:
+  #   resources :products do
+  #     resources :comments
+  #     resources :sales do
+  #       get 'recent', on: :collection
+  #     end
+  #   end
   
-  # Sample of regular route:
-  # map.connect 'products/:id', :controller => 'catalog', :action => 'view'
-  # Keep in mind you can assign values other than :controller and :action
+  # Example resource route with concerns:
+  #   concern :toggleable do
+  #     post 'toggle'
+  #   end
+  #   resources :posts, concerns: :toggleable
+  #   resources :photos, concerns: :toggleable
 
-  # Sample of named route:
-  # map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
-  # This route can be invoked with purchase_url(:id => product.id)
-
-  # You can have the root of your site routed by hooking up '' 
-  # -- just remember to delete public/index.html.
-  #map.connect '', :controller => "quick/start" -- right now this is broken (11/4/08)
-   map.connect '', :controller => "facilities", :action => 'list'
-
-  # Allow downloading Web Service WSDL as a file with an extension
-  # instead of a file named 'wsdl'
-  map.connect ':controller/service.wsdl', :action => 'wsdl'
-
-  # Shelter listings
-  map.connect 'shelters/list/:state/counties/:parish', :controller => 'shelters', :action => 'list'
-  map.connect 'shelters/list/:state/:region', :controller => 'shelters', :action => 'list'
-  map.connect 'shelters/list/:state', :controller => 'shelters', :action => 'list'
-  map.connect 'shelters/totals/:state/counties/:parish', :controller => 'shelters', :action => 'totals'
-  map.connect 'shelters/totals/:state/:region', :controller => 'shelters', :action => 'totals'
-  map.connect 'shelters/totals/:state', :controller => 'shelters', :action => 'totals'
-
-  # Condition listings
-  map.connect 'conditions/list/:state/counties/:parish', :controller => 'conditions', :action => 'list'
-  map.connect 'conditions/list/:state/:region', :controller => 'conditions', :action => 'list'
-  map.connect 'conditions/list/:state', :controller => 'conditions', :action => 'list'
-
-  map.connect 'items/show/:id/:state/counties/:parish', :controller => 'items', :action => 'show'
-  map.connect 'items/show/:id/:state/:region', :controller => 'items', :action => 'show'
-  map.connect 'items/show/:id/:state', :controller => 'items', :action => 'show'
-
-  map.connect 'categories/show/:id/:state/counties/:parish', :controller => 'categories', :action => 'show'
-  map.connect 'categories/show/:id/:state/:region', :controller => 'categories', :action => 'show'
-  map.connect 'categories/show/:id/:state', :controller => 'categories', :action => 'show'
-
-  map.connect 'conditions/matches/:id/:avail/:state/counties/:parish', :controller => 'conditions', :action => 'matches'
-  map.connect 'conditions/matches/:id/:avail/:state/:region', :controller => 'conditions', :action => 'matches'
-  map.connect 'conditions/matches/:id/:avail/:state', :controller => 'conditions', :action => 'matches'
-  map.connect 'conditions/matches/:id/:avail', :controller => 'conditions', :action => 'matches'
-  # Install the default route as the lowest priority.
-#  map.connect ':controller/:action/:id.:format'
-  map.connect ':controller/:action/:id'
+  # Example resource route within a namespace:
+  #   namespace :admin do
+  #     # Directs /admin/products/* to Admin::ProductsController
+  #     # (app/controllers/admin/products_controller.rb)
+  #     resources :products
+  #   end
 end

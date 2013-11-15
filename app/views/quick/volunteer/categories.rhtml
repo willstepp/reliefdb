@@ -1,8 +1,0 @@
-<h3>Please select a category of volunteering in which you'd like to participate:</h3>
-<ul>
-<% for item in @items %>
-<li><%=link_to h(item.name), { :action => 'list', :id => item } %>
-<% end %>
-</ul>
-Or <%=link_to "click here to see all volunteering opportunities", { :action => 'list' } %>.
-

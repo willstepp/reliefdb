@@ -1,6 +1,0 @@
-<h1>
-  <%= @avail ? 'Availability' : 'Need' %> matches for <%=h @shelter.name %>
-</h1>
-<%=link_to 'Back to Facility', :controller => "shelters", :action => "show", :id => params[:id] %><BR>
-                         
-<%= render_partial 'conditions/condlist' %>

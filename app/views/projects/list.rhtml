@@ -1,6 +1,0 @@
-<h1>Projects</h1>
-<%=render :partial => "shelter", :collection => @shelters%>
-<%= link_to 'Previous page', { :page => @project_pages.current.previous } if @project_pages.current.previous %>
-<%= link_to 'Next page', { :page => @project_pages.current.next } if @project_pages.current.next %> 
-<br />
-<%= link_to 'New project', :action => 'new'%>

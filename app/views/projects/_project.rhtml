@@ -1,9 +1,0 @@
-<li><span class="project_name">
-  <%=link_to project.project_name, :action => 'show', :id => project %>
-</span>
-<span class="percentdone", style="background-position: <%=number_to_percentage(100 - project.percent_complete, {:precision => 0})%>;">
-<%=number_to_percentage(project.percent_complete, {:precision => 2})%></span>
-<%= link_to image_tag("show.png",:alt=>"Show"), :action => 'show', :id => project %>
-<%= link_to image_tag("edit.png",:alt =>"Edit"), :action => 'edit', :id => project %>
-<%= link_to image_tag("edit-copy.png",:alt =>"Copy"), :action => 'copy', :id => project %>
-</li>

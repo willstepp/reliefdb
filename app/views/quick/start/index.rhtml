@@ -1,4 +1,0 @@
-<center>
-  <%=RedCloth.new(@page).to_html%>
-  <%=button_to "Edit This Page", {:action => "edit"},:class => 'buttonleft' if session['user'] && session['user'].priv_admin%>
-

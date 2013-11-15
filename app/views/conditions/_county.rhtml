@@ -1,9 +1,0 @@
-<div id=county> 
-<label for="county">County:</label>
-<%= select_tag("county",options_for_select(
-    Shelter.find(:all, :select => "parish",
-                            :conditions => ["state = ? and parish <> ''", session[:filter][:state]], 
-                            :group => "parish", 
-                            :order => "parish").map {|f| [f.parish,f.parish]}.unshift("All"), 
-                            session[:filter][:county]))%>                                                                                                                
-</div>

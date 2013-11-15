@@ -1,2 +1,0 @@
-module FaqEntriesHelper
-end

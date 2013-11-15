@@ -1,9 +1,0 @@
-<h1>Editing load</h1>
-<small><%= link_to 'Delete', {:action => 'destroy', :id => @load.id}, :confirm => 'Permanently delete this load?' %></small>
-<p>
-<%= start_form_tag :action => 'update', :id => @load %>
-  <%= render_partial 'form' %>
-  <%= submit_tag 'Update' %>
-<%= end_form_tag %>
-
-<%= link_to 'Show', :action => 'show', :id => @load %>

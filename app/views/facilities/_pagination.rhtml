@@ -1,8 +1,0 @@
-<div class="pagination">
-<%=link_to (image_tag("go-first.png")),{:action => "list", :page => 1} if params[:page] && params[:page].to_i > 1%>
-<%=link_to (image_tag("go-previous.png")),{:action => "list", :page => params[:page].to_i - 1} if params[:page] && params[:page].to_i > 1%>
-<%="Pages #{params[:page]} of #{@pages} Pages "%>
-<%=link_to (image_tag("go-next.png")),{:action => "list", :page => params[:page].to_i + 1} if params[:page] && params[:page].to_i < @pages%>
-<%=link_to (image_tag("go-last.png")),{:action => "list", :page => @pages} if params[:page] && params[:page].to_i < @pages%>
-</div>
-

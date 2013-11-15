@@ -1,5 +1,0 @@
-Show Columns: <%= col_action_link "All", @tableid, :showall %> 
-<% for i in @hidecols.to_a.sort %>
-  <%= col_action_link(@cols[i], @tableid, :show, i) %>
-<% end %>
-<br />
