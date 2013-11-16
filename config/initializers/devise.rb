@@ -117,7 +117,7 @@ Devise.setup do |config|
   # initial account confirmation) to be applied. Requires additional unconfirmed_email
   # db field (see migrations). Until confirmed new email is stored in
   # unconfirmed email column, and copied to email column on successful confirmation.
-  config.reconfirmable = true
+  #config.reconfirmable = true
 
   # Defines which key will be used when confirming an account
   # config.confirmation_keys = [ :email ]
@@ -252,3 +252,16 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
 end
+
+GMAIL_USER = "support@reliefdb.org"
+GMAIL_PASSWORD = "Miserablewinter2012"
+
+ActionMailer::Base.smtp_settings = {  
+  :address              => "smtp.gmail.com",  
+  :port                 => 587,  
+  :domain               => "gmail.com",  
+  :user_name            => GMAIL_USER,  
+  :password             => GMAIL_PASSWORD,  
+  :authentication       => "plain",
+  :enable_starttls_auto => true
+} 

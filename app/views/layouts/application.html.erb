@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Reliefdb</title>
+  <title>ReliefDB</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+
+<% if signed_in? %>
+  <%= link_to "Logout", logout_path %>
+<% else %>
+  <%= link_to "Login", login_path %>
+  &nbsp;|&nbsp;
+  <%= link_to "Register", signup_path %>
+<% end %>
+<hr>
 
 <% flash.each do |key, value| %>
   <%= content_tag(:div, value, :class => "flash #{key}") %>

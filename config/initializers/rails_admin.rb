@@ -20,6 +20,18 @@ RailsAdmin.config do |config|
 
   config.audit_with :paper_trail, User
 
+  config.model 'Facility' do
+    parent Organization
+  end
+
+  config.model 'Load' do
+    parent Facility
+  end
+
+  config.model 'Item' do
+    parent Facility
+  end
+
   # If you want to track changes on your models:
   # config.audit_with :history, 'User'
 

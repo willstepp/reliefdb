@@ -1,6 +1,14 @@
 Reliefdb::Application.routes.draw do
   root 'home#index'
   devise_for :users
+
+  devise_scope :user do
+    delete "/logout" => "devise/sessions#destroy"
+    get "/logout" => "devise/sessions#destroy"
+    get "/login" => "devise/sessions#new", :as => :login
+    get "/signup" => "devise/registrations#new", :as => :signup
+  end
+
   mount RailsAdmin::Engine => '/workshop', :as => 'rails_admin'
 
   resources :categories
