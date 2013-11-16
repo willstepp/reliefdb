@@ -2,8 +2,6 @@
 
 one:
   description: MyString
-  stock: MyString
 
 two:
   description: MyString
-  stock: MyString

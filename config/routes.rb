@@ -1,4 +1,6 @@
 Reliefdb::Application.routes.draw do
+  resources :resources
+
   root 'home#index'
   devise_for :users
 
@@ -16,8 +18,6 @@ Reliefdb::Application.routes.draw do
   resources :facilities
 
   resources :loads
-
-  resources :items
 
   resources :organizations
 

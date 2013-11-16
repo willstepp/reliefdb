@@ -41,7 +41,7 @@ if [ "$init" == "init" ]; then
   echo "\033[0;33m"
   echo "db init: creating database"
   echo "\033[0m"
-  ssh $deploy_env@monomyth.io "bash -l -c 'cd ./public/$site_dir;rake db:create RAILS_ENV=production'"
+  ssh $deploy_env@monomyth.io "bash -l -c 'cd ./public/$site_dir;rake db:drop db:create RAILS_ENV=production'"
   res=$?
   [ $res -ne 0 ] && echo "\033[0;31m" && echo $error_output && echo "\033[0m" && exit 1
 fi
