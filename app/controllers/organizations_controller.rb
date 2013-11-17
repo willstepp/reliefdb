@@ -4,7 +4,7 @@ class OrganizationsController < ApplicationController
   # GET /organizations
   # GET /organizations.json
   def index
-    @organizations = Organization.all
+    @organizations = Organization.all_approved
   end
 
   # GET /organizations/1
@@ -14,20 +14,33 @@ class OrganizationsController < ApplicationController
 
   # GET /organizations/new
   def new
-    @organization = Organization.new
+    if current_user
+      @organization = Organization.new
+    else
+      return redirect_to root_path, :alert => "You do not have permission to create an organization"
+    end
   end
 
   # GET /organizations/1/edit
   def edit
+    if !@organization.can_manage?(current_user)
+      return redirect_to root_path, :alert => "You do not have permission to edit this organization"
+    end
   end
 
   # POST /organizations
   # POST /organizations.json
   def create
+    if !current_user
+      return redirect_to root_path, :alert => "You do not have permission to create this organization"
+    end
+
     @organization = Organization.new(organization_params)
 
     respond_to do |format|
       if @organization.save
+        current_user.organizations << @organization
+
         format.html { redirect_to @organization, notice: 'Organization was successfully created.' }
         format.json { render action: 'show', status: :created, location: @organization }
       else
@@ -40,6 +53,10 @@ class OrganizationsController < ApplicationController
   # PATCH/PUT /organizations/1
   # PATCH/PUT /organizations/1.json
   def update
+    if !@organization.can_manage?(current_user)
+      return redirect_to root_path, :alert => "You do not have permission to update this organization"
+    end
+
     respond_to do |format|
       if @organization.update(organization_params)
         format.html { redirect_to @organization, notice: 'Organization was successfully updated.' }
@@ -54,6 +71,10 @@ class OrganizationsController < ApplicationController
   # DELETE /organizations/1
   # DELETE /organizations/1.json
   def destroy
+    if !@organization.can_manage?(current_user)
+      return redirect_to root_path, :alert => "You do not have permission to delete this organization"
+    end
+
     @organization.destroy
     respond_to do |format|
       format.html { redirect_to organizations_url }

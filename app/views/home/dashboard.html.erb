@@ -1,1 +1,9 @@
-<h3>Welcome to the Dashboard</h3>
+<h2>Dashboard for (<%= current_user.email %>)</h2>
+<% if current_user.role?(:admin) %>
+  <h3><span class="highlight">Admin</span></h3>
+<% end %>
+<h4>Organizations</h4>
+<%= link_to "Create new organization", new_organization_path %>
+<% @orgs.each do |o| %>
+  <p><%= link_to o.name, organization_path(o) %><p>
+<% end %>

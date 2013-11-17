@@ -8,10 +8,10 @@ Reliefdb::Application.routes.draw do
     delete "/logout" => "devise/sessions#destroy"
     get "/logout" => "devise/sessions#destroy"
     get "/login" => "devise/sessions#new", :as => :login
-    get "/signup" => "devise/registrations#new", :as => :signup
+    get "/register" => "devise/registrations#new", :as => :register
   end
 
-  mount RailsAdmin::Engine => '/workshop', :as => 'workshop'
+  mount RailsAdmin::Engine => '/admin', :as => 'admin'
 
   resources :categories
 
