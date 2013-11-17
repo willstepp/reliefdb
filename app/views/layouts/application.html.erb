@@ -10,6 +10,10 @@
 
 <% if signed_in? %>
   <%= link_to "Logout", logout_path %>
+  <% if current_user.role? :admin %>
+  &nbsp;|&nbsp;
+  <%= link_to "Workshop", workshop_path %>
+  <% end %>
 <% else %>
   <%= link_to "Login", login_path %>
   &nbsp;|&nbsp;

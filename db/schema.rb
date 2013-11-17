@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131117015432) do
+ActiveRecord::Schema.define(version: 20131117053152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,11 @@ ActiveRecord::Schema.define(version: 20131117015432) do
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "categories_resources", force: true do |t|
+    t.integer "category_id"
+    t.integer "resource_id"
   end
 
   create_table "facilities", force: true do |t|
@@ -32,6 +37,7 @@ ActiveRecord::Schema.define(version: 20131117015432) do
     t.string   "facebook"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "organization_id"
   end
 
   create_table "loads", force: true do |t|
@@ -39,6 +45,7 @@ ActiveRecord::Schema.define(version: 20131117015432) do
     t.string   "stock"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "facility_id"
   end
 
   create_table "organizations", force: true do |t|
@@ -47,6 +54,12 @@ ActiveRecord::Schema.define(version: 20131117015432) do
     t.string   "phone"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "slug"
+  end
+
+  create_table "organizations_users", force: true do |t|
+    t.integer "organization_id"
+    t.integer "user_id"
   end
 
   create_table "rails_admin_histories", force: true do |t|
@@ -66,6 +79,8 @@ ActiveRecord::Schema.define(version: 20131117015432) do
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "facility_id"
+    t.integer  "load_id"
   end
 
   create_table "users", force: true do |t|

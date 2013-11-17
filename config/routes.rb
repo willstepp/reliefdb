@@ -11,7 +11,7 @@ Reliefdb::Application.routes.draw do
     get "/signup" => "devise/registrations#new", :as => :signup
   end
 
-  mount RailsAdmin::Engine => '/workshop', :as => 'rails_admin'
+  mount RailsAdmin::Engine => '/workshop', :as => 'workshop'
 
   resources :categories
 
@@ -21,7 +21,8 @@ Reliefdb::Application.routes.draw do
 
   resources :organizations
 
-  get "home/index"
+  get "/dashboard" => "home#dashboard", :as => :dashboard
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
