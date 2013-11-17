@@ -21,9 +21,20 @@
 <%= link_to 'Back', @organization.can_manage?(current_user) ? dashboard_path : root_path %>
 
 
-<% if @organization.can_manage?(current_user) %>
+
 <hr>
 
-<h3>Users</h3>
+<% if @organization.can_manage?(current_user) %>
+  <h3>Users</h3>
+  <% @organization.users.each do |u| %>
+    <p><%= link_to u.email, "mailto:#{u.email}" %></p>
+  <% end %>
+<% end %>
+
 <h3>Facilities</h3>
+<% if @organization.can_manage?(current_user) %>
+  <%= link_to "New Facility", new_organization_facility_path(@organization) %>
+<% end %>
+<% @organization.facilities.each do |f| %>
+  <p><%= link_to f.address, organization_facility_path(@organization, f) %></p>
 <% end %>

@@ -2,5 +2,4 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @facility %> |
-<%= link_to 'Back', facilities_path %>
+<%= link_to 'Cancel', organization_facility_path(@facility.organization, @facility) %>

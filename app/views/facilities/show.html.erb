@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Website:</strong>
   <%= @facility.website %>
@@ -35,5 +33,8 @@
   <%= @facility.facebook %>
 </p>
 
-<%= link_to 'Edit', edit_facility_path(@facility) %> |
-<%= link_to 'Back', facilities_path %>
+<% if @facility.can_manage?(current_user) %>
+  <%= link_to 'Edit', edit_organization_facility_path(@facility.organization, @facility) %>
+  &nbsp;|&nbsp;
+<% end %>
+<%= link_to 'Back', organization_path(@facility.organization) %>

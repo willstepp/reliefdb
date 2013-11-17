@@ -15,11 +15,11 @@ Reliefdb::Application.routes.draw do
 
   resources :categories
 
-  resources :facilities
-
   resources :loads
 
-  resources :organizations
+  resources :organizations do
+    resources :facilities
+  end
 
   get "/dashboard" => "home#dashboard", :as => :dashboard
 
