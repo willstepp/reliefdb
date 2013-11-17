@@ -28,7 +28,7 @@ RailsAdmin.config do |config|
     parent Facility
   end
 
-  config.model 'Item' do
+  config.model 'Resource' do
     parent Facility
   end
 
