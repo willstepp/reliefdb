@@ -3,3 +3,7 @@
 <%= render 'form' %>
 
 <%= link_to 'Cancel', @organization %>
+
+<hr>
+
+<%= link_to 'Delete Organization', @organization, method: :delete, data: { confirm: 'Are you sure?' }, class: :highlight %>

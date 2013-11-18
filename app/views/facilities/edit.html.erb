@@ -3,3 +3,7 @@
 <%= render 'form' %>
 
 <%= link_to 'Cancel', organization_facility_path(@facility.organization, @facility) %>
+
+<hr>
+
+<%= link_to 'Delete Facility', organization_facility_path(@facility.organization, @facility), method: :delete, data: { confirm: 'Are you sure?' }, class: :highlight %>

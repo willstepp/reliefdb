@@ -1,34 +1,35 @@
 class ResourcesController < ApplicationController
   before_action :set_resource, only: [:show, :edit, :update, :destroy]
 
-  # GET /resources
-  # GET /resources.json
-  def index
-    @resources = Resource.all
-  end
-
-  # GET /resources/1
-  # GET /resources/1.json
   def show
   end
 
-  # GET /resources/new
   def new
-    @resource = Resource.new
+    f = Facility.find(params[:facility_id])
+    if current_user && f.can_manage?(current_user)
+      @resource = Resource.new
+      @resource.facility = f
+    else
+      return redirect_to root_path, :alert => "You do not have permission to create a resource for this facility"
+    end
   end
 
-  # GET /resources/1/edit
   def edit
+    if !@resource.can_manage?(current_user)
+      return redirect_to root_path, :alert => "You do not have permission to edit this resource"
+    end
   end
 
-  # POST /resources
-  # POST /resources.json
   def create
+    if !current_user
+      return redirect_to root_path, :alert => "You do not have permission to create this resource"
+    end
+
     @resource = Resource.new(resource_params)
 
     respond_to do |format|
       if @resource.save
-        format.html { redirect_to @resource, notice: 'Resource was successfully created.' }
+        format.html { redirect_to facility_resource_path(@resource.facility, @resource), notice: 'Resource was successfully created.' }
         format.json { render action: 'show', status: :created, location: @resource }
       else
         format.html { render action: 'new' }
@@ -37,12 +38,14 @@ class ResourcesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /resources/1
-  # PATCH/PUT /resources/1.json
   def update
+    if !@resource.can_manage?(current_user)
+      return redirect_to root_path, :alert => "You do not have permission to update this resource"
+    end
+
     respond_to do |format|
       if @resource.update(resource_params)
-        format.html { redirect_to @resource, notice: 'Resource was successfully updated.' }
+        format.html { redirect_to facility_resource_path(@resource.facility, @resource), notice: 'Resource was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -51,12 +54,14 @@ class ResourcesController < ApplicationController
     end
   end
 
-  # DELETE /resources/1
-  # DELETE /resources/1.json
   def destroy
+    if !@resource.can_manage?(current_user)
+      return redirect_to root_path, :alert => "You do not have permission to delete this resource"
+    end
+
     @resource.destroy
     respond_to do |format|
-      format.html { redirect_to resources_url }
+      format.html { redirect_to root_path }
       format.json { head :no_content }
     end
   end
@@ -69,6 +74,6 @@ class ResourcesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def resource_params
-      params.require(:resource).permit(:description)
+      params.require(:resource).permit(:description, :facility_id)
     end
 end

@@ -2,5 +2,8 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @resource %> |
-<%= link_to 'Back', resources_path %>
+<%= link_to 'Cancel', facility_path(@resource.facility) %>
+
+<hr>
+
+<%= link_to 'Delete Resource', facility_resource_path(@resource.facility, @resource), method: :delete, data: { confirm: 'Are you sure?' }, class: :highlight %>

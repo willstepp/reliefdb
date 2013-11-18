@@ -1,12 +1,6 @@
 class OrganizationsController < ApplicationController
   before_action :set_organization, only: [:show, :edit, :update, :destroy]
 
-  # GET /organizations
-  # GET /organizations.json
-  def index
-    @organizations = Organization.all_approved
-  end
-
   # GET /organizations/1
   # GET /organizations/1.json
   def show
@@ -77,9 +71,33 @@ class OrganizationsController < ApplicationController
 
     @organization.destroy
     respond_to do |format|
-      format.html { redirect_to organizations_url }
+      format.html { redirect_to root_path }
       format.json { head :no_content }
     end
+  end
+
+  def add_user
+    @organization = Organization.find(params[:organization_id])
+    alert = ""
+    if @organization.can_manage?(current_user)
+      u = User.where(:email => params[:email]).first
+      if u
+        @organization.users << u
+        alert = "User added"
+      else
+        alert = "User not found"
+      end
+    end
+    return redirect_to organization_path(@organization), :alert => alert
+  end
+
+  def remove_user
+    @organization = Organization.find(params[:organization_id])
+    if @organization.can_manage?(current_user)
+      u = User.find(params[:user_id])
+      @organization.users.destroy(u)
+    end
+    return redirect_to organization_path(@organization), :alert => "User removed"
   end
 
   private

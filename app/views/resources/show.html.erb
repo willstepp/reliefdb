@@ -1,9 +1,11 @@
-<p id="notice"><%= notice %></p>
-
+<h2>Resource</h2>
 <p>
   <strong>Description:</strong>
   <%= @resource.description %>
 </p>
 
-<%= link_to 'Edit', edit_resource_path(@resource) %> |
-<%= link_to 'Back', resources_path %>
+<% if @resource.can_manage?(current_user) %>
+  <%= link_to 'Edit', edit_facility_resource_path(@resource.facility, @resource) %>
+  &nbsp;|&nbsp;
+<% end %>
+<%= link_to 'Back', facility_path(@resource.facility) %>

@@ -1,12 +1,6 @@
 class FacilitiesController < ApplicationController
   before_action :set_facility, only: [:show, :edit, :update, :destroy]
 
-  # GET /facilities
-  # GET /facilities.json
-  def index
-    @facilities = Facility.all
-  end
-
   # GET /facilities/1
   # GET /facilities/1.json
   def show
@@ -77,7 +71,7 @@ class FacilitiesController < ApplicationController
 
     @facility.destroy
     respond_to do |format|
-      format.html { redirect_to organization_facilities_url }
+      format.html { redirect_to root_path }
       format.json { head :no_content }
     end
   end

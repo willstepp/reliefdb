@@ -1,3 +1,4 @@
+<h2>Facility</h2>
 <p>
   <strong>Website:</strong>
   <%= @facility.website %>
@@ -38,3 +39,12 @@
   &nbsp;|&nbsp;
 <% end %>
 <%= link_to 'Back', organization_path(@facility.organization) %>
+
+<hr>
+<h3>Resources</h3>
+<% if @facility.can_manage?(current_user) %>
+  <%= link_to "Add Resource", new_facility_resource_path(@facility) %>
+<% end %>
+<% @facility.resources.each do |r| %>
+  <p><%= link_to r.description, facility_resource_path(@facility, r) %></p>
+<% end %>
