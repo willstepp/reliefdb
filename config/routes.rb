@@ -1,4 +1,6 @@
 Reliefdb::Application.routes.draw do
+  resources :items
+
   devise_for :users
 
   devise_scope :user do
