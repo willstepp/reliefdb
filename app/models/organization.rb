@@ -28,9 +28,7 @@ class Organization < ActiveRecord::Base
   private
 
   def remove_user_associations
-    self.users.each do |u|
-      self.users.destroy(u)
-    end
+    self.users.destroy_all
   end
 
   def generate_slug

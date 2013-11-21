@@ -14,8 +14,6 @@ class User < ActiveRecord::Base
   private
 
   def remove_organization_associations
-    self.organizations.each do |o|
-      self.organizations.destroy(o)
-    end
+    self.organizations.destroy_all
   end
 end
