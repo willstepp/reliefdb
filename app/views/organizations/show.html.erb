@@ -20,8 +20,6 @@
 <% end %>
 <%= link_to 'Back', @organization.can_manage?(current_user) ? dashboard_path : root_path %>
 
-
-
 <hr>
 
 <% if @organization.can_manage?(current_user) %>
@@ -40,5 +38,5 @@
   <%= link_to "New Facility", new_organization_facility_path(@organization) %>
 <% end %>
 <% @organization.facilities.each do |f| %>
-  <p><%= link_to f.address, organization_facility_path(@organization, f) %></p>
+  <p><%= link_to f.name, organization_facility_path(@organization, f) %></p>
 <% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131122014157) do
+ActiveRecord::Schema.define(version: 20131122034000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -139,11 +139,22 @@ ActiveRecord::Schema.define(version: 20131122014157) do
   add_index "rails_admin_histories", ["item", "table", "month", "year"], name: "index_rails_admin_histories", using: :btree
 
   create_table "resources", force: true do |t|
-    t.string   "description"
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "facility_id"
     t.integer  "load_id"
+    t.text     "type"
+    t.text     "notes"
+    t.integer  "qty_needed"
+    t.integer  "surplus_individual"
+    t.integer  "surplus_crates"
+    t.integer  "qty_per_crate"
+    t.boolean  "must_dispose_of_urgently"
+    t.integer  "urgency"
+    t.integer  "crate_preference"
+    t.integer  "can_buy_local"
+    t.text     "packaged_as"
   end
 
   create_table "users", force: true do |t|
