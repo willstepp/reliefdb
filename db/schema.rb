@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131121033158) do
+ActiveRecord::Schema.define(version: 20131122014157) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,16 +29,64 @@ ActiveRecord::Schema.define(version: 20131121033158) do
   end
 
   create_table "facilities", force: true do |t|
-    t.string   "website"
-    t.string   "phone"
-    t.string   "address"
+    t.text     "website"
+    t.text     "phone"
+    t.text     "address"
     t.boolean  "headquarters"
-    t.string   "contact_name"
+    t.text     "contact_name"
     t.string   "twitter"
     t.string   "facebook"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "organization_id"
+    t.text     "name"
+    t.text     "state"
+    t.text     "county"
+    t.text     "city"
+    t.boolean  "dc"
+    t.integer  "dc_population"
+    t.integer  "dc_shelters"
+    t.integer  "dc_more"
+    t.text     "mgt_phone"
+    t.text     "supply_phone"
+    t.text     "supply_contact_name"
+    t.text     "notes"
+    t.text     "zipcode"
+    t.text     "other_notes"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.integer  "red_cross_status"
+    t.text     "region"
+    t.integer  "capacity"
+    t.integer  "population"
+    t.integer  "status"
+    t.text     "org_name"
+    t.text     "make_payable"
+    t.integer  "facility_type"
+    t.text     "hours"
+    t.integer  "loading_docks"
+    t.integer  "forklifts"
+    t.integer  "workers"
+    t.integer  "pallet_jacks"
+    t.text     "client_contact_name"
+    t.text     "client_contact_phone"
+    t.text     "client_contact_address"
+    t.text     "client_contact_email"
+    t.integer  "waiting_list"
+    t.text     "areas_served"
+    t.text     "eligibility"
+    t.text     "is_fee_required"
+    t.decimal  "fee_amount",                precision: 7, scale: 2
+    t.text     "payment_forms"
+    t.text     "temp_perm"
+    t.datetime "planned_enddate"
+    t.text     "fee_is_for"
+    t.text     "mission"
+    t.text     "internal_notes"
+    t.text     "clients_must_bring"
+    t.text     "fee_explaination"
+    t.text     "temp_perm_explaination"
+    t.text     "waiting_list_explaination"
   end
 
   create_table "items", force: true do |t|
@@ -99,12 +147,12 @@ ActiveRecord::Schema.define(version: 20131121033158) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -115,6 +163,10 @@ ActiveRecord::Schema.define(version: 20131121033158) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "roles"
+    t.boolean  "force_password_reset",   default: false
+    t.text     "username"
+    t.text     "first_name"
+    t.text     "last_name"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

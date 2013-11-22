@@ -1,12 +1,12 @@
 Reliefdb::Application.routes.draw do
   resources :items
 
-  devise_for :users
+  devise_for :users, :controllers => { :sessions => "sessions" }
 
   devise_scope :user do
     delete "/logout" => "devise/sessions#destroy"
     get "/logout" => "devise/sessions#destroy"
-    get "/login" => "devise/sessions#new", :as => :login
+    get "/login" => "sessions#new", :as => :login
     get "/register" => "devise/registrations#new", :as => :register
   end
 
