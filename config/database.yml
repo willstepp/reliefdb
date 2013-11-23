@@ -10,8 +10,8 @@ development:
 production:
   adapter: postgresql
   encoding: unicode
-  database: reliefdb_production
-  host: localhost
-  pool: 5
-  username: postgres
-  password: "call me postgres"
+  database: <%= ENV['RDS_DB_NAME'] %>
+  username: <%= ENV['RDS_USERNAME'] %>
+  password: <%= ENV['RDS_PASSWORD'] %>
+  host: <%= ENV['RDS_HOSTNAME'] %>
+  port: <%= ENV['RDS_PORT'] %>
