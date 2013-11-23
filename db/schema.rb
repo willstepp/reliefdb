@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131122034000) do
+ActiveRecord::Schema.define(version: 20131123020359) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,11 +103,24 @@ ActiveRecord::Schema.define(version: 20131122034000) do
   end
 
   create_table "loads", force: true do |t|
-    t.string   "description"
-    t.string   "stock"
+    t.text     "description"
+    t.text     "stock"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "facility_id"
+    t.text     "info_source"
+    t.text     "notes"
+    t.integer  "source_id"
+    t.integer  "destination_id"
+    t.text     "title"
+    t.text     "trucker_name"
+    t.text     "truck_reg"
+    t.integer  "status"
+    t.datetime "ready_by"
+    t.datetime "etd"
+    t.datetime "eta"
+    t.integer  "transport_avail"
+    t.integer  "routing_type"
   end
 
   create_table "organizations", force: true do |t|
@@ -144,7 +157,7 @@ ActiveRecord::Schema.define(version: 20131122034000) do
     t.datetime "updated_at"
     t.integer  "facility_id"
     t.integer  "load_id"
-    t.text     "type"
+    t.text     "resource_type"
     t.text     "notes"
     t.integer  "qty_needed"
     t.integer  "surplus_individual"

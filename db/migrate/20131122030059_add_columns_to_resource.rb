@@ -1,6 +1,6 @@
 class AddColumnsToResource < ActiveRecord::Migration
   def change
-    add_column :resources, :type, :text, :limit => nil
+    add_column :resources, :resource_type, :text, :limit => nil
     add_column :resources, :notes, :text, :limit => nil
     add_column :resources, :qty_needed, :integer
     add_column :resources, :surplus_individual, :integer

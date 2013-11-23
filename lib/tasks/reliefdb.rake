@@ -2,18 +2,12 @@ namespace :reliefdb do
 
   desc "Imports data from legacy database to new one"
   task import_data: :environment do
-    #connect to cat_production database
-    #adapter: postgresql
-    #database: cat_production
-    #username: citizen
-    #password: Citizen
-    #host: localhost
 
     cat_conn = PG.connect(host: 'localhost', 
                           port: 5432,
                           options: nil,
                           tty: nil,
-                          dbname: 'cat_production',
+                          dbname: 'cat_test',
                           user: 'citizen',
                           password: 'Citizen')
 
@@ -26,30 +20,46 @@ namespace :reliefdb do
                           password: 'thisisapasswordmotherfucker')
     
     begin  
-=begin
       #categories
       res = cat_conn.exec('select * from categories')
+      rdb_conn.exec('delete from categories')
+      puts "categories started"
       res.each do |r|
         rdb_conn.exec_params('INSERT INTO categories(id, description, created_at, updated_at, name) VALUES ($1, $2, $3, $4, $5);', [r['id'], r['notes'], r['created_at'], r['updated_at'], r['name']])
+        puts "category insert: #{r['id']}"
       end
+      puts "categories finished"
       #items
       res = cat_conn.exec('select * from items')
+      rdb_conn.exec('delete from items')
+      puts "items started"
       res.each do |r|
         rdb_conn.exec_params('INSERT INTO items(id, description, created_at, updated_at, name, quantity) VALUES ($1, $2, $3, $4, $5, $6);', [r['id'], r['notes'] ? r['notes'].force_encoding('iso8859-1').encode('utf-8') : nil, r['created_at'], r['updated_at'], r['name'] ? r['name'].force_encoding('iso8859-1').encode('utf-8') : nil, r['qty_per_pallet']])
+        puts "item insert: #{r['id']}"
       end
+      puts "items finished"
       #categories_items
       res = cat_conn.exec('select * from categories_items')
+      rdb_conn.exec('delete from categories_items')
+      puts "categories_items started"
       res.each do |r|
         rdb_conn.exec_params('INSERT INTO categories_items(category_id, item_id) VALUES ($1, $2);', [r['category_id'], r['item_id']])
+        puts "categories_items insert: #{r['category_id']} - #{r['item_id']}"
       end
+      puts "categories_items finished"
       #users
       res = cat_conn.exec('select * from users')
+      rdb_conn.exec('delete from users')
+      puts "users started"
       res.each do |r|
         rdb_conn.exec_params('INSERT INTO users(id, username, email, first_name, last_name) VALUES ($1, $2, $3, $4, $5);', [r['id'], r['login'], r['email'], r['firstname'], r['lastname']])
+        puts "users insert: #{r['id']}"
       end
+      puts "users finished"
       #shelters
       res = cat_conn.exec('select * from shelters')
       rdb_conn.exec('delete from organizations;delete from facilities;')
+      puts "shelters started"
       res.each do |r|
         rdb_conn.exec_params('INSERT INTO organizations(id,name) VALUES ($1, $2);', [r['id'], r['organization']])
         rdb_conn.exec_params(%Q(INSERT INTO facilities(organization_id, 
@@ -102,18 +112,110 @@ namespace :reliefdb do
                                                         r['temp_perm'] ? r['temp_perm'].force_encoding('iso8859-1').encode('utf-8') : nil, r['planned_enddate'], r['fee_is_for'] ? r['fee_is_for'].force_encoding('iso8859-1').encode('utf-8') : nil, r['mission'] ? r['mission'].force_encoding('iso8859-1').encode('utf-8') : nil, 
                                                         r['cat_notes'] ? r['cat_notes'].force_encoding('iso8859-1').encode('utf-8') : nil, r['clients_must_bring'] ? r['clients_must_bring'].force_encoding('iso8859-1').encode('utf-8') : nil, r['fee_explanation'] ? r['fee_explanation'].force_encoding('iso8859-1').encode('utf-8') : nil, 
                                                         r['temp_perm_explanation'] ? r['temp_perm_explanation'].force_encoding('iso8859-1').encode('utf-8') : nil, r['waiting_list_explanation'] ? r['waiting_list_explanation'].force_encoding('iso8859-1').encode('utf-8') : nil])
+        puts "shelter insert: #{r['id']}"
       end
-
+      puts "shelters finished"
     #shelters_users
       res = cat_conn.exec('select * from shelters_users')
+      rdb_conn.exec('delete from organizations_users')
+      puts "organizations_users started"
       res.each do |r|
         rdb_conn.exec_params('INSERT INTO organizations_users(organization_id, user_id) VALUES ($1, $2);', [r['shelter_id'], r['user_id']])
+        puts "organizations_users insert: #{r['shelter_id']} - #{r['user_id']}"
       end
-=end
+      puts "organizations_users finished"
     #conditions
+    cat_conn.exec('delete from conditions where id = 70125 and lock_version = 0') #duplicate
     res = cat_conn.exec('select * from conditions')
+    rdb_conn.exec('delete from resources;delete from items_resources;')
+    puts "conditions started"
     res.each do |r|
-    end
+      rdb_conn.exec_params('INSERT INTO items_resources(item_id, resource_id) VALUES ($1, $2);', [r['item_id'], r['id']])
+      rdb_conn.exec_params('INSERT INTO resources(id, 
+                                                  description, 
+                                                  created_at, 
+                                                  updated_at, 
+                                                  facility_id, 
+                                                  load_id, 
+                                                  resource_type,
+                                                  notes,
+                                                  qty_needed,
+                                                  surplus_individual,
+                                                  surplus_crates,
+                                                  qty_per_crate,
+                                                  must_dispose_of_urgently,
+                                                  urgency,
+                                                  crate_preference,
+                                                  can_buy_local,
+                                                  packaged_as) VALUES ($1, $2, $3, $4, $5,
+                                                                       $6, $7, $8, $9, $10,
+                                                                       $11, $12, $13, $14, $15,
+                                                                       $16, $17);', 
+                                                  [r['id'], 
+                                                  nil,
+                                                  r['created_at'],
+                                                  r['updated_at'],
+                                                  r['shelter_id'],
+                                                  r['load_id'],
+                                                  r['type'] ? r['type'].force_encoding('iso8859-1').encode('utf-8') : nil,
+                                                  r['notes'] ? r['notes'].force_encoding('iso8859-1').encode('utf-8') : nil,
+                                                  r['qty_needed'],
+                                                  r['surplus_individual'],
+                                                  r['surplus_crates'],
+                                                  r['qty_per_crate'],
+                                                  r['must_dispose_of_urgently'],
+                                                  r['urgency'],
+                                                  r['crate_preference'],
+                                                  r['can_buy_local'],
+                                                  r['packaged_as'] ? r['packaged_as'].force_encoding('iso8859-1').encode('utf-8') : nil])
+        puts "condition insert: #{r['id']}"
+      end
+       puts "conditions finished"
+      #loads
+      res = cat_conn.exec('select * from loads')
+      rdb_conn.exec('delete from loads')
+      puts "loads started"
+      res.each do |r|
+        rdb_conn.exec_params('INSERT INTO loads(id,
+                                                created_at,
+                                                updated_at,
+                                                facility_id,
+                                                info_source,
+                                                notes,
+                                                source_id,
+                                                destination_id,
+                                                title,
+                                                trucker_name,
+                                                truck_reg,
+                                                status,
+                                                ready_by,
+                                                etd,
+                                                eta,
+                                                transport_avail,
+                                                routing_type) VALUES ($1, $2, $3, $4, $5,
+                                                                       $6, $7, $8, $9, $10,
+                                                                       $11, $12, $13, $14, $15,
+                                                                       $16, $17);', 
+                                                [r['id'], 
+                                                r['created_at'],
+                                                r['updated_at'],
+                                                r['source_id'],
+                                                r['info_source'] ? r['info_source'].force_encoding('iso8859-1').encode('utf-8') : nil,
+                                                r['notes'] ? r['notes'].force_encoding('iso8859-1').encode('utf-8') : nil,
+                                                r['source_id'],
+                                                r['destination_id'],
+                                                r['title'] ? r['title'].force_encoding('iso8859-1').encode('utf-8') : nil,
+                                                r['trucker_name'] ? r['trucker_name'].force_encoding('iso8859-1').encode('utf-8') : nil,
+                                                r['truck_reg'] ? r['truck_reg'].force_encoding('iso8859-1').encode('utf-8') : nil,
+                                                r['status'],
+                                                r['ready_by'],
+                                                r['etd'],
+                                                r['eta'],
+                                                r['transport_avail'],
+                                                r['routing_type']])
+        puts "load insert: #{r['id']}"
+      end
+      puts "loads finished"
     rescue PG::Error => err
       p [
           err.result.error_field( PG::Result::PG_DIAG_SEVERITY ),
