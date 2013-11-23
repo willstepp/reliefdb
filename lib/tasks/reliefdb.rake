@@ -83,13 +83,13 @@ namespace :reliefdb do
                                                         eligibility, is_fee_required, fee_amount, payment_forms, 
                                                         temp_perm, planned_enddate, fee_is_for, mission, 
                                                         internal_notes, clients_must_bring, fee_explaination, 
-                                                        temp_perm_explaination, waiting_list_explaination) 
+                                                        temp_perm_explaination, waiting_list_explaination,id) 
                                   VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10,
                                           $11, $12, $13, $14, $15, $16, $17, $18, $19, $20,
                                           $21, $22, $23, $24, $25, $26, $27, $28, $29, $30,
                                           $31, $32, $33, $34, $35, $36, $37, $38, $39, $40,
                                           $41, $42, $43, $44, $45, $46, $47, $48, $49, $50,
-                                          $51, $52, $53, $54, $55, $56);), 
+                                          $51, $52, $53, $54, $55, $56, $57);), 
                                                         [r['id'], 
                                                         r['website'] ? r['website'].force_encoding('iso8859-1').encode('utf-8') : nil,
                                                         true,
@@ -111,7 +111,7 @@ namespace :reliefdb do
                                                         r['eligibility'] ? r['eligibility'].force_encoding('iso8859-1').encode('utf-8') : nil, r['is_fee_required'] ? r['is_fee_required'].force_encoding('iso8859-1').encode('utf-8') : nil, r['fee_amount'], r['payment_forms'] ? r['payment_forms'].force_encoding('iso8859-1').encode('utf-8') : nil, 
                                                         r['temp_perm'] ? r['temp_perm'].force_encoding('iso8859-1').encode('utf-8') : nil, r['planned_enddate'], r['fee_is_for'] ? r['fee_is_for'].force_encoding('iso8859-1').encode('utf-8') : nil, r['mission'] ? r['mission'].force_encoding('iso8859-1').encode('utf-8') : nil, 
                                                         r['cat_notes'] ? r['cat_notes'].force_encoding('iso8859-1').encode('utf-8') : nil, r['clients_must_bring'] ? r['clients_must_bring'].force_encoding('iso8859-1').encode('utf-8') : nil, r['fee_explanation'] ? r['fee_explanation'].force_encoding('iso8859-1').encode('utf-8') : nil, 
-                                                        r['temp_perm_explanation'] ? r['temp_perm_explanation'].force_encoding('iso8859-1').encode('utf-8') : nil, r['waiting_list_explanation'] ? r['waiting_list_explanation'].force_encoding('iso8859-1').encode('utf-8') : nil])
+                                                        r['temp_perm_explanation'] ? r['temp_perm_explanation'].force_encoding('iso8859-1').encode('utf-8') : nil, r['waiting_list_explanation'] ? r['waiting_list_explanation'].force_encoding('iso8859-1').encode('utf-8') : nil, r['id']])
         puts "shelter insert: #{r['id']}"
       end
       puts "shelters finished"
