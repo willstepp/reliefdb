@@ -1,1 +1,1 @@
-ADMIN_URL = 'http://admin.reliefdb.org'
+ADMIN_URL = 'http://admin.reliefdb.org/admin'
