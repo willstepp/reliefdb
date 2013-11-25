@@ -1,0 +1,1 @@
+ADMIN_URL = 'http://admin.reliefdb.org'

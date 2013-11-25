@@ -10,8 +10,6 @@ Reliefdb::Application.routes.draw do
     get "/register" => "devise/registrations#new", :as => :register
   end
 
-  mount RailsAdmin::Engine => '/admin', :as => 'admin'
-
   resources :categories
   resources :loads
 

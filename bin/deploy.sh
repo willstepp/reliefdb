@@ -3,7 +3,7 @@ script_dir="$( cd "$( dirname "$0" )" && pwd )"
 deploy_env='prod'
 init=''
 if [ "$#" -ge 1 ]; then init=$1; fi
-rsync_args="-arvuz $script_dir/../ prod@monomyth.io:/home/prod/public/reliefdb.org --exclude-from $script_dir/exclude.txt"
+rsync_args="-arvuz $script_dir/../ prod@monomyth.io:/home/prod/public/reliefdb.org --delete --exclude-from $script_dir/exclude.txt"
 site_dir='reliefdb.org'
 error_output='error: deployment aborted'
 
