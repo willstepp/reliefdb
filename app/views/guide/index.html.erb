@@ -1,20 +1,55 @@
-<div class="pad-large">
+<div class="header-panel">
   <div class="row">
-    <h3>Welcome to ReliefDB, a community-driven website for relief resources. Answer the questions below to continue.</h3>
-  </div>
-  <br>
-  <div class="row">
-    <h4>1) Why are you here?</h4>
-    <hr>
-      <ul class="button-group radius">
-        <li><a href="#" class="button">I need help</a></li>
-        <li><a href="#" class="button">I want to help</a></li>
-      </ul>
-    <h4>2) Where are you?</h4>
-    <hr>
-    <a href="#" class="button">Use my current location</a>
-    <h4>3) What kind of help do you need?</h4>
-    <hr>
-    <a href="#" class="button radius large success">Find Relief</a>
+    <div style="display:table">
+      <div style="display:table-cell;vertical-align:middle;padding:7px">
+        <%= image_tag 'reliefdb-icon.png', :class => "icon-image" %>
+      </div>
+      <div style="display:table-cell;padding-left:10px;vertical-align:middle">
+        <h3>Welcome to ReliefDB, a community-driven tool for discovering relief resources. Answer the following questions to begin.</h3>
+      </div>
+    </div>
   </div>
 </div>
+  <br>
+  <div class="row pad-large">
+    <h4>1) Why are you here?</h4>
+    <hr>
+      <ul id="ui-why-here-buttons" class="button-group radius">
+        <li><a href="need" id="ui-need-help-button" class="button button-selected">I need help</a></li>
+        <li><a href="help" id="ui-give-help-button" class="button">I want to help</a></li>
+      </ul>
+    <br>
+    <h4>2) Where are you?</h4>
+    <hr>
+    <a href="#" id="ui-find-location-button" class="button radius">Use my current location</a>
+    &nbsp;&nbsp;<span id="ui-location-results">OR</span>
+    <form>
+      <input type="text" placeholder="Enter address, city, state, or zip code">
+    </form>
+    <br>
+    <h4 id="ui-third-question">3) What kind of help do you need?</h4>
+    <hr>
+    <form id="ui-need-form">
+      <div class="row pad-large">
+        <input type="radio" name="pokemon" value="Red" id="pokemonRed" checked>
+        <label for="pokemonRed">
+          I am an individual...
+        </label>
+        <br>
+        <input type="radio" name="pokemon" value="Blue" id="pokemonBlue">
+        <label for="pokemonBlue">
+          I represent an organization...
+        </label>
+      </div>
+      <div class="row pad-large">
+        <label id="ui-resources-label">...who needs the following resources:</label>
+        <input id="checkbox1" type="checkbox"><label for="checkbox1">Food</label>
+        <input id="checkbox2" type="checkbox"><label for="checkbox2">Clothing</label>
+        <input id="checkbox3" type="checkbox"><label for="checkbox3">Shelter</label>
+        <input id="checkbox4" type="checkbox"><label for="checkbox4">Medicine</label>
+        <input id="checkbox5" type="checkbox"><label for="checkbox4">Volunteers</label>
+      </div>
+    </form>
+    <hr>
+    <a href="#" id="ui-guide-action-button" class="button radius large success">Find Relief</a>
+  </div>

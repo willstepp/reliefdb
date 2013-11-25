@@ -37,3 +37,11 @@
   background-color:lightyellow;
   color:yellow;
 }
+
+
+a.button-selected {
+  background-color:#006384;
+  &:hover {
+    background-color:#006384;
+  }
+}
