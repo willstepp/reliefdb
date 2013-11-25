@@ -1,5 +1,5 @@
-<h1>Relief DB</h1>
 <h3>Organizations</h3>
+<hr>
 <% @orgs.each do |o| %>
   <p><%= link_to o.name, organization_path(o) %><p>
 <% end %>

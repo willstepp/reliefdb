@@ -1,11 +1,16 @@
-<h2>Resource</h2>
+<ul class="breadcrumbs hide-for-small">
+  <li><%= link_to 'Home', @resource.can_manage?(current_user) ? dashboard_path : root_path %></li>
+  <li><%= link_to @resource.facility.organization.name, organization_path(@resource.facility.organization) %></li>
+  <li><%= link_to @resource.facility.name, facility_path(@resource.facility) %></li>
+  <li class="current"><%= link_to @resource.items.first.name, facility_resource_path(@resource.facility, @resource) %></li>
+</ul>
+
+<h3>Resource</h3>
+<% if @resource.can_manage?(current_user) %>
+  <p><%= link_to 'Edit', edit_facility_resource_path(@resource.facility, @resource) %></p>
+<% end %>
+<hr>
 <p>
   <strong>Description:</strong>
   <%= @resource.description %>
 </p>
-
-<% if @resource.can_manage?(current_user) %>
-  <%= link_to 'Edit', edit_facility_resource_path(@resource.facility, @resource) %>
-  &nbsp;|&nbsp;
-<% end %>
-<%= link_to 'Back', facility_path(@resource.facility) %>

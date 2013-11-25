@@ -1,36 +1,48 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>ReliefDB</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<%= link_to "Home", root_path %>
-<% if signed_in? %>
-  &nbsp;|&nbsp;
-  <%= link_to "Dashboard", dashboard_path %>
-  <% if current_user.role? :admin %>
-  &nbsp;|&nbsp;
-  <%= link_to "Admin", admin_path %>
-  <% end %>
-  &nbsp;|&nbsp;
-  <%= link_to "Logout", logout_path %>
-<% else %>
-  &nbsp;|&nbsp;
-  <%= link_to "Login", login_path %>
-  &nbsp;|&nbsp;
-  <%= link_to "Register", register_path %>
-<% end %>
-<hr>
+    <title><%= content_for?(:title) ? yield(:title) : "foundation-rails" %></title>
 
-<% flash.each do |key, value| %>
-  <%= content_tag(:div, value, :class => "flash #{key}") %>
-<% end %>
+    <%= stylesheet_link_tag    "app" %>
+    <%= javascript_include_tag "vendor/modernizr" %>
+    <%= csrf_meta_tags %>
+  </head>
 
-<%= yield %>
+  <body>
 
-</body>
+    <nav class="top-bar" data-topbar>
+      <ul class="title-area">
+        <li class="name">
+          <h1><%= link_to "ReliefDB", root_path %></h1>
+        </li>
+      </ul>
+      <section class="top-bar-section">
+        <ul class="right">
+          <% if signed_in? %>
+            <li><%= link_to "Dashboard", dashboard_path %></li>
+          <% if current_user.role? :admin %>
+            <li><%= link_to "Admin", admin_path %></li>
+          <% end %>
+            <li><%= link_to "Logout", logout_path %></li>
+          <% else %>
+            <li><%= link_to "Login", login_path %></li>
+            <li><%= link_to "Register", register_path %></li>
+          <% end %>
+        </ul>
+      </section>
+    </nav>
+
+    <% flash.each do |key, value| %>
+      <%= content_tag(:div, value, :class => "flash #{key}") %>
+    <% end %>
+
+    <div class="row pad-large">
+      <%= yield %>
+    </div>
+
+    <%= javascript_include_tag "app" %>
+  </body>
 </html>

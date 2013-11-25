@@ -1,4 +1,14 @@
-<h2>Organization</h2>
+<ul class="breadcrumbs hide-for-small">
+  <li><%= link_to 'Home', @organization.can_manage?(current_user) ? dashboard_path : root_path %></li>
+  <li class="current"><%= link_to @organization.name, organization_path(@organization) %></li>
+</ul>
+
+<h3>Organization</h3>
+<% if @organization.can_manage?(current_user) %>
+  <p>
+    <%= link_to 'Edit', edit_organization_path(@organization) %>
+  </p>
+<% end %>
 <p>
   <strong>Name:</strong>
   <%= @organization.name %>
@@ -13,29 +23,22 @@
   <strong>Phone:</strong>
   <%= @organization.phone %>
 </p>
-
-<% if @organization.can_manage?(current_user) %>
-  <%= link_to 'Edit', edit_organization_path(@organization) %>
-  &nbsp;|
-<% end %>
-<%= link_to 'Back', @organization.can_manage?(current_user) ? dashboard_path : root_path %>
-
 <hr>
 
 <% if @organization.can_manage?(current_user) %>
-  <h3>Users</h3>
+  <h4>Users</h4>
   <%= form_tag(organization_add_user_path(:organization_id => @organization.id), :method => :post) do %>
     <input type="email" name="email" placeholder="Enter email address"></input>
-    <input type="submit" value="Add User"/>
+    <input type="submit" class="tiny button radius success" value="Add User"/>
   <% end %>
   <% @organization.users.each do |u| %>
-    <p><%= link_to u.email, "mailto:#{u.email}" %>&nbsp;|&nbsp;<%= link_to 'X', organization_remove_user_path(:organization_id => @organization.id, :user_id => u.id), method: :delete, data: { confirm: 'Are you sure?' }, :class => :highlight %></p>
+    <p><%= link_to u.email, "mailto:#{u.email}" %>&nbsp;&nbsp;<%= link_to 'X', organization_remove_user_path(:organization_id => @organization.id, :user_id => u.id), method: :delete, data: { confirm: 'Are you sure?' }, :class => "tiny button round alert" %></p>
   <% end %>
 <% end %>
-
-<h3>Facilities</h3>
+<hr>
+<h4>Facilities</h4>
 <% if @organization.can_manage?(current_user) %>
-  <%= link_to "New Facility", new_organization_facility_path(@organization) %>
+  <%= link_to "New Facility", new_organization_facility_path(@organization), :class => "button radius success" %>
 <% end %>
 <% @organization.facilities.each do |f| %>
   <p><%= link_to f.name, organization_facility_path(@organization, f) %></p>

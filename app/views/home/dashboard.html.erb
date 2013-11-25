@@ -1,14 +1,12 @@
 <h2>Dashboard for (<%= current_user.email %>)</h2>
-<% if current_user.role?(:admin) %>
-  <h3><span class="highlight">Admin</span></h3>
-<% end %>
-<h4>Organizations</h4>
-<%= link_to "Create new Organization", new_organization_path %>
+<h3>Organizations</h3>
+<hr>
+<%= link_to "Create new Organization", new_organization_path, :class => "button radius success" %>
 <% @orgs.each do |o| %>
   <p><%= link_to o.name, organization_path(o) %><p>
 <% end %>
 <hr>
 <h4>Items</h4>
-<%= link_to 'Create new Item', new_item_path %>
+<%= link_to 'Create new Item', new_item_path, :class => "button radius success" %>
 <h4>Categories</h4>
-<%= link_to 'Create new Category', new_category_path %>
+<%= link_to 'Create new Category', new_category_path, :class => "button radius success" %>

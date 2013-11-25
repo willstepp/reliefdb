@@ -9,28 +9,12 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require foundation_and_overrides
+
+ *= require_tree .
  */
 
 
-.pad-large {
-  padding:10px;
-}
-
-.flash {
-  padding:20px;
-}
-
-.notice {
-  background-color:lightblue;
-  color:blue;
-}
-
-.error {
-  background-color:pink;
-  color:red;
-}
-
-.alert {
-  background-color:lightyellow;
-  color:yellow;
+.highlight {
+  color:red!important;
 }
