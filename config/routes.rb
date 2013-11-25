@@ -1,4 +1,9 @@
 Reliefdb::Application.routes.draw do
+  get "guide/index"
+  get "guide/results"
+  get "guide/map"
+  get "guide/search"
+
   resources :items
 
   devise_for :users, :controllers => { :sessions => "sessions" }
@@ -26,5 +31,5 @@ Reliefdb::Application.routes.draw do
 
   get "/dashboard" => "home#dashboard", :as => :dashboard
 
-  root 'home#index'
+  root 'guide#index'
 end
