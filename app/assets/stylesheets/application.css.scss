@@ -24,18 +24,18 @@
 }
 
 .notice {
-  background-color:lightblue;
-  color:blue;
+  color:#00365f;
+  background-color:#c3e5ff;
 }
 
 .error {
-  background-color:pink;
-  color:red;
+  color:darken(#ff0000, 25%);
+  background-color:lighten(#ff0000, 40%);
 }
 
 .alert {
-  background-color:lightyellow;
-  color:yellow;
+  color:darken(#00ff24, 35%);
+  background-color:lighten(#00ff24, 40%);
 }
 
 
@@ -44,4 +44,9 @@ a.button-selected {
   &:hover {
     background-color:#006384;
   }
+}
+
+.relief-title {
+  font-weight:bold;
+  color:#006384;
 }

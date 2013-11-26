@@ -1,8 +1,8 @@
 Reliefdb::Application.routes.draw do
   get "guide/index"
-  get "guide/results"
-  get "guide/map"
-  get "guide/search"
+  post "guide/results", :as => :results
+  get "guide/map", :as => :map
+  get "guide/search", :as => :search
 
   resources :items
 

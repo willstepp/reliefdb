@@ -1,2 +1,15 @@
-<h1>Guide#results</h1>
-<p>Find me in app/views/guide/results.html.erb</p>
+<div class="row pad-large">
+<p>
+  <%= "Relief Type: #{@relief_type}" %>
+</p>
+<p>
+  <%= "Latitude: #{@location.first} & Longitude: #{@location.last}" %>
+</p>
+<p>
+  <%= "Who is it: #{@whoisit}" %>
+</p>
+<h3>Resources</h3>
+<% @resources.each do |r| %>
+  <p><%= r %></p>
+<% end %>
+</div>

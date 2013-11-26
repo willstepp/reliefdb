@@ -1,3 +1,43 @@
+<script type="text/javascript" src='https://maps.googleapis.com/maps/api/js?sensor=false&key=<%= GOOGLE_API_KEY %>&libraries=places'></script>
+<script type="text/javascript">
+var placeSearch, autocomplete;
+function initialize() {
+  console.log('initialize');
+  // Create the autocomplete object, restricting the search
+  // to geographical location types.
+  autocomplete = new google.maps.places.Autocomplete(
+      /** @type {HTMLInputElement} */(document.getElementById('autocomplete')),
+      { types: ['geocode'] });
+  // When the user selects an address from the dropdown,
+  // populate the address fields in the form.
+  google.maps.event.addListener(autocomplete, 'place_changed', function() {
+    fillInAddress();
+  });
+}
+// The START and END in square brackets define a snippet for our documentation:
+function fillInAddress() {
+  // Get the place details from the autocomplete object.
+  var place = autocomplete.getPlace();
+  $('#ui-location-coords').val(place.geometry.location.ob + ';' + place.geometry.location.pb);
+  console.log(place);
+}
+// [START region_geolocation]
+// Bias the autocomplete object to the user's geographical location,
+// as supplied by the browser's 'navigator.geolocation' object.
+function geolocate() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var geolocation = new google.maps.LatLng(
+          position.coords.latitude, position.coords.longitude);
+      autocomplete.setBounds(new google.maps.LatLngBounds(geolocation,
+          geolocation));
+    });
+  }
+}
+// [END region_geolocation]
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+<%= form_tag results_path, :method => :post, :id => "ui-need-form" do %>
 <div class="header-panel">
   <div class="row">
     <div style="display:table">
@@ -5,7 +45,7 @@
         <%= image_tag 'reliefdb-icon.png', :class => "icon-image" %>
       </div>
       <div style="display:table-cell;padding-left:10px;vertical-align:middle">
-        <h3>Welcome to ReliefDB, a community-driven tool for discovering relief resources. Answer the following questions to begin.</h3>
+        <h3>Welcome to <span class="relief-title">ReliefDB</span>, a community-driven tool for discovering relief resources. Answer the following questions to begin.</h3>
       </div>
     </div>
   </div>
@@ -17,39 +57,39 @@
       <ul id="ui-why-here-buttons" class="button-group radius">
         <li><a href="need" id="ui-need-help-button" class="button button-selected">I need help</a></li>
         <li><a href="help" id="ui-give-help-button" class="button">I want to help</a></li>
+        <input id="ui-relief-type-input" type="hidden" value="need" name="relief_type">
       </ul>
     <br>
     <h4>2) Where are you?</h4>
     <hr>
     <a href="#" id="ui-find-location-button" class="button radius">Use my current location</a>
     &nbsp;&nbsp;<span id="ui-location-results">OR</span>
-    <form>
-      <input type="text" placeholder="Enter address, city, state, or zip code">
-    </form>
+    <input type="text" id="autocomplete" onFocus="geolocate()" placeholder="Enter address, city, state, or zip code">
+    <input type="hidden" id="ui-location-coords" name="location" value="">
     <br>
     <h4 id="ui-third-question">3) What kind of help do you need?</h4>
     <hr>
-    <form id="ui-need-form">
-      <div class="row pad-large">
-        <input type="radio" name="pokemon" value="Red" id="pokemonRed" checked>
-        <label for="pokemonRed">
-          I am an individual...
-        </label>
+        <div class="row pad-large">
+          <input type="radio" id="ind" name="whoisit" value="individual" checked>
+          <label for="ind">
+            <strong>I am an individual...</strong>
+          </label>
+          <br>
+          <input type="radio" id="org" name="whoisit" value="organization">
+          <label for="org">
+            <strong>I represent an organization...</strong>
+          </label>
+        </div>
         <br>
-        <input type="radio" name="pokemon" value="Blue" id="pokemonBlue">
-        <label for="pokemonBlue">
-          I represent an organization...
-        </label>
-      </div>
-      <div class="row pad-large">
-        <label id="ui-resources-label">...who needs the following resources:</label>
-        <input id="checkbox1" type="checkbox"><label for="checkbox1">Food</label>
-        <input id="checkbox2" type="checkbox"><label for="checkbox2">Clothing</label>
-        <input id="checkbox3" type="checkbox"><label for="checkbox3">Shelter</label>
-        <input id="checkbox4" type="checkbox"><label for="checkbox4">Medicine</label>
-        <input id="checkbox5" type="checkbox"><label for="checkbox4">Volunteers</label>
-      </div>
-    </form>
+        <div class="row pad-large">
+          <label id="ui-resources-label">...who needs the following resources:</label>
+          <input id="checkbox1" name="resource[food]" type="checkbox"><label for="checkbox1">Food</label>
+          <input id="checkbox2" name="resource[clothing]" type="checkbox"><label for="checkbox2">Clothing</label>
+          <input id="checkbox3" name="resource[shelter]" type="checkbox"><label for="checkbox3">Shelter</label>
+          <input id="checkbox4" name="resource[medicine]" type="checkbox"><label for="checkbox4">Medicine</label>
+          <input id="checkbox5" name="resource[volunteering]" type="checkbox"><label for="checkbox5">Volunteering</label>
+        </div>
     <hr>
-    <a href="#" id="ui-guide-action-button" class="button radius large success">Find Relief</a>
+    <%= submit_tag "Find Relief", :id => "ui-guide-action-button", :class => "button radius large success" %>
   </div>
+<% end %>
