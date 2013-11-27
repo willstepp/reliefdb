@@ -50,3 +50,32 @@ a.button-selected {
   font-weight:bold;
   color:#006384;
 }
+
+.grid {
+  display:table;
+  width:100%;
+}
+
+.grid-row {
+  display:table-row;
+}
+
+.grid-col {
+  display:table-cell;
+}
+
+.vcenter {
+  vertical-align:middle;
+}
+
+.hcenter {
+  text-align:center;
+}
+
+.left {
+  text-align:left;
+}
+
+.right {
+  text-align:right;
+}

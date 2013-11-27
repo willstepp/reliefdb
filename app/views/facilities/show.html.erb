@@ -3,11 +3,12 @@
   <li><%= link_to @facility.organization.name, organization_path(@facility.organization) %></li>
   <li class="current"><%= link_to @facility.name, facility_path(@facility) %></li>
 </ul>
-
+<div class="row">
 <h3>Facility</h3>
 <% if @facility.can_manage?(current_user) %>
   <p><%= link_to 'Edit', edit_organization_facility_path(@facility.organization, @facility) %></p>
 <% end %>
+<p><%= link_to "Map", map_facility_path(@facility) %></p>
 <hr>
 <p>
   <strong>Website:</strong>
@@ -52,3 +53,4 @@
 <% @facility.resources.each do |r| %>
   <p><%= link_to r.items.first.name, facility_resource_path(@facility, r) %></p>
 <% end %>
+</div>

@@ -1,7 +1,7 @@
 Reliefdb::Application.routes.draw do
   get "guide/index"
   post "guide/results", :as => :results
-  get "guide/map", :as => :map
+  post "guide/map", :as => :guide_map
   get "guide/search", :as => :search
 
   resources :items
@@ -27,6 +27,9 @@ Reliefdb::Application.routes.draw do
 
   resources :facilities, :except => :index do
     resources :resources, :except => :index
+    member do
+     get 'map' => 'facilities#map', :as => :map
+    end
   end
 
   get "/dashboard" => "home#dashboard", :as => :dashboard

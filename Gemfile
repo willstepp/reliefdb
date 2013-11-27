@@ -40,3 +40,5 @@ gem 'rails_admin', :git => 'https://github.com/willstepp/rails_admin.git'
 gem "devise"
 gem "cancan"
 gem 'paper_trail', '>= 3.0.0.rc1'
+
+gem 'geocoder'

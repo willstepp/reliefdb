@@ -1,5 +1,5 @@
 class FacilitiesController < ApplicationController
-  before_action :set_facility, only: [:show, :edit, :update, :destroy]
+  before_action :set_facility, only: [:show, :edit, :update, :destroy, :map]
 
   # GET /facilities/1
   # GET /facilities/1.json
@@ -74,6 +74,9 @@ class FacilitiesController < ApplicationController
       format.html { redirect_to root_path }
       format.json { head :no_content }
     end
+  end
+
+  def map
   end
 
   private

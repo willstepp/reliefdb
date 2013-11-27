@@ -2,7 +2,7 @@
   <li><%= link_to 'Home', @organization.can_manage?(current_user) ? dashboard_path : root_path %></li>
   <li class="current"><%= link_to @organization.name, organization_path(@organization) %></li>
 </ul>
-
+<div class="row">
 <h3>Organization</h3>
 <% if @organization.can_manage?(current_user) %>
   <p>
@@ -43,3 +43,4 @@
 <% @organization.facilities.each do |f| %>
   <p><%= link_to f.name, organization_facility_path(@organization, f) %></p>
 <% end %>
+</div>

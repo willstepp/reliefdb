@@ -1,15 +1,61 @@
-<div class="row pad-large">
-<p>
-  <%= "Relief Type: #{@relief_type}" %>
-</p>
-<p>
-  <%= "Latitude: #{@location.first} & Longitude: #{@location.last}" %>
-</p>
-<p>
-  <%= "Who is it: #{@whoisit}" %>
-</p>
-<h3>Resources</h3>
-<% @resources.each do |r| %>
-  <p><%= r %></p>
-<% end %>
+<style type="text/css">
+  html { height: 100% }
+  body { height: 100%; margin: 0; padding: 0 }
+  #map-canvas { height: 100% }
+</style>
+<script type="text/javascript" src='https://maps.googleapis.com/maps/api/js?sensor=true&key=<%= GOOGLE_API_KEY %>'>
+</script>
+<script type="text/javascript">
+  function initializeGuideMap() {
+    console.log('inside initializeGuideMap started');
+
+    var facilities = [
+      <% @facilities.each_with_index do |f, i| %>
+        <%= "#{f.to_json}#{"," unless (i == @facilities.count-1)}".html_safe %>
+      <% end %>
+    ];
+
+    var mapOptions = {
+      center: new google.maps.LatLng(<%= @facilities[0]['latitude'] %>, <%= @facilities[0]['longitude'] %>),
+      zoom: 8
+    };
+
+    var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+    for(var i = 0; i < facilities.length; i++) {
+      var marker = new google.maps.Marker({
+          position: new google.maps.LatLng(facilities[i].latitude, facilities[i].longitude),
+          animation: google.maps.Animation.DROP,
+          map: map,
+          title:facilities[i].name
+      });
+    }
+    console.log('inside initializeGuideMap finished');
+  }
+</script>
+<ul class="breadcrumbs hide-for-small" style="margin:0px">
+  <li><%= link_to 'Search Again', root_path %></li>
+  <li id="ui-back-to-results" class="hide"><%= link_to 'Back to Results', '#' %></li>
+</ul>
+<div id="ui-guide-results-container" class="row">
+  <br>
+  <h3>Guide Results</h3>
+  <h5><%= "#{@facilities.count} of #{@facilities.count} facilites within #{@radius} miles" %></h5>
+  <br>
+  <a href="#" id="ui-guide-map-button" class="button tiny radius secondary">Show on map</a>
+  <hr>
+  <div class="grid">
+  <% @facilities.each do |f| %>
+    <div class="grid-row">
+      <div class="grid-col left">
+      <%= link_to f['name'], facility_path(f['id']) %>
+      </div>
+      <div class="grid-col right"
+        <span><%= "#{number_with_precision(f['distance'], :precision => 2)} miles" %></span>
+      </div>
+    </div>
+    <hr>
+  <% end %>
+  </div>
 </div>
+<div id="map-canvas"/>

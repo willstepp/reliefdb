@@ -42,4 +42,19 @@ $(function(){
   function error(msg) {
     console.log(msg);
   }
+
+  $('#ui-guide-map-button').click(function (e) {
+    e.preventDefault();
+    $('#ui-guide-results-container').hide();
+    $('#ui-back-to-results').removeClass('hide');
+    $('#map-canvas').show();
+    initializeGuideMap();
+  });
+
+  $('#ui-back-to-results').click(function (e) {
+    e.preventDefault();
+    $('#map-canvas').hide();
+    $('#ui-guide-results-container').show();
+    $('#ui-back-to-results').addClass('hide');
+  });
 });

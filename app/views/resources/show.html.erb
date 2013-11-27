@@ -4,7 +4,7 @@
   <li><%= link_to @resource.facility.name, facility_path(@resource.facility) %></li>
   <li class="current"><%= link_to @resource.items.first.name, facility_resource_path(@resource.facility, @resource) %></li>
 </ul>
-
+<div class="row">
 <h3>Resource</h3>
 <% if @resource.can_manage?(current_user) %>
   <p><%= link_to 'Edit', edit_facility_resource_path(@resource.facility, @resource) %></p>
@@ -14,3 +14,4 @@
   <strong>Description:</strong>
   <%= @resource.description %>
 </p>
+</div>
