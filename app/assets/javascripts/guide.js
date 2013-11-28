@@ -1,5 +1,12 @@
 $(function(){ 
 
+  $('#ui-guide-action-button').click(function (e) {
+    if (!$('#ui-location-coords').val()) {
+      alert('Please choose a location');
+      return false;
+    }
+  });
+
   $('#ui-why-here-buttons .button').click(function (e) {
     e.preventDefault();
     var b = $(e.target).attr('href');
@@ -8,12 +15,12 @@ $(function(){
     if (b == 'need') {
       $('#ui-give-help-button').removeClass('button-selected');
       $('#ui-guide-action-button').val('Find Relief');
-      $('#ui-third-question').text('3) What kind of help do you need?');
+      $('#ui-third-question').text('2) What kind of help do you need?');
       $('#ui-resources-label').text('...who needs the following resources:');
     } else {
       $('#ui-need-help-button').removeClass('button-selected');
       $('#ui-guide-action-button').val('Give Relief');
-      $('#ui-third-question').text('3) What kind of help can you provide?');
+      $('#ui-third-question').text('2) What kind of help can you provide?');
       $('#ui-resources-label').text('...who can provide the following resources:');
     }
   });

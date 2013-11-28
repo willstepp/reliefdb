@@ -59,14 +59,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
         <input id="ui-relief-type-input" type="hidden" value="need" name="relief_type">
       </ul>
     <br>
-    <h4>2) Where are you?</h4>
-    <hr>
-    <a href="#" id="ui-find-location-button" class="button radius">Use my current location</a>
-    &nbsp;&nbsp;<span id="ui-location-results">OR</span>
-    <input type="text" id="autocomplete" onFocus="geolocate()" placeholder="Enter address, city, state, or zip code">
-    <input type="hidden" id="ui-location-coords" name="location" value="">
-    <br>
-    <h4 id="ui-third-question">3) What kind of help do you need?</h4>
+    <h4 id="ui-third-question">2) What kind of help do you need?</h4>
     <hr>
         <div class="row pad-large">
           <input type="radio" id="ind" name="whoisit" value="individual" checked>
@@ -88,6 +81,14 @@ google.maps.event.addDomListener(window, 'load', initialize);
           <input id="checkbox4" name="resource[medicine]" type="checkbox"><label for="checkbox4">Medicine</label>
           <input id="checkbox5" name="resource[volunteering]" type="checkbox"><label for="checkbox5">Volunteering</label>
         </div>
+        <br>
+    <h4>3) Where are you?</h4>
+    <hr>
+    <a href="#" id="ui-find-location-button" class="button radius">Use my current location</a>
+    &nbsp;&nbsp;<span id="ui-location-results">OR</span>
+    <input type="text" id="autocomplete" onFocus="geolocate()" class="noEnterFormSubmit" placeholder="Enter address, city, state, or zip code">
+    <input type="hidden" id="ui-location-coords" name="location" value="">
+    <br>
     <hr>
     <%= submit_tag "Find Relief", :id => "ui-guide-action-button", :class => "button radius large success" %>
   </div>

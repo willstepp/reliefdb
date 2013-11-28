@@ -16,3 +16,7 @@
 //= require_tree .
 
 $(function(){ $(document).foundation(); });
+
+$('.noEnterFormSubmit').keypress(function(e){
+    if ( e.which == 13 ) e.preventDefault();
+});
