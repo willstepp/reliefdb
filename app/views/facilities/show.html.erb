@@ -1,9 +1,9 @@
-<ul class="breadcrumbs hide-for-small">
+<ul class="breadcrumbs">
   <li><%= link_to 'Home', @facility.can_manage?(current_user) ? dashboard_path : root_path %></li>
   <li><%= link_to @facility.organization.name, organization_path(@facility.organization) %></li>
   <li class="current"><%= link_to @facility.name, facility_path(@facility) %></li>
 </ul>
-<div class="row">
+<div class="row pad-large">
 <h3>Facility</h3>
 <% if @facility.can_manage?(current_user) %>
   <p><%= link_to 'Edit', edit_organization_facility_path(@facility.organization, @facility) %></p>

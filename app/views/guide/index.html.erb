@@ -37,7 +37,16 @@ function geolocate() {
 google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 <%= form_tag results_path, :method => :post, :id => "ui-need-form" do %>
-<div class="header-panel">
+<div class="header-panel show-for-small">
+  <div class="row">
+    <div>
+      <div>
+        <h4>Welcome to <span class="relief-title">ReliefDB</span>, a community-driven tool for discovering relief resources. Answer the following questions to begin.</h4>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="header-panel hide-for-small">
   <div class="row">
     <div style="display:table">
       <div style="display:table-cell;vertical-align:middle;padding:7px">
@@ -53,11 +62,11 @@ google.maps.event.addDomListener(window, 'load', initialize);
   <div class="row pad-large">
     <h4>1) Why are you here?</h4>
     <hr>
-      <ul id="ui-why-here-buttons" class="button-group radius">
-        <li><a href="need" id="ui-need-help-button" class="button button-selected">I need help</a></li>
-        <li><a href="help" id="ui-give-help-button" class="button">I want to help</a></li>
-        <input id="ui-relief-type-input" type="hidden" value="need" name="relief_type">
-      </ul>
+    <div id="ui-why-here-buttons">
+      <a href="need" id="ui-need-help-button" class="button radius button-selected small-full-width">I need help</a>
+      <a href="help" id="ui-give-help-button" class="button radius small-full-width">I want to help</a>
+    </div>
+    <input id="ui-relief-type-input" type="hidden" value="need" name="relief_type">
     <br>
     <h4 id="ui-third-question">2) What kind of help do you need?</h4>
     <hr>
@@ -75,21 +84,29 @@ google.maps.event.addDomListener(window, 'load', initialize);
         <br>
         <div class="row pad-large">
           <label id="ui-resources-label">...who needs the following resources:</label>
+          <br>
           <input id="checkbox1" name="resource[food]" type="checkbox"><label for="checkbox1">Food</label>
+          <br>
           <input id="checkbox2" name="resource[clothing]" type="checkbox"><label for="checkbox2">Clothing</label>
+          <br>
           <input id="checkbox3" name="resource[shelter]" type="checkbox"><label for="checkbox3">Shelter</label>
+          <br>
           <input id="checkbox4" name="resource[medicine]" type="checkbox"><label for="checkbox4">Medicine</label>
+          <br>
           <input id="checkbox5" name="resource[volunteering]" type="checkbox"><label for="checkbox5">Volunteering</label>
         </div>
         <br>
     <h4>3) Where are you?</h4>
     <hr>
-    <a href="#" id="ui-find-location-button" class="button radius">Use my current location</a>
-    &nbsp;&nbsp;<span id="ui-location-results">OR</span>
-    <input type="text" id="autocomplete" onFocus="geolocate()" class="noEnterFormSubmit" placeholder="Enter address, city, state, or zip code">
+    <a href="#" id="ui-find-location-button" class="button radius small-full-width">Use my current location</a>
+    <br>
+    <p class="small-center">
+    <span id="ui-location-results">OR</span>
+    </p>
+    <input type="text" id="autocomplete" onFocus="geolocate()" class="noEnterFormSubmit" placeholder="Enter address, city, state, or zip code" autocomplete="off">
     <input type="hidden" id="ui-location-coords" name="location" value="">
     <br>
     <hr>
-    <%= submit_tag "Find Relief", :id => "ui-guide-action-button", :class => "button radius large success" %>
+    <%= submit_tag "Find Relief", :id => "ui-guide-action-button", :class => "button radius large success small-full-width" %>
   </div>
 <% end %>

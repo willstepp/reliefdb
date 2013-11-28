@@ -26,7 +26,7 @@
   }
   google.maps.event.addDomListener(window, 'load', initializeMap);
 </script>
-<ul class="breadcrumbs hide-for-small" style="margin:0px">
+<ul class="breadcrumbs" style="margin:0px">
   <li><%= link_to 'Home', @facility.can_manage?(current_user) ? dashboard_path : root_path %></li>
   <li><%= link_to @facility.organization.name, organization_path(@facility.organization) %></li>
   <li><%= link_to "Back to #{@facility.name}", facility_path(@facility) %></li>

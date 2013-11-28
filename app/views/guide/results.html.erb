@@ -33,11 +33,11 @@
     console.log('inside initializeGuideMap finished');
   }
 </script>
-<ul class="breadcrumbs hide-for-small" style="margin:0px">
+<ul class="breadcrumbs" style="margin:0px">
   <li><%= link_to 'Search Again', root_path %></li>
   <li id="ui-back-to-results" class="hide"><%= link_to 'Back to Results', '#' %></li>
 </ul>
-<div id="ui-guide-results-container" class="row">
+<div id="ui-guide-results-container" class="row pad-large">
   <br>
   <h3>Guide Results</h3>
   <h5><%= "#{@facilities.count} of #{@facilities.count} facilites within #{@radius} miles" %></h5>
@@ -47,10 +47,10 @@
   <div class="grid">
   <% @facilities.each do |f| %>
     <div class="grid-row">
-      <div class="grid-col left">
+      <div class="grid-col text-left">
       <%= link_to f['name'], facility_path(f['id']) %>
       </div>
-      <div class="grid-col right"
+      <div class="grid-col text-right">
         <span><%= "#{number_with_precision(f['distance'], :precision => 2)} miles" %></span>
       </div>
     </div>

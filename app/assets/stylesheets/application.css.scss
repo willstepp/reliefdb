@@ -14,6 +14,14 @@
  *= require_tree .
  */
 
+@media only screen and (max-width: 40em) { 
+  .small-full-width {
+    width:100%;
+  }
+  .small-center {
+    text-align:center;
+  }
+}
 
 .pad-large {
   padding:10px;
@@ -64,6 +72,10 @@ a.button-selected {
   display:table-cell;
 }
 
+.grid-caption {
+  display:table-caption;
+}
+
 .vcenter {
   vertical-align:middle;
 }
@@ -78,4 +90,13 @@ a.button-selected {
 
 .right {
   text-align:right;
+}
+
+.full-width {
+  width:100%;
+}
+
+.header-icon {
+  width:30px;
+  opacity:0.5;
 }

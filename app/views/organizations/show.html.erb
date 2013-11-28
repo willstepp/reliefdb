@@ -1,8 +1,8 @@
-<ul class="breadcrumbs hide-for-small">
+<ul class="breadcrumbs">
   <li><%= link_to 'Home', @organization.can_manage?(current_user) ? dashboard_path : root_path %></li>
   <li class="current"><%= link_to @organization.name, organization_path(@organization) %></li>
 </ul>
-<div class="row">
+<div class="row pad-large">
 <h3>Organization</h3>
 <% if @organization.can_manage?(current_user) %>
   <p>
