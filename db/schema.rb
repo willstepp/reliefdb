@@ -124,7 +124,7 @@ ActiveRecord::Schema.define(version: 20131123020359) do
   end
 
   create_table "organizations", force: true do |t|
-    t.string   "name"
+    t.text     "name"
     t.string   "email"
     t.string   "phone"
     t.datetime "created_at"

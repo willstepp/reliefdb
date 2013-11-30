@@ -7,7 +7,7 @@ namespace :reliefdb do
                           port: 5432,
                           options: nil,
                           tty: nil,
-                          dbname: 'cat_test',
+                          dbname: 'cat_production',
                           user: 'citizen',
                           password: 'Citizen')
 
@@ -17,7 +17,7 @@ namespace :reliefdb do
                           tty: nil,
                           dbname: 'reliefdb_development',
                           user: 'postgres',
-                          password: 'thisisapasswordmotherfucker')
+                          password: 'call me postgres')
     
     begin  
       #categories
