@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131130230959) do
+ActiveRecord::Schema.define(version: 20131201180423) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,10 @@ ActiveRecord::Schema.define(version: 20131130230959) do
     t.text     "temp_perm_explaination"
     t.text     "waiting_list_explaination"
   end
+
+  add_index "facilities", ["id"], name: "index_facilities_on_id", using: :btree
+  add_index "facilities", ["latitude"], name: "index_facilities_on_latitude", using: :btree
+  add_index "facilities", ["longitude"], name: "index_facilities_on_longitude", using: :btree
 
   create_table "items", force: true do |t|
     t.text     "description"
@@ -170,10 +174,15 @@ ActiveRecord::Schema.define(version: 20131130230959) do
     t.text     "packaged_as"
   end
 
+  add_index "resources", ["id"], name: "index_resources_on_id", using: :btree
+
   create_table "resources_tags", force: true do |t|
     t.integer "resource_id"
     t.integer "tag_id"
   end
+
+  add_index "resources_tags", ["resource_id"], name: "index_resources_tags_on_resource_id", using: :btree
+  add_index "resources_tags", ["tag_id"], name: "index_resources_tags_on_tag_id", using: :btree
 
   create_table "tags", force: true do |t|
     t.string   "name"
@@ -181,6 +190,8 @@ ActiveRecord::Schema.define(version: 20131130230959) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "tags", ["id"], name: "index_tags_on_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false

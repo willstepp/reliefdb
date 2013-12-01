@@ -4,16 +4,15 @@ class GuideController < ApplicationController
   end
 
   def results
-    @relief_type = params[:relief_type]
+    @relief_type = params[:relief_type] == 'need' ? 'Surplus' : 'Need'
     @location = params[:location].blank? ? [] : params[:location].split(';')
     @whoisit = params[:whoisit]
     @tag_keys = params[:tag] ? params[:tag].keys : ["1", "2", "3", "4", "5"]
     @tags = Tag.find(@tag_keys)
 
     @radius = 100
-    
-    @facilities = Facility.nearest_to(@location.first, @location.last, @tag_keys, @radius)
-    @facilities = @facilities.reject{|f| @facilities.count{|fc| f['id'] == fc['id'] } > 1 }
+
+    @facilities = Facility.nearest_to(@location.first, @location.last, @relief_type, @tag_keys, @radius)
   end
 
   def map

@@ -16,7 +16,7 @@
     ];
 
     var mapOptions = {
-      center: new google.maps.LatLng(<%= @facilities[0]['latitude'] %>, <%= @facilities[0]['longitude'] %>),
+      center: new google.maps.LatLng(<%= @facilities.count > 0 ? @facilities[0]['latitude'] : 0 %>, <%= @facilities.count > 0 ? @facilities[0]['longitude'] : 0 %>),
       zoom: 8
     };
 
@@ -40,28 +40,29 @@
 <div id="ui-guide-results-container" class="row pad-large">
   <br>
   <h3>Guide Results</h3>
-  <h5>
-    Resources:&nbsp;
+  <h5><%= "#{@facilities.count} of #{@facilities.count} Facilites within #{@radius} Miles" %></h5>
+   <h5>
+    <%= @relief_type %> Resources:&nbsp;
     <% @tags.each do |t| %>
       <%= t.name.titleize %>&nbsp;
     <% end %>
   </h5>
-  <h5><%= "#{@facilities.count} of #{@facilities.count} facilites within #{@radius} miles" %></h5>
 
-  <br>
-  <a href="#" id="ui-guide-map-button" class="button tiny radius secondary">Show on map</a>
+  <% if @facilities.count > 0 %>
+    <br>
+    <a href="#" id="ui-guide-map-button" class="button tiny radius secondary small-full-width">Show on map</a>
+  <% end %>
   <hr>
   <div class="grid">
   <% @facilities.each do |f| %>
     <div class="grid-row">
-      <div class="grid-col text-left">
-      <%= link_to f['name'], facility_path(f['facility_id']) %>
+      <div class="grid-col text-left pad-large underline grid-padding">
+      <%= link_to f['name'], facility_path(f['id']) %>
       </div>
-      <div class="grid-col text-right">
+      <div class="grid-col text-right pad-large underline grid-padding">
         <span><%= "#{number_with_precision(f['distance'], :precision => 2)} miles" %></span>
       </div>
     </div>
-    <hr>
   <% end %>
   </div>
 </div>
