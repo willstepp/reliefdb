@@ -1,4 +1,6 @@
 Reliefdb::Application.routes.draw do
+  resources :tags
+
   get "guide/index"
   post "guide/results", :as => :results
   post "guide/map", :as => :guide_map

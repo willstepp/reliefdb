@@ -40,7 +40,14 @@
 <div id="ui-guide-results-container" class="row pad-large">
   <br>
   <h3>Guide Results</h3>
+  <h5>
+    Resources:&nbsp;
+    <% @tags.each do |t| %>
+      <%= t.name.titleize %>&nbsp;
+    <% end %>
+  </h5>
   <h5><%= "#{@facilities.count} of #{@facilities.count} facilites within #{@radius} miles" %></h5>
+
   <br>
   <a href="#" id="ui-guide-map-button" class="button tiny radius secondary">Show on map</a>
   <hr>
@@ -48,7 +55,7 @@
   <% @facilities.each do |f| %>
     <div class="grid-row">
       <div class="grid-col text-left">
-      <%= link_to f['name'], facility_path(f['id']) %>
+      <%= link_to f['name'], facility_path(f['facility_id']) %>
       </div>
       <div class="grid-col text-right">
         <span><%= "#{number_with_precision(f['distance'], :precision => 2)} miles" %></span>

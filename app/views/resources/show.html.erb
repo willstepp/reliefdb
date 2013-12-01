@@ -14,4 +14,9 @@
   <strong>Description:</strong>
   <%= @resource.description %>
 </p>
+<hr>
+<h4>Tags</h4>
+<% @resource.tags.each do |t| %>
+  <span><%= t.name.titleize %>&nbsp;</span>
+<% end %>
 </div>

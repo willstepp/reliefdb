@@ -7,6 +7,9 @@ class Resource < ActiveRecord::Base
   has_and_belongs_to_many :items
   before_destroy :remove_item_associations
 
+  has_and_belongs_to_many :tags
+  before_destroy :remove_tag_associations
+
   def can_manage?(user)
     if user
       user.role?(:admin) or self.facility.organization.users.include?(user)
@@ -19,5 +22,9 @@ class Resource < ActiveRecord::Base
 
   def remove_item_associations
     self.items.destroy_all
+  end
+  
+  def remove_tag_associations
+    self.tags.destroy_all
   end
 end

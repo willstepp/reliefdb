@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131123020359) do
+ActiveRecord::Schema.define(version: 20131130230959) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -168,6 +168,18 @@ ActiveRecord::Schema.define(version: 20131123020359) do
     t.integer  "crate_preference"
     t.integer  "can_buy_local"
     t.text     "packaged_as"
+  end
+
+  create_table "resources_tags", force: true do |t|
+    t.integer "resource_id"
+    t.integer "tag_id"
+  end
+
+  create_table "tags", force: true do |t|
+    t.string   "name"
+    t.integer  "count"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|

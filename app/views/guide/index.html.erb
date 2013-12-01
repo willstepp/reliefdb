@@ -85,15 +85,12 @@ google.maps.event.addDomListener(window, 'load', initialize);
         <div class="row pad-large">
           <label id="ui-resources-label">...who needs the following resources:</label>
           <br>
-          <input id="checkbox1" name="resource[food]" type="checkbox"><label for="checkbox1">Food</label>
-          <br>
-          <input id="checkbox2" name="resource[clothing]" type="checkbox"><label for="checkbox2">Clothing</label>
-          <br>
-          <input id="checkbox3" name="resource[shelter]" type="checkbox"><label for="checkbox3">Shelter</label>
-          <br>
-          <input id="checkbox4" name="resource[medicine]" type="checkbox"><label for="checkbox4">Medicine</label>
-          <br>
-          <input id="checkbox5" name="resource[volunteering]" type="checkbox"><label for="checkbox5">Volunteering</label>
+          <% @tags.each do |t| %>
+            <% id = t.id %>
+            <input id="checkbox<%= id %>" name="tag[<%= id %>]" type="checkbox">
+            <label for="checkbox<%= id %>"><%= t.name.titleize %></label>
+            <br>
+          <% end %>
         </div>
         <br>
     <h4>3) Where are you?</h4>
