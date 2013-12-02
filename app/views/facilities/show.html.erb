@@ -10,7 +10,6 @@
 <% end %>
 <p>
   <%= link_to "Map It", map_facility_path(@facility), :class => "button tiny radius secondary small-full-width" %>
-  &nbsp;&nbsp;
   <%= link_to "Get Directions", "http://maps.apple.com/maps?daddr=#{@facility.latitude}+#{@facility.longitude}", :class => "button tiny radius secondary small-full-width" %>
 </p>
 <hr>
