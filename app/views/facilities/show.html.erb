@@ -1,6 +1,6 @@
 <ul class="breadcrumbs">
   <li><%= link_to 'Home', @facility.can_manage?(current_user) ? dashboard_path : root_path %></li>
-  <li><%= link_to @facility.organization.name, organization_path(@facility.organization) %></li>
+  <li><%= link_to (@facility.organization.name.blank? ? "Organization" : @facility.organization.name), organization_path(@facility.organization) %></li>
   <li class="current"><%= link_to @facility.name, facility_path(@facility) %></li>
 </ul>
 <div class="row pad-large">
@@ -8,16 +8,20 @@
 <% if @facility.can_manage?(current_user) %>
   <p><%= link_to 'Edit', edit_organization_facility_path(@facility.organization, @facility) %></p>
 <% end %>
-<p><%= link_to "Map", map_facility_path(@facility) %></p>
+<p>
+  <%= link_to "Map It", map_facility_path(@facility), :class => "button tiny radius secondary small-full-width" %>
+  &nbsp;&nbsp;
+  <%= link_to "Get Directions", "http://maps.apple.com/maps?daddr=#{@facility.latitude}+#{@facility.longitude}", :class => "button tiny radius secondary small-full-width" %>
+</p>
 <hr>
 <p>
   <strong>Website:</strong>
-  <%= @facility.website %>
+  <%= link_to @facility.website, @facility.website, :target => "_blank" %>
 </p>
 
 <p>
   <strong>Phone:</strong>
-  <%= @facility.phone %>
+  <%= link_to @facility.phone, "tel://#{@facility.phone}" %>
 </p>
 
 <p>
